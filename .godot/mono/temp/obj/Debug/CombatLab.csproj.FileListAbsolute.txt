@@ -1,0 +1,17 @@
+D:\Programs\GodotProjects\Projects\combat-lab\.godot\mono\temp\bin\Debug\CombatLab.deps.json
+D:\Programs\GodotProjects\Projects\combat-lab\.godot\mono\temp\bin\Debug\CombatLab.runtimeconfig.json
+D:\Programs\GodotProjects\Projects\combat-lab\.godot\mono\temp\bin\Debug\CombatLab.dll
+D:\Programs\GodotProjects\Projects\combat-lab\.godot\mono\temp\bin\Debug\CombatLab.pdb
+D:\Programs\GodotProjects\Projects\combat-lab\.godot\mono\temp\bin\Debug\GodotSharp.dll
+D:\Programs\GodotProjects\Projects\combat-lab\.godot\mono\temp\bin\Debug\GodotSharpEditor.dll
+D:\Programs\GodotProjects\Projects\combat-lab\.godot\mono\temp\obj\Debug\CombatLab.csproj.AssemblyReference.cache
+D:\Programs\GodotProjects\Projects\combat-lab\.godot\mono\temp\obj\Debug\CombatLab.GeneratedMSBuildEditorConfig.editorconfig
+D:\Programs\GodotProjects\Projects\combat-lab\.godot\mono\temp\obj\Debug\CombatLab.AssemblyInfoInputs.cache
+D:\Programs\GodotProjects\Projects\combat-lab\.godot\mono\temp\obj\Debug\CombatLab.AssemblyInfo.cs
+D:\Programs\GodotProjects\Projects\combat-lab\.godot\mono\temp\obj\Debug\CombatLab.csproj.CoreCompileInputs.cache
+D:\Programs\GodotProjects\Projects\combat-lab\.godot\mono\temp\obj\Debug\CombatLab.csproj.Up2Date
+D:\Programs\GodotProjects\Projects\combat-lab\.godot\mono\temp\obj\Debug\CombatLab.dll
+D:\Programs\GodotProjects\Projects\combat-lab\.godot\mono\temp\obj\Debug\refint\CombatLab.dll
+D:\Programs\GodotProjects\Projects\combat-lab\.godot\mono\temp\obj\Debug\CombatLab.pdb
+D:\Programs\GodotProjects\Projects\combat-lab\.godot\mono\temp\obj\Debug\CombatLab.genruntimeconfig.cache
+D:\Programs\GodotProjects\Projects\combat-lab\.godot\mono\temp\obj\Debug\ref\CombatLab.dll
