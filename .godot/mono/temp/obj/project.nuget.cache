@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jINhj9KAvdo=",
+  "dgSpecHash": "PEsEEwCvt58=",
   "success": true,
-  "projectFilePath": "D:\\Programs\\GodotProjects\\Projects\\combat-lab\\CombatLab.csproj",
+  "projectFilePath": "C:\\Users\\kolir\\OneDrive\\Документы\\GitHub\\GodotCombatLab\\CombatLab.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kolir\\.nuget\\packages\\godot.sourcegenerators\\4.5.1\\godot.sourcegenerators.4.5.1.nupkg.sha512",
     "C:\\Users\\kolir\\.nuget\\packages\\godotsharp\\4.5.1\\godotsharp.4.5.1.nupkg.sha512",

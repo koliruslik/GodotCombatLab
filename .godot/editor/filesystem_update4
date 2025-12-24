@@ -1,3 +1,5 @@
-res://src/entities/player/player.tscn
-res://src/levels/level_1.tscn
 res://src/entities/player/Player.cs
+res://src/levels/level_1.tscn
+res://src/ui/in_game_ui.tscn
+res://src/ui/mainMenu.tscn
+res://src/ui/MainMenu.cs

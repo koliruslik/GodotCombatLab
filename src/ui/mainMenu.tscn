@@ -1,0 +1,79 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4w44e1qe8m1t"]
+
+[ext_resource type="Script" uid="uid://bba3jfquvoflw" path="res://src/ui/MainMenu.cs" id="1_dqwt8"]
+[ext_resource type="PackedScene" uid="uid://p8i0hghv32bu" path="res://src/levels/level_1.tscn" id="2_4qbkq"]
+
+[sub_resource type="Gradient" id="Gradient_jqnq7"]
+interpolation_mode = 2
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dqwt8"]
+gradient = SubResource("Gradient_jqnq7")
+fill_from = Vector2(0, 1)
+
+[node name="mainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_dqwt8")
+Opt1Scene = ExtResource("2_4qbkq")
+Opt2Scene = ExtResource("2_4qbkq")
+Opt3Scene = ExtResource("2_4qbkq")
+
+[node name="mainMenuPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="mainMenu" type="MarginContainer" parent="mainMenuPanel"]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="mainMenuPanel/mainMenu"]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_dqwt8")
+
+[node name="Buttons" type="VBoxContainer" parent="mainMenuPanel/mainMenu"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="mainMenuPanel/mainMenu/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 8
+
+[node name="Option1Btn" type="Button" parent="mainMenuPanel/mainMenu/Buttons/HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = "Option 1"
+
+[node name="Option2Btn" type="Button" parent="mainMenuPanel/mainMenu/Buttons/HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = "Option 2"
+
+[node name="Option3Btn" type="Button" parent="mainMenuPanel/mainMenu/Buttons/HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = "Option 3"
+
+[node name="SettingsBtn" type="Button" parent="mainMenuPanel/mainMenu/Buttons"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = "Settings"
+
+[node name="ExitBtn" type="Button" parent="mainMenuPanel/mainMenu/Buttons"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = "Exit"
+
+[connection signal="pressed" from="mainMenuPanel/mainMenu/Buttons/HBoxContainer/Option1Btn" to="." method="OnOptionOneBtnPressed"]
+[connection signal="pressed" from="mainMenuPanel/mainMenu/Buttons/HBoxContainer/Option2Btn" to="." method="OnOptionTwoBtnPressed"]
+[connection signal="pressed" from="mainMenuPanel/mainMenu/Buttons/HBoxContainer/Option3Btn" to="." method="OnOptionThreeBtnPressed"]

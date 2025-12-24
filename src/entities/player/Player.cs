@@ -23,6 +23,8 @@ public partial class Player : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		if(Input.IsActionJustPressed("toMainMenu"))
+			GetTree().ChangeSceneToFile("res://src/ui/mainMenu.tscn");
 		var direction = Input.GetVector("moveLeft", "moveRight", 
 			"moveUp", "moveDown");
 		Velocity = CalculateVelocity(delta, direction);
