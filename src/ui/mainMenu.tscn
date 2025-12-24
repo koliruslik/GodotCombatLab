@@ -10,7 +10,7 @@ interpolation_mode = 2
 gradient = SubResource("Gradient_jqnq7")
 fill_from = Vector2(0, 1)
 
-[node name="mainMenu" type="Control"]
+[node name="mainMenu" type="Control" node_paths=PackedStringArray("Buttons")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -19,6 +19,7 @@ script = ExtResource("1_dqwt8")
 Opt1Scene = ExtResource("2_4qbkq")
 Opt2Scene = ExtResource("2_4qbkq")
 Opt3Scene = ExtResource("2_4qbkq")
+Buttons = [NodePath("mainMenuPanel/mainMenu/Buttons/HBoxContainer/Option1Btn"), NodePath("mainMenuPanel/mainMenu/Buttons/HBoxContainer/Option2Btn"), NodePath("mainMenuPanel/mainMenu/Buttons/HBoxContainer/Option3Btn"), NodePath("mainMenuPanel/mainMenu/Buttons/SettingsBtn"), NodePath("mainMenuPanel/mainMenu/Buttons/ExitBtn")]
 
 [node name="mainMenuPanel" type="Panel" parent="."]
 layout_mode = 1
@@ -77,3 +78,4 @@ text = "Exit"
 [connection signal="pressed" from="mainMenuPanel/mainMenu/Buttons/HBoxContainer/Option1Btn" to="." method="OnOptionOneBtnPressed"]
 [connection signal="pressed" from="mainMenuPanel/mainMenu/Buttons/HBoxContainer/Option2Btn" to="." method="OnOptionTwoBtnPressed"]
 [connection signal="pressed" from="mainMenuPanel/mainMenu/Buttons/HBoxContainer/Option3Btn" to="." method="OnOptionThreeBtnPressed"]
+[connection signal="pressed" from="mainMenuPanel/mainMenu/Buttons/ExitBtn" to="." method="OnExitBtnPressed"]
