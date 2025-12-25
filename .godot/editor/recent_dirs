@@ -1,4 +1,5 @@
-res://src/ui
+res://assets/animations/player
 res://assets
+res://src/ui
 res://src/entities/player
 res://src/levels
