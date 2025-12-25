@@ -1,8 +1,8 @@
 63f7b34db8d8cdea90c76aacccf841ec
-::res://::1766596983
+::res://::1766683310
 icon.svg::CompressedTexture2D::1023460924661918763::1766596708::1766596984::1::::<><><>0<>0<>7d39ffbaae423949a9db009b1c863f36<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
 README.md::TextFile::-1::1766596708::0::1::::<><><>0<>0<><>::
-::res://assets/::1766596968
+::res://assets/::1766596984
 Attack_KG_1.png::CompressedTexture2D::4648967721424703752::1766596708::1766596984::1::::<><><>0<>0<>b0f79b5491be2d07ca5c76626768d1c5<>res://.godot/imported/Attack_KG_1.png-8e98d3599d09b18bafe1b8af89dd560f.ctex::
 Dashing_KG_1.png::CompressedTexture2D::1059601193449698080::1766596708::1766596984::1::::<><><>0<>0<>1370fbb4155f49a22d38d7160070b8b3<>res://.godot/imported/Dashing_KG_1.png-6f935185d0cb836cd9b243e309fb4b7f.ctex::
 Fall_KG_1.png::CompressedTexture2D::4780572015506224798::1766596708::1766596984::1::::<><><>0<>0<>ba8c7a58dd8b4b5227cb0e0890ffe39a<>res://.godot/imported/Fall_KG_1.png-37a23656d1a0721468bda797787ad551.ctex::
@@ -21,6 +21,6 @@ Player.cs::CSharpScript::2649753506218935875::1766596969::0::1::::<>CharacterBod
 player.tscn::PackedScene::7262364689871872601::1766596708::0::1::::<><><>0<>0<><>::uid://b7pm8sbd3ih1c::::res://assets/Idle_KG_1.png<>uid://bd0tb2ntuv828::::res://src/entities/player/Player.cs<>uid://cad0k78ih1t0a::::res://assets/Fall_KG_1.png<>uid://bc3yw0at7svnp::::res://assets/Walking_KG_1.png<>uid://cdon0grfr2u2g::::res://assets/Jump_KG_1.png
 ::res://src/levels/::1766596708
 level_1.tscn::PackedScene::1121487878523732786::1766596708::0::1::::<><><>0<>0<><>::uid://dbp7c5ypwok1n::::res://src/entities/player/player.tscn
-::res://src/ui/::1766596969
-MainMenu.cs::CSharpScript::2458325963544687840::1766596969::0::1::::<>Control<><>0<>0<><>::
-mainMenu.tscn::PackedScene::6855546975283865087::1766596969::0::1::::<><><>0<>0<><>::uid://bba3jfquvoflw::::res://src/ui/MainMenu.cs<>uid://p8i0hghv32bu::::res://src/levels/level_1.tscn
+::res://src/ui/::1766599398
+MainMenu.cs::CSharpScript::2458325963544687840::1766599350::0::1::::<>Control<><>0<>0<><>::
+mainMenu.tscn::PackedScene::6855546975283865087::1766599398::0::1::::<><><>0<>0<><>::uid://bba3jfquvoflw::::res://src/ui/MainMenu.cs<>uid://p8i0hghv32bu::::res://src/levels/level_1.tscn

@@ -1,63 +1,74 @@
+using CombatLab.entities.player.components;
+using CombatLab.entities.player.States;
 using Godot;
-using System;
 
 namespace CombatLab.entities.player;
-public partial class Player : CharacterBody2D
+
+public partial class Player : Entity
 {
-	[Export] public float Speed = 300.0f;
-	[Export] public float JumpVelocity = -400.0f;
+    [ExportGroup("Components")]
+    [Export] public InputHandler Input { get; private set; }
+    [Export] public PlayerStateMachine Fsm { get; private set; }
+    
+    [ExportGroup("Visuals")]
+    [Export] public Sprite2D Sprite { get; private set; }
+    [Export] public AnimationTree AnimTree { get; private set; }
+    [Export] public Marker2D WeaponSlot { get; private set; }
+    
+    [ExportGroup("Parameters")]
+    [Export] public float JumpVelocity = -400.0f;
 
-	private bool _isOnFloor = true;
-	private bool _isAttacking = false;
+    private AnimationNodeStateMachinePlayback _stateMachinePlayback;
+    
+    public int FacingDirection { get; private set; } = 1;
+    public override void _Ready()
+    {
+        if(Input == null) GD.PushError("You must set InputHandler!");
+        if(Fsm == null) GD.PushError("You must set FSM!");
+        
+        Fsm.SetUp(this);
 
-	private Animator _animator;
-	
-	public override void _Ready()
-	{
-		_isOnFloor = IsOnFloor();
-		_animator = new Animator(
-			GetNode<AnimatedSprite2D>("AnimatedSprite2D"),
-			true
-			);
-	}
+        if (AnimTree != null)
+        {
+            _stateMachinePlayback = (AnimationNodeStateMachinePlayback)AnimTree.Get("parameters/playback");
+        }
+    }
 
-	public override void _PhysicsProcess(double delta)
-	{
-		if(Input.IsActionJustPressed("toMainMenu"))
-			GetTree().ChangeSceneToFile("res://src/ui/mainMenu.tscn");
-		var direction = Input.GetVector("moveLeft", "moveRight", 
-			"moveUp", "moveDown");
-		Velocity = CalculateVelocity(delta, direction);
-		_animator.Update(Velocity, direction, _isOnFloor, _isAttacking);
-		MoveAndSlide();
-	}
+    public void ApplyGravity(double delta)
+    {
+        if(!IsOnFloor())
+            Velocity = new Vector2(Velocity.X, Velocity.Y + Gravity * (float)delta);
+    }
+    
+    public void HandleMovement(float targetXVelocity, float acceleration, double delta)
+    {
+        Velocity = new Vector2(
+            Mathf.MoveToward(Velocity.X, targetXVelocity, acceleration * (float)delta),
+            Velocity.Y
+        );
+        
+        MoveAndSlide();
+    }
+    
+    public void UpdateFacing(float moveInput)
+    {
+        if (Mathf.IsZeroApprox(moveInput)) return;
+        
+        FacingDirection = moveInput > 0 ? 1 : -1;
+        
+        Sprite.FlipH = FacingDirection == -1;
+    }
 
-	private Vector2 CalculateVelocity(double delta, Vector2 direction)
-	{
-		var velocity = Velocity;
-		_isOnFloor = IsOnFloor();
-		
-		if (!_isOnFloor)
-		{
-			velocity += GetGravity() * (float)delta;
-		}
-		
-		if (Input.IsActionJustPressed("jump") && IsOnFloor())
-		{
-			velocity.Y = JumpVelocity;
-		}
-
-		
-		if (direction != Vector2.Zero)
-		{
-			velocity.X = direction.X * Speed;
-		}
-		else
-		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-		}
-		
-		return velocity;
-	}
-
+    public void TravelToAnimation(string stateName)
+    {
+        if (_stateMachinePlayback == null) return;
+        
+        _stateMachinePlayback.Travel(stateName);
+    }
+    
+    public void Jump()
+    {
+        Velocity = new Vector2(Velocity.X, JumpVelocity);
+        Fsm.ChangeState("playerair");
+    }
 }

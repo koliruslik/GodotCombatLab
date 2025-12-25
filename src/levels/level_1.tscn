@@ -1,9 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://p8i0hghv32bu"]
+[gd_scene load_steps=6 format=3 uid="uid://p8i0hghv32bu"]
 
 [ext_resource type="PackedScene" uid="uid://dbp7c5ypwok1n" path="res://src/entities/player/player.tscn" id="1_un1bx"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_un1bx"]
+bounce = 0.4
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_un1bx"]
 size = Vector2(1168, 56)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_un1bx"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kg615"]
+noise = SubResource("FastNoiseLite_un1bx")
 
 [node name="level1" type="Node2D"]
 
@@ -11,9 +19,16 @@ size = Vector2(1168, 56)
 position = Vector2(0, -6)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(1.5, 1.5)
 
 [node name="Area2D" type="StaticBody2D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_un1bx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-7, 132)
 shape = SubResource("RectangleShape2D_un1bx")
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+position = Vector2(-9.5, 133)
+scale = Vector2(2.2832031, 0.10937499)
+texture = SubResource("NoiseTexture2D_kg615")
