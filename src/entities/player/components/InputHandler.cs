@@ -11,6 +11,8 @@ public partial class InputHandler : Node
     public bool IsAttackJustPressed { get; private set; }
     public bool IsAttackHeld { get; private set; }
     
+    public bool FacingRight { get; private set; }
+    
     [Export] public string ActionLeft = "moveLeft";
     [Export] public string ActionRight = "moveRight";
     [Export] public string ActionUp = "moveUp";
@@ -25,6 +27,14 @@ public partial class InputHandler : Node
         IsAttackJustPressed = Input.IsActionJustPressed(ActionAttack);
         IsAttackHeld = Input.IsActionPressed(ActionAttack);
         IsJumpJustPressed = Input.IsActionJustPressed(ActionJump);
+        if (MoveDirection.X < 0)
+        {
+            FacingRight = true;
+        }
+        else if (MoveDirection.X > 0)
+        {
+            FacingRight = false;
+        }
     }
     
     public void ConsumeAttack() => IsAttackJustPressed = false;

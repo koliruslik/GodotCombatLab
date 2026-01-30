@@ -1,10 +1,12 @@
+using CombatLab.entities.components;
 using CombatLab.entities.player.components;
 using CombatLab.entities.player.States;
 using Godot;
 
+
 namespace CombatLab.entities.player;
 
-public partial class Player : Entity
+public partial class Player : Entity, IDamageable
 {
     [ExportGroup("Components")]
     [Export] public InputHandler Input { get; private set; }
@@ -70,5 +72,11 @@ public partial class Player : Entity
     {
         Velocity = new Vector2(Velocity.X, JumpVelocity);
         Fsm.ChangeState("playerair");
+    }
+
+    public void TakeDamage(int damage)
+    {
+        GD.Print($"Player damaged {damage}");
+        Fsm.ChangeState("playerhurt");
     }
 }
