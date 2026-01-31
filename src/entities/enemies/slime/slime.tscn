@@ -98,6 +98,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8puyd"]
 size = Vector2(20, 13)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ay4s"]
+size = Vector2(20, 13)
+
 [node name="Slime" type="CharacterBody2D" unique_id=1228000909 groups=["Enemies"]]
 collision_layer = 4
 collision_mask = 3
@@ -112,10 +115,12 @@ autoplay = "idle"
 position = Vector2(0, 9.5)
 shape = SubResource("RectangleShape2D_8puyd")
 
-[node name="HitBox" type="Area2D" parent="." unique_id=450709736]
+[node name="HitBox" type="Area2D" parent="." unique_id=450709736 node_paths=PackedStringArray("AttackerSource")]
 collision_layer = 128
-collision_mask = 16
+collision_mask = 0
 script = ExtResource("3_8ay4s")
+IsContact = true
+AttackerSource = NodePath("..")
 metadata/_custom_type_script = "uid://bcdiugycol5q8"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=1427464730]
@@ -123,14 +128,15 @@ position = Vector2(0, 9.5)
 shape = SubResource("RectangleShape2D_8puyd")
 debug_color = Color(0.77241164, 0.14068264, 0, 0.41960785)
 
-[node name="HurtBox" type="Area2D" parent="." unique_id=985836342 node_paths=PackedStringArray("OwnerNode")]
-collision_layer = 64
-collision_mask = 0
+[node name="HurtBox" type="Node2D" parent="." unique_id=1940554320 node_paths=PackedStringArray("OwnerNode", "ShapeCast")]
 script = ExtResource("4_je6ip")
 OwnerNode = NodePath("..")
+ShapeCast = NodePath("ShapeCast2D")
 metadata/_custom_type_script = "uid://c3bc03vsdvpj4"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=1956131371]
+[node name="ShapeCast2D" type="ShapeCast2D" parent="HurtBox" unique_id=1267080577]
 position = Vector2(0, 9.5)
-shape = SubResource("RectangleShape2D_8puyd")
-debug_color = Color(0.30224383, 0.6282808, 3.85046e-07, 0.41960785)
+shape = SubResource("RectangleShape2D_8ay4s")
+target_position = Vector2(0, 0)
+collision_mask = 32
+collide_with_areas = true

@@ -1,6 +1,8 @@
+using Godot;
+
 namespace CombatLab.entities.components;
 
 public interface IDamageable
 {
-    void TakeDamage(int amount);
+    void TakeDamage(int damage, Vector2 sourcePosition);
 }

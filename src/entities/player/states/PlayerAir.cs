@@ -8,20 +8,39 @@ public partial class PlayerAir : State<Player>
     public override void Enter()
     {
         GD.Print("Entering PlayerAir");
+        if (Actor.Velocity.Y < 0)
+            Actor.TravelToAnimation("jump");
+        else
+            Actor.TravelToAnimation("fall");
+    }
+
+    public override void Update(double delta)
+    {
+        Actor.TryAttack();
     }
     public override void PhysicsUpdate(double delta)
     {
-        Actor.ApplyGravity(delta);
-        var moveInput = Actor.Input.MoveDirection.X;
+        float moveInput = Actor.Input.MoveDirection.X;
+        Actor.ApplyMovement(moveInput, delta);
         
-        Actor.HandleMovement(moveInput * Actor.Speed, Actor.Speed * 2, delta);
-        Actor.UpdateFacing(moveInput);
+        if (Actor.Velocity.Y > 0)
+        {
+            Actor.TravelToAnimation("fall");
+        }
 
-        Actor.TravelToAnimation(Actor.Velocity.Y < 0 ? "jump" : "fall");
         if (Actor.IsOnFloor())
         {
-            var nextState = Mathf.IsZeroApprox(moveInput) ? "playeridle" : "playermove";
-            EmitSignal(SignalName.Transitioned, this, nextState);
+            if (Actor.Velocity.Y >= 0)
+            {
+                if (!Mathf.IsZeroApprox(moveInput))
+                {
+                    EmitSignal(SignalName.Transitioned, this, "playermove");
+                }
+                else
+                {
+                    EmitSignal(SignalName.Transitioned, this, "playeridle");
+                }
+            }
         }
     }
 }

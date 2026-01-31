@@ -8,26 +8,29 @@ namespace CombatLab.entities.player;
 
 public partial class Player : Entity, IDamageable
 {
-    [ExportGroup("Components")]
-    [Export] public InputHandler Input { get; private set; }
+    [ExportGroup("Components")] [Export] public InputHandler Input { get; private set; }
     [Export] public PlayerStateMachine Fsm { get; private set; }
-    
-    [ExportGroup("Visuals")]
-    [Export] public Sprite2D Sprite { get; private set; }
-    [Export] public AnimationTree AnimTree { get; private set; }
-    [Export] public Marker2D WeaponSlot { get; private set; }
-    
-    [ExportGroup("Parameters")]
-    [Export] public float JumpVelocity = -400.0f;
 
-    private AnimationNodeStateMachinePlayback _stateMachinePlayback;
+    [Export] public AnimationPlayer WeaponAnimator;
+
+    [ExportGroup("Visuals")] [Export] public Sprite2D Sprite { get; private set; }
+    [Export] public AnimationTree AnimTree { get; private set; }
+    [Export] public Node2D WeaponPivot;
     
+
+    [ExportGroup("Parameters")] [Export] public float JumpVelocity = -400.0f;
+
+    public Vector2 KnockbackDirection { get; private set; }
+    
+    private AnimationNodeStateMachinePlayback _stateMachinePlayback;
+
     public int FacingDirection { get; private set; } = 1;
+
     public override void _Ready()
     {
-        if(Input == null) GD.PushError("You must set InputHandler!");
-        if(Fsm == null) GD.PushError("You must set FSM!");
-        
+        if (Input == null) GD.PushError("You must set InputHandler!");
+        if (Fsm == null) GD.PushError("You must set FSM!");
+
         Fsm.SetUp(this);
 
         if (AnimTree != null)
@@ -36,47 +39,117 @@ public partial class Player : Entity, IDamageable
         }
     }
 
-    public void ApplyGravity(double delta)
+    public override void _PhysicsProcess(double delta)
     {
-        if(!IsOnFloor())
-            Velocity = new Vector2(Velocity.X, Velocity.Y + Gravity * (float)delta);
+        Fsm.UpdatePhysics(delta);
+
+        if (!IsOnFloor())
+        {
+            Velocity += new Vector2(0, Gravity * (float)delta);
+        }
+
+        MoveAndSlide();
+
+        UpdateFacing();
+        UpdateWeaponRotation();
+    }
+
+    public override void _Process(double delta)
+    {
+        Fsm.UpdateInput(delta);
+    }
+
+// --- ACTIONS ---
+    public void TryAttack()
+    {
+        if (Input.IsAttackJustPressed)
+        {
+            if (WeaponAnimator != null && !WeaponAnimator.IsPlaying())
+            {
+                Input.ConsumeAttack(); 
+                UpdateWeaponRotation(true);
+                WeaponAnimator.Play("swing"); 
+            }
+        }
     }
     
-    public void HandleMovement(float targetXVelocity, float acceleration, double delta)
+    public void ApplyMovement(float direction, double delta)
     {
+        float targetSpeed = direction * Speed;
+        
+        float accel = Mathf.IsZeroApprox(direction) ? Friction : Acceleration;
+
         Velocity = new Vector2(
-            Mathf.MoveToward(Velocity.X, targetXVelocity, acceleration * (float)delta),
+            Mathf.MoveToward(Velocity.X, targetSpeed, accel * (float)delta),
             Velocity.Y
         );
-        
-        MoveAndSlide();
+    }
+
+    public void Jump()
+    {
+        Velocity = new Vector2(Velocity.X, JumpVelocity);
+        Fsm.ChangeState("playerair"); 
     }
     
-    public void UpdateFacing(float moveInput)
+    // --- Visuals ---
+    public void UpdateFacing()
     {
-        if (Mathf.IsZeroApprox(moveInput)) return;
+        float mouseX = GetGlobalMousePosition().X;
+        float playerX = GlobalPosition.X;
         
-        FacingDirection = moveInput > 0 ? 1 : -1;
-        
+        FacingDirection = mouseX > playerX ? 1 : -1;
+
         Sprite.FlipH = FacingDirection == -1;
+    }
+    
+    private void UpdateWeaponRotation(bool forceUpdate = false)
+    {
+        
+        if (WeaponPivot == null) return;
+        bool isAttacking = WeaponAnimator.IsPlaying() && WeaponAnimator.CurrentAnimation == "swing";
+
+        if (isAttacking && !forceUpdate)
+        {
+            return;
+        }
+        Vector2 mousePos = GetGlobalMousePosition();
+        Vector2 direction = mousePos - WeaponPivot.GlobalPosition;
+        
+        bool isLeft = mousePos.X < WeaponPivot.GlobalPosition.X;
+        
+        WeaponPivot.Scale = new Vector2(isLeft ? -1 : 1, 1);
+        
+        if (isLeft)
+        {
+            direction.X *= -1;
+            WeaponPivot.Rotation = -direction.Angle();
+        }
+        else
+        {
+            WeaponPivot.Rotation = direction.Angle();
+        }
+        
     }
 
     public void TravelToAnimation(string stateName)
     {
-        if (_stateMachinePlayback == null) return;
-        
-        _stateMachinePlayback.Travel(stateName);
-    }
-    
-    public void Jump()
-    {
-        Velocity = new Vector2(Velocity.X, JumpVelocity);
-        Fsm.ChangeState("playerair");
+        if (_stateMachinePlayback != null)
+            _stateMachinePlayback.Travel(stateName);
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int amount, Vector2 sourcePosition)
     {
-        GD.Print($"Player damaged {damage}");
+        KnockbackDirection = (GlobalPosition - sourcePosition).Normalized();
+        
+        if (KnockbackDirection == Vector2.Zero)
+            KnockbackDirection = new Vector2(-FacingDirection, -1);
+
+        GD.Print($"Took {amount} dmg, flying to {KnockbackDirection}");
         Fsm.ChangeState("playerhurt");
+    }
+    
+    public void TakeDamage(int damage) 
+    {
+        TakeDamage(damage, Vector2.Zero);
     }
 }

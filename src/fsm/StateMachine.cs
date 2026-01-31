@@ -24,9 +24,15 @@ public partial class StateMachine<T> : Node where T : Node
 		_currentState = InitialState;
 	}
 
-	public override void _Process(double delta) => _currentState?.Update(delta);
-	public override void _PhysicsProcess(double delta) => _currentState?.PhysicsUpdate(delta);
+	public void UpdateInput(double delta)
+	{
+		_currentState?.Update(delta);
+	}
 
+	public void UpdatePhysics(double delta)
+	{
+		_currentState?.PhysicsUpdate(delta);
+	}
 	private void OnTransition(State<T> state, string newStateName)
 	{
 		if (state != _currentState) return;
