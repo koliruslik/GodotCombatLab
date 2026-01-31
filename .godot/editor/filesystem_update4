@@ -1,9 +1,8 @@
-res://src/entities/player/states/PlayerHurt.cs
-res://src/entities/player/player.tscn
+res://src/entities/components/HurtBox.cs
 res://src/ui/MainMenu.cs
 res://src/entities/enemies/slime/Slime.cs
-res://src/entities/components/HurtBox.cs
 res://src/entities/components/HitBox.cs
+res://src/entities/player/states/PlayerHurt.cs
 res://src/entities/player/components/InputHandler.cs
 res://src/entities/player/states/PlayerAir.cs
 res://src/entities/player/states/PlayerIdle.cs
@@ -11,3 +10,7 @@ res://src/entities/player/states/PlayerMove.cs
 res://src/entities/player/states/PlayerStateMachine.cs
 res://src/entities/Entity.cs
 res://src/entities/player/Player.cs
+res://src/entities/player/player.tscn
+res://src/entities/enemies/slime/slime.tscn
+res://src/entities/weapons/sword/sword.tscn
+res://src/entities/weapons/sword/swing.res

@@ -1,7 +1,8 @@
 using Godot;
 using System;
+using CombatLab.entities.components;
 
-public partial class Slime : CharacterBody2D
+public partial class Slime : CharacterBody2D, IDamageable
 {
 	[Export] public int Health = 30;
 	[Export] public float Speed = 50.0f;
@@ -46,7 +47,7 @@ public partial class Slime : CharacterBody2D
 		MoveAndSlide();
 	}
 
-	public async void TakeDamage(int amount, Vector2 knockBackDir)
+	public void TakeDamage(int amount, Vector2 sourcePosition)
 	{
 		GD.Print($"Slime take {amount} damage. {Health} left");
 		
@@ -55,9 +56,8 @@ public partial class Slime : CharacterBody2D
 		_sprite.Modulate = Colors.Red;
 		_isHurting = true;
 		
-		Velocity = knockBackDir * 200;
-
-		await ToSignal(GetTree().CreateTimer(.25f), SceneTreeTimer.SignalName.Timeout);
+		//Velocity = knockBackDir * 200;
+		
 		
 		if (Health <= 0)
 		{

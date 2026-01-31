@@ -13,19 +13,28 @@ public partial class PlayerMove : State<Player>
 
     public override void Update(double delta)
     {
+        Actor.TryAttack();
         if (Actor.Input.IsJumpJustPressed && Actor.IsOnFloor()) 
+        {
             Actor.Jump();
+            return;
+        }
     }
     
     public override void PhysicsUpdate(double delta)
     {
-        Actor.ApplyGravity(delta);
-        var moveInput = Actor.Input.MoveDirection.X;
-    
-        Actor.HandleMovement(moveInput * Actor.Speed, Actor.Speed * 8, delta);
-        Actor.UpdateFacing(moveInput);
+        float moveInput = Actor.Input.MoveDirection.X;
         
-        if (!Actor.IsOnFloor()) EmitSignal(SignalName.Transitioned, this, "playerair");
-        else if (Mathf.IsZeroApprox(moveInput)) EmitSignal(SignalName.Transitioned, this, "playeridle");
+        if (Mathf.IsZeroApprox(moveInput) && Mathf.IsZeroApprox(Actor.Velocity.X))
+        {
+            EmitSignal(SignalName.Transitioned, this, "playeridle");
+            return;
+        }
+        Actor.ApplyMovement(moveInput, delta);
+        
+        if (!Actor.IsOnFloor()) 
+        {
+            EmitSignal(SignalName.Transitioned, this, "playerair");
+        }
     }
 }
