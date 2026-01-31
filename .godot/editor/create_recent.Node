@@ -1,3 +1,7 @@
+res://src/entities/player/states/PlayerHurt.cs
+CollisionShape2D
+Area2D
+Marker2D
 Sprite2D
 ColorRect
 PlayerAir
@@ -9,6 +13,3 @@ PlayerMove
 PlayerIdle
 PlayerStateMachine
 Node
-Control
-Panel
-Button

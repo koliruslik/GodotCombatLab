@@ -5,6 +5,10 @@ namespace CombatLab.entities.player.States;
 [GlobalClass]
 public partial class PlayerAir : State<Player>
 {
+    public override void Enter()
+    {
+        GD.Print("Entering PlayerAir");
+    }
     public override void PhysicsUpdate(double delta)
     {
         Actor.ApplyGravity(delta);
