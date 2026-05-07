@@ -2,19 +2,23 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class StateMachine<T> : Node where T : Node
+public abstract partial class StateMachine<T> : Node where T : Node
 {
-	[Export] public State<T> InitialState; 
+	[Export] public State<T> InitialState;
+
+	protected Dictionary<(string state, string evt), string> _transitions = new();
 	public State<T> _currentState { get; private set; }
 	private Dictionary<string, State<T>> _states = new();
 
+	protected abstract void RegisterTransitions();
 	public void SetUp(T actor)
 	{
+		RegisterTransitions();
 		foreach (var child in GetChildren())
 		{
 			if (child is State<T> state)
 			{
-				_states[child.Name.ToString().ToLower()] = state;
+				_states[state.StateName] = state;
 				state.Init(actor);
 				state.Transitioned += OnTransition;
 			}
@@ -33,12 +37,14 @@ public partial class StateMachine<T> : Node where T : Node
 	{
 		_currentState?.PhysicsUpdate(delta);
 	}
-	private void OnTransition(State<T> state, string newStateName)
+	private void OnTransition(State<T> state, string eventName)
 	{
 		if (state != _currentState) return;
-		
-		var newState = _states.GetValueOrDefault(newStateName.ToLower());
-		if(newState != null) ChangeState(newState);
+		var transKey = (state.StateName, eventName);
+		if (_transitions.TryGetValue(transKey, out var nextState))
+		{ 
+			ChangeState(nextState);
+		}
 	}
 
 	private void ChangeState(State<T> newState)
@@ -53,7 +59,7 @@ public partial class StateMachine<T> : Node where T : Node
 	public void ChangeState(string newStateName)
 	{
 		
-		var key = newStateName.ToLower();
+		var key = newStateName;
 		
 		if (!_states.ContainsKey(key))
 		{

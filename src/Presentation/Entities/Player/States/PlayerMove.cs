@@ -27,14 +27,14 @@ public partial class PlayerMove : State<Player>
         
         if (Mathf.IsZeroApprox(moveInput) && Mathf.IsZeroApprox(Actor.Velocity.X))
         {
-            EmitSignal(SignalName.Transitioned, this, "playeridle");
+            EmitSignal(SignalName.Transitioned, this, "stopped");
             return;
         }
         Actor.ApplyMovement(moveInput, delta);
         
         if (!Actor.IsOnFloor()) 
         {
-            EmitSignal(SignalName.Transitioned, this, "playerair");
+            EmitSignal(SignalName.Transitioned, this, "airborne");
         }
     }
 }

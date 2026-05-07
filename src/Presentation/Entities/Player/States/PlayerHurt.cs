@@ -30,9 +30,9 @@ public partial class PlayerHurt : State<Player>
         if (_timer <= 0)
         {
             if (Actor.IsOnFloor())
-                EmitSignal(SignalName.Transitioned, this, "playeridle");
+                EmitSignal(SignalName.Transitioned, this, "stopped");
             else
-                EmitSignal(SignalName.Transitioned, this, "playerair");
+                EmitSignal(SignalName.Transitioned, this, "stoppedAirborne");
         }
     }
     

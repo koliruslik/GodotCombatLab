@@ -88,7 +88,6 @@ public partial class Player : Entity, IDamageable
     public void Jump()
     {
         Velocity = new Vector2(Velocity.X, JumpVelocity);
-        Fsm.ChangeState("playerair"); 
     }
     
     // --- Visuals ---

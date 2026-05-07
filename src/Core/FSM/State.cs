@@ -9,7 +9,7 @@ public partial class State<T> : Node where T : Node
     public delegate void TransitionedEventHandler(State<T> state, string newStateName);
 
     protected T Actor;
-
+    public virtual string StateName => GetType().Name;
     public virtual void Init(T actor)
     {
         Actor = actor;

@@ -17,7 +17,7 @@ public partial class PlayerIdle : State<Player>
         if (Actor.Input.IsJumpJustPressed && Actor.IsOnFloor()) 
             Actor.Jump();
         if (!Mathf.IsZeroApprox(Actor.Input.MoveDirection.X))
-            EmitSignal(SignalName.Transitioned, this, "playermove");
+            EmitSignal(SignalName.Transitioned, this, "moved");
     }
  
     public override void PhysicsUpdate(double delta)
@@ -25,6 +25,6 @@ public partial class PlayerIdle : State<Player>
         Actor.ApplyMovement(0, delta);
 
         if (!Actor.IsOnFloor()) 
-            EmitSignal(SignalName.Transitioned, this, "playerair");
+            EmitSignal(SignalName.Transitioned, this, "airborne");
     }
 }

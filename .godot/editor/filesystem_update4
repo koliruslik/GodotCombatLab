@@ -37,3 +37,4 @@ res://src/Presentation/Entities/Entity.cs
 res://src/Presentation/Entities/Player/Player.cs
 res://src/Core/FSM/StateMachine.cs
 res://src/Core/FSM/State.cs
+res://src/Presentation/Levels/level_1.tscn

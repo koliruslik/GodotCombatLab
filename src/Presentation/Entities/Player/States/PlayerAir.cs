@@ -34,11 +34,11 @@ public partial class PlayerAir : State<Player>
             {
                 if (!Mathf.IsZeroApprox(moveInput))
                 {
-                    EmitSignal(SignalName.Transitioned, this, "playermove");
+                    EmitSignal(SignalName.Transitioned, this, "moved");
                 }
                 else
                 {
-                    EmitSignal(SignalName.Transitioned, this, "playeridle");
+                    EmitSignal(SignalName.Transitioned, this, "stopped");
                 }
             }
         }
