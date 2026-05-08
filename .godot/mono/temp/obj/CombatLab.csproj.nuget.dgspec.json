@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Programming\\Godot\\GodotCombatLab\\CombatLab.csproj": {}
+    "E:\\Programming\\Godot\\GodotCombatLabProject\\GodotCombatLab\\CombatLab.csproj": {}
   },
   "projects": {
-    "E:\\Programming\\Godot\\GodotCombatLab\\CombatLab.csproj": {
+    "E:\\Programming\\Godot\\GodotCombatLabProject\\GodotCombatLab\\CombatLab.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Programming\\Godot\\GodotCombatLab\\CombatLab.csproj",
+        "projectUniqueName": "E:\\Programming\\Godot\\GodotCombatLabProject\\GodotCombatLab\\CombatLab.csproj",
         "projectName": "CombatLab",
-        "projectPath": "E:\\Programming\\Godot\\GodotCombatLab\\CombatLab.csproj",
+        "projectPath": "E:\\Programming\\Godot\\GodotCombatLabProject\\GodotCombatLab\\CombatLab.csproj",
         "packagesPath": "C:\\Users\\Ruslan\\.nuget\\packages\\",
-        "outputPath": "E:\\Programming\\Godot\\GodotCombatLab\\.godot\\mono\\temp\\obj\\",
+        "outputPath": "E:\\Programming\\Godot\\GodotCombatLabProject\\GodotCombatLab\\.godot\\mono\\temp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

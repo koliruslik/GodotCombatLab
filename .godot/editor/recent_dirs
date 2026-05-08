@@ -1,7 +1,3 @@
-res://src/entities/weapons/swor/
-res://src/entities/weapons/
+res://src/Core/Managers/
 res://assets/
 res://assets/animations/player/
-res://src/ui/
-res://src/entities/player/
-res://src/levels/

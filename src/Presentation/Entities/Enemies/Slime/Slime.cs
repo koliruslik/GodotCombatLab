@@ -1,12 +1,12 @@
 using Godot;
 using System;
+using CombatLab.Core.Payloads;
 using CombatLab.entities.components;
+using CombatLab.entities;
+using CombatLab.Core.Events;
 
-public partial class Slime : CharacterBody2D, IDamageable
+public partial class Slime : Entity, IDamageable
 {
-	[Export] public int Health = 30;
-	[Export] public float Speed = 50.0f;
-
 	private Node2D _player;
 	
 	private AnimatedSprite2D _sprite;
@@ -19,6 +19,7 @@ public partial class Slime : CharacterBody2D, IDamageable
 		_player = GetTree().GetFirstNodeInGroup("Player") as Node2D;
 		_sprite.AnimationFinished += OnAnimationFinished;
 		AddToGroup("Enemies");
+		Health = 50.0f;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -74,7 +75,14 @@ public partial class Slime : CharacterBody2D, IDamageable
 
 	private void Die()
 	{
-		GD.Print("Slime Dead!");
+		var dt = new DeathData
+		{
+			Victim = this,
+			Killer = null,
+			DamageSourceId = null,
+			Timestamp =  DateTimeOffset.Now.ToUnixTimeMilliseconds()
+		};
+		EventBus.PublishEnemyDied(dt);
 		_currentAnimation = "die";
 		_sprite.Play(_currentAnimation);
 	}
