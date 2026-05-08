@@ -1,3 +1,4 @@
+using CombatLab.Core.Events;
 using CombatLab.entities.components;
 using CombatLab.entities.player.components;
 using CombatLab.entities.player.States;
@@ -23,6 +24,7 @@ public partial class Player : Entity, IDamageable
     public Vector2 KnockbackDirection { get; private set; }
     
     private AnimationNodeStateMachinePlayback _stateMachinePlayback;
+    private float _currentHP;
 
     public int FacingDirection { get; private set; } = 1;
 
@@ -37,6 +39,8 @@ public partial class Player : Entity, IDamageable
         {
             _stateMachinePlayback = (AnimationNodeStateMachinePlayback)AnimTree.Get("parameters/playback");
         }
+
+        _currentHP = MaxHP;
     }
 
     public override void _PhysicsProcess(double delta)
@@ -142,7 +146,8 @@ public partial class Player : Entity, IDamageable
         
         if (KnockbackDirection == Vector2.Zero)
             KnockbackDirection = new Vector2(-FacingDirection, -1);
-
+        _currentHP -= amount;
+        EventBus.PublishHealthChanged(_currentHP, MaxHP);
         GD.Print($"Took {amount} dmg, flying to {KnockbackDirection}");
         Fsm.ChangeState("playerhurt");
     }

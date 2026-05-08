@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dbp7c5ypwok1n" path="res://src/Presentation/Entities/Player/player.tscn" id="1_un1bx"]
 [ext_resource type="PackedScene" uid="uid://bn3tft6m6xb7c" path="res://src/Presentation/Entities/Enemies/Slime/slime.tscn" id="2_kg615"]
+[ext_resource type="PackedScene" uid="uid://dg2i4e1casg40" path="res://src/Presentation/UI/HUD/hud.tscn" id="3_phka5"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_un1bx"]
 bounce = 0.4
@@ -37,3 +38,5 @@ texture = SubResource("NoiseTexture2D_kg615")
 [node name="Slime" parent="." unique_id=1045747040 instance=ExtResource("2_kg615")]
 position = Vector2(-106.99999, 25)
 scale = Vector2(2.6658266, 2.218673)
+
+[node name="HUD" parent="." unique_id=1397504696 instance=ExtResource("3_phka5")]

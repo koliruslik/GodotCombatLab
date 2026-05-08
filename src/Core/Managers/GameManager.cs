@@ -7,14 +7,17 @@ namespace CombatLab.Core.Managers;
 
 public partial class GameManager : Node
 {
+    private int _gold = 0;
     public override void _Ready()
     {
-        EventBus.OnEnemyDied += EnemyDieHandler;
+        EventBus.OnEnemyDied += EnemyDiedHandler;
         GD.Print("GameManager Loaded");
     }
 
-    private void EnemyDieHandler(DeathData dt)
+    private void EnemyDiedHandler(DeathData dt)
     {
-        GD.Print("SlimeDied!");
+        GD.Print("SlimeDied! +1 Gold");
+        _gold++;
+        EventBus.PublishGoldChanged(_gold);
     }
 }

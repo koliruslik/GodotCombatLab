@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dg2i4e1casg40"]
+
+[ext_resource type="Script" uid="uid://cyyxmmpdp88nf" path="res://src/Presentation/UI/HUD/HUD.cs" id="1_d877w"]
+
+[node name="HUD" type="CanvasLayer" unique_id=1397504696 node_paths=PackedStringArray("HealthLabel", "GoldLabel")]
+script = ExtResource("1_d877w")
+HealthLabel = NodePath("HealthLabel")
+GoldLabel = NodePath("GoldLabel")
+
+[node name="HealthLabel" type="Label" parent="." unique_id=298083630]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="GoldLabel" type="Label" parent="." unique_id=867214708]
+offset_top = 24.0
+offset_right = 40.0
+offset_bottom = 47.0

@@ -15,3 +15,6 @@ res://src/Core/FSM/State.cs
 res://src/Core/FSM/StateMachine.cs
 res://src/Presentation/Levels/level_1.tscn
 res://src/Core/Managers/GameManager.cs
+res://src/Core/Managers/UIManager.cs
+res://src/Presentation/UI/HUD/HUD.cs
+res://src/Presentation/UI/HUD/hud.tscn

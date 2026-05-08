@@ -19,7 +19,7 @@ public partial class Slime : Entity, IDamageable
 		_player = GetTree().GetFirstNodeInGroup("Player") as Node2D;
 		_sprite.AnimationFinished += OnAnimationFinished;
 		AddToGroup("Enemies");
-		Health = 50.0f;
+		MaxHP = 50.0f;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -50,9 +50,9 @@ public partial class Slime : Entity, IDamageable
 
 	public void TakeDamage(int amount, Vector2 sourcePosition)
 	{
-		GD.Print($"Slime take {amount} damage. {Health} left");
+		GD.Print($"Slime take {amount} damage. {MaxHP} left");
 		
-		Health -= amount;
+		MaxHP -= amount;
 		
 		_sprite.Modulate = Colors.Red;
 		_isHurting = true;
@@ -60,7 +60,7 @@ public partial class Slime : Entity, IDamageable
 		//Velocity = knockBackDir * 200;
 		
 		
-		if (Health <= 0)
+		if (MaxHP <= 0)
 		{
 			Die();
 			return;
