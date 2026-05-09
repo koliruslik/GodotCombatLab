@@ -4,13 +4,15 @@ using CombatLab.Core.Data;
 using CombatLab.Core.Events;
 using CombatLab.Core.Interfaces;
 using CombatLab.Core.Payloads;
+using CombatLab.Presentation.Components;
 
 namespace CombatLab.Presentation.Entities.Enemies;
 
 public partial class Slime : Entity
 {
 	[Export] public EnemyStats SlimeStats;
-
+	[Export] public HitBox HitBox;
+	[Export] public HurtBox HurtBox;
 	private float _currentHP;
 	
 	private Node2D _player;
@@ -22,17 +24,16 @@ public partial class Slime : Entity
 
 	public override void _Ready()
 	{
-		if (SlimeStats == null) 
-		{
-			GD.PushError("SlimeStats not set!");
-			return;
-		}
+		if (SlimeStats == null) { GD.PushError("SlimeStats not set!"); return; }
+		if(HitBox == null) { GD.PushError("HitBox not set!"); return; }
+		if(HurtBox == null) { GD.PushError("HurtBox not set!"); return; }
 		
 		_sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		_player = GetTree().GetFirstNodeInGroup("Player") as Node2D;
 		_sprite.AnimationFinished += OnAnimationFinished;
 		AddToGroup("Enemies");
 		_currentHP = SlimeStats.MaxHP;
+		HitBox.Damage = SlimeStats.Attack;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -61,7 +62,7 @@ public partial class Slime : Entity
 		MoveAndSlide();
 	}
 
-	public override void TakeDamage(int amount, Vector2 sourcePosition)
+	public override void TakeDamage(float amount, Vector2 sourcePosition)
 	{
 		_currentHP -= amount;
 		GD.Print($"Slime take {amount} damage. {_currentHP} left");

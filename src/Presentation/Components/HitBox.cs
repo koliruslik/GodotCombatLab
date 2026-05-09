@@ -10,7 +10,7 @@ public partial class HitBox : Area2D
     [Export] public bool IsContact { get; set; } = false;
     [Export] public bool IsAttacking { get; set; } = false;
     
-    [Export] public int Damage = 10;
+    public float Damage;
     [Export] public Node2D AttackerSource;
 
     
@@ -27,7 +27,6 @@ public partial class HitBox : Area2D
     {
         if (!IsContact)
         {
-            // Если атака выключилась (через анимацию), забываем жертв
             if (!Monitorable && _hitVictims.Count > 0)
             {
                 _hitVictims.Clear();

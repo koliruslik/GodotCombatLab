@@ -102,11 +102,13 @@ size = Vector2(20, 13)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8ay4s"]
 size = Vector2(20, 13)
 
-[node name="Slime" type="CharacterBody2D" unique_id=1228000909 groups=["Enemies"]]
+[node name="Slime" type="CharacterBody2D" unique_id=1228000909 node_paths=PackedStringArray("HitBox", "HurtBox") groups=["Enemies"]]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_lyf3k")
 SlimeStats = ExtResource("2_y4ka4")
+HitBox = NodePath("HitBox")
+HurtBox = NodePath("HurtBox")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=470920649]
 sprite_frames = SubResource("SpriteFrames_nmhdf")

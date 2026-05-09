@@ -81,7 +81,7 @@ public partial class Player : Entity
             _stateMachinePlayback.Travel(stateName);
     }
 
-    public override void TakeDamage(int amount, Vector2 sourcePosition)
+    public override void TakeDamage(float amount, Vector2 sourcePosition)
     {
         KnockbackDirection = (GlobalPosition - sourcePosition).Normalized();
         
@@ -98,7 +98,7 @@ public partial class Player : Entity
         Fsm.ChangeState("playerhurt");
     }
     
-    public void TakeDamage(int damage) 
+    public void TakeDamage(float damage) 
     {
         TakeDamage(damage, Vector2.Zero);
     }

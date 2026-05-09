@@ -4,5 +4,5 @@ namespace CombatLab.Core.Interfaces;
 
 public interface IDamageable
 {
-    void TakeDamage(int damage, Vector2 sourcePosition);
+    void TakeDamage(float damage, Vector2 sourcePosition);
 }
