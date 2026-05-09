@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-
+namespace GodotCombatLab.Core.FSM;
 
 public partial class State<T> : Node where T : Node
 {

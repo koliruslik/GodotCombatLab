@@ -1,6 +1,6 @@
 using Godot;
 
-namespace CombatLab.entities.components;
+namespace CombatLab.Core.Interfaces;
 
 public interface IDamageable
 {

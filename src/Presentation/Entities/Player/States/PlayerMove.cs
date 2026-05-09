@@ -1,6 +1,7 @@
 using Godot;
+using GodotCombatLab.Core.FSM;
 
-namespace CombatLab.entities.player.States;
+namespace CombatLab.Presentation.Entities.Player.States;
 
 [GlobalClass]
 public partial class PlayerMove : State<Player>

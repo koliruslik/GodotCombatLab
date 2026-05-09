@@ -1,12 +1,13 @@
 using Godot;
 using System;
 using CombatLab.Core.Data;
-using CombatLab.Core.Payloads;
-using CombatLab.entities.components;
-using CombatLab.entities;
 using CombatLab.Core.Events;
+using CombatLab.Core.Interfaces;
+using CombatLab.Core.Payloads;
 
-public partial class Slime : Entity, IDamageable
+namespace CombatLab.Presentation.Entities.Enemies;
+
+public partial class Slime : Entity
 {
 	[Export] public EnemyStats SlimeStats;
 
@@ -53,14 +54,14 @@ public partial class Slime : Entity, IDamageable
 		if (_player != null)
 		{
 			Vector2 direction = (_player.GlobalPosition - GlobalPosition).Normalized();
-			velocity.X = direction.X * Speed;
+			velocity.X = direction.X * SlimeStats.Speed;
 		}
 		
 		Velocity = velocity;
 		MoveAndSlide();
 	}
 
-	public void TakeDamage(int amount, Vector2 sourcePosition)
+	public override void TakeDamage(int amount, Vector2 sourcePosition)
 	{
 		_currentHP -= amount;
 		GD.Print($"Slime take {amount} damage. {_currentHP} left");

@@ -1,7 +1,8 @@
 using Godot;
 using System;
-using CombatLab.Core.Payloads;
 using CombatLab.Core.Events;
+using CombatLab.Core.Payloads;
+
 
 namespace CombatLab.Core.Managers;
 

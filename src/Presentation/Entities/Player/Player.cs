@@ -1,13 +1,16 @@
+
 using CombatLab.Core.Events;
-using CombatLab.entities.components;
-using CombatLab.entities.player.components;
-using CombatLab.entities.player.States;
+using CombatLab.Core.Interfaces;
+using CombatLab.Presentation.Entities.Player.Components;
+using CombatLab.Presentation.Entities.Player.States;
+using CombatLab.Presentation.Strategies.Attack;
+using GodotCombatLab.Core.FSM;
 using Godot;
 
 
-namespace CombatLab.entities.player;
+namespace CombatLab.Presentation.Entities.Player;
 
-public partial class Player : Entity, IDamageable
+public partial class Player : Entity
 {
     [ExportGroup("Components")] [Export] public InputHandler Input { get; private set; }
     [Export] public PlayerStateMachine Fsm { get; private set; }
@@ -25,6 +28,7 @@ public partial class Player : Entity, IDamageable
     
     private AnimationNodeStateMachinePlayback _stateMachinePlayback;
     private float _currentHP;
+    private IAttackStrategy _attackStrategy;
 
     public int FacingDirection { get; private set; } = 1;
 
@@ -39,7 +43,7 @@ public partial class Player : Entity, IDamageable
         {
             _stateMachinePlayback = (AnimationNodeStateMachinePlayback)AnimTree.Get("parameters/playback");
         }
-
+        _attackStrategy = new MeleeAttack(10);
         _currentHP = MaxHP;
     }
 
@@ -140,7 +144,7 @@ public partial class Player : Entity, IDamageable
             _stateMachinePlayback.Travel(stateName);
     }
 
-    public void TakeDamage(int amount, Vector2 sourcePosition)
+    public override void TakeDamage(int amount, Vector2 sourcePosition)
     {
         KnockbackDirection = (GlobalPosition - sourcePosition).Normalized();
         

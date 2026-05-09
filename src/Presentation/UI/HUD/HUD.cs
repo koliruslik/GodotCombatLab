@@ -1,8 +1,8 @@
+
 using CombatLab.Core.Events;
-using CombatLab.Core.Payloads;
 using Godot;
 
-namespace CombatLab.Core.Managers;
+namespace CombatLab.Presentation.UI.HUD;
 
 public partial class HUD : Node
 {

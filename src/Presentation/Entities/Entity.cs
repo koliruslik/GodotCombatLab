@@ -1,13 +1,14 @@
+using CombatLab.Core.Interfaces;
 using Godot;
 
-namespace CombatLab.entities;
+namespace CombatLab.Presentation.Entities;
 
-public partial class Entity : CharacterBody2D
+public abstract partial class Entity : CharacterBody2D, ICombatant
 {
-    [Export] public float Speed = 300.0f;
-    [Export] public float Acceleration = 10.0f;
-    [Export] public float Friction = 200.0f;
-    [Export] public float MaxHP = 100.0f;
-    
+    public float Speed = 10;
+    public float Acceleration = 10;
+    public float Friction = 0.5f;
+    public float MaxHP = 100;
     public float Gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+    public abstract void TakeDamage(int damage, Vector2 sourcePosition);
 }

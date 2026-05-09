@@ -3,6 +3,7 @@ using System;
 using System.Numerics;
 using Vector2 = Godot.Vector2;
 
+namespace CombatLab.Presentation.UI.MainMenu;
 public partial class MainMenu : Control
 {
 	// Called when the node enters the scene tree for the first time.

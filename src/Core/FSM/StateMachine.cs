@@ -2,6 +2,8 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
+namespace GodotCombatLab.Core.FSM;
+
 public abstract partial class StateMachine<T> : Node where T : Node
 {
 	[Export] public State<T> InitialState;

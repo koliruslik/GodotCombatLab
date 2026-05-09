@@ -1,6 +1,6 @@
 using Godot;
 
-namespace CombatLab.entities.player.components;
+namespace CombatLab.Presentation.Entities.Player.Components;
 
 [GlobalClass]
 public partial class InputHandler : Node

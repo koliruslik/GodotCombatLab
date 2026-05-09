@@ -1,5 +1,7 @@
 using Godot;
-namespace CombatLab.entities.player.States;
+using GodotCombatLab.Core.FSM;
+
+namespace CombatLab.Presentation.Entities.Player.States;
 
 [GlobalClass]
 public partial class PlayerHurt : State<Player>

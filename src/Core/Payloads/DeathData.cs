@@ -1,4 +1,4 @@
-using CombatLab.entities;
+using CombatLab.Presentation.Entities;
 
 namespace CombatLab.Core.Payloads;
 

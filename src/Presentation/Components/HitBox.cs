@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using CombatLab.entities.player;
 using Godot;
 
-namespace CombatLab.entities.components;
+namespace CombatLab.Presentation.Components;
 
 [GlobalClass]
 public partial class HitBox : Area2D
