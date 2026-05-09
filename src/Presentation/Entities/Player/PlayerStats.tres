@@ -4,10 +4,10 @@
 
 [resource]
 script = ExtResource("1_w0bdq")
-MaxHP = 100.0
+MaxHP = 20.0
 MaxMP = 100.0
 Speed = 300.0
 Friction = 3000.0
-Acceleration = 500.0
+Acceleration = 1000.0
 JumpVelocity = -400.0
 metadata/_custom_type_script = "uid://fmvho7ud8ffd"

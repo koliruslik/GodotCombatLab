@@ -1,7 +1,9 @@
 
+using System;
 using CombatLab.Core.Data;
 using CombatLab.Core.Events;
 using CombatLab.Core.Interfaces;
+using CombatLab.Core.Payloads;
 using CombatLab.Presentation.Entities.Player.Components;
 using CombatLab.Presentation.Entities.Player.States;
 using CombatLab.Presentation.Strategies.Attack;
@@ -85,8 +87,13 @@ public partial class Player : Entity
         
         if (KnockbackDirection == Vector2.Zero)
             KnockbackDirection = new Vector2(-FacingDirection, -1);
-        _currentHP -= amount;
+        _currentHP = Mathf.Clamp(_currentHP - amount, 0, Stats.MaxHP);
         EventBus.PublishHealthChanged(_currentHP, Stats.MaxHP);
+        if (_currentHP <= 0)
+        {
+            PlayerDie(); 
+            return;
+        }
         GD.Print($"Took {amount} dmg, flying to {KnockbackDirection}");
         Fsm.ChangeState("playerhurt");
     }
@@ -94,5 +101,18 @@ public partial class Player : Entity
     public void TakeDamage(int damage) 
     {
         TakeDamage(damage, Vector2.Zero);
+    }
+
+    public void PlayerDie()
+    {
+        GD.Print("Player Died");
+        var dt = new DeathData
+        {
+            Victim = this,
+            Killer = null,
+            DamageSourceId = "",
+            Timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds()
+        };
+        EventBus.PublishPlayerDeath(dt);
     }
 }

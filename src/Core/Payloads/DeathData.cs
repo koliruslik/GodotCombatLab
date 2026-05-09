@@ -1,15 +1,13 @@
-using CombatLab.Presentation.Entities;
+using CombatLab.Core.Interfaces;
 
 namespace CombatLab.Core.Payloads;
 
 public struct DeathData
 {
-    public Entity Victim;
-    public Entity Killer;
-
+    public ICombatant Victim;
+    public ICombatant Killer;
     public string DamageSourceId;
-    //public DamageType Type // not implemented
     public float Timestamp;
-
     public int GoldReward;
+    
 }
