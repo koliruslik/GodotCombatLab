@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://d2jltaxsh16yx" path="res://assets/Slime green.png" id="1_h0xq2"]
 [ext_resource type="Script" uid="uid://bf45eiejgrrww" path="res://src/Presentation/Entities/Enemies/Slime/Slime.cs" id="1_lyf3k"]
-[ext_resource type="Resource" uid="uid://cvpjova26kosh" path="res://src/Presentation/Entities/Enemies/Slime/slime.tres" id="2_y4ka4"]
+[ext_resource type="Resource" uid="uid://cvpjova26kosh" path="res://src/Data/Stats/slime.tres" id="2_y4ka4"]
 [ext_resource type="Script" uid="uid://bcdiugycol5q8" path="res://src/Presentation/Components/HitBox.cs" id="3_8ay4s"]
 [ext_resource type="Script" uid="uid://c3bc03vsdvpj4" path="res://src/Presentation/Components/HurtBox.cs" id="4_je6ip"]
 

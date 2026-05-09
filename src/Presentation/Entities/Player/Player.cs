@@ -17,25 +17,23 @@ public partial class Player : Entity
     [Export] public PlayerStats Stats;
     [ExportGroup("Components")]
     [Export] public PlayerController Controller;
+    [Export] public WeaponComponent Weapon;
     [Export] public InputHandler Input { get; private set; }
     [Export] public PlayerStateMachine Fsm { get; private set; }
 
-    [Export] public AnimationPlayer WeaponAnimator;
     
-    [ExportGroup("Visuals")] [Export] public Sprite2D Sprite { get; private set; }
+    [ExportGroup("Visuals")] 
+    [Export] public Sprite2D Sprite { get; private set; }
     [Export] public AnimationTree AnimTree { get; private set; }
-    [Export] public Node2D WeaponPivot;
     
-
-    [ExportGroup("Parameters")] [Export] public float JumpVelocity = -400.0f;
+    [ExportGroup("Parameters")] 
+    [Export] public float JumpVelocity = -400.0f;
 
     public Vector2 KnockbackDirection { get; private set; }
     
     private AnimationNodeStateMachinePlayback _stateMachinePlayback;
     private float _currentHP;
-   
-    private IAttackStrategy _attackStrategy;
-
+    
     public int FacingDirection { get; set; } = 1;
 
     public override void _Ready()
@@ -45,16 +43,21 @@ public partial class Player : Entity
         if (Fsm == null) { GD.PushError("You must set FSM!"); return; }
         if (Stats == null) { GD.PushError("You must set Stats"); return;}
         if (Controller == null) {  GD.PushError("You must set Controller!"); return; }
+        if (Weapon == null) { GD.PushError("You must set WeaponComponent!"); return; }
         Fsm.SetUp(this);
 
         if (AnimTree != null)
         {
             _stateMachinePlayback = (AnimationNodeStateMachinePlayback)AnimTree.Get("parameters/playback");
         }
-        _attackStrategy = new MeleeAttack(10);
         _currentHP = Stats.MaxHP;
     }
-
+    
+    public override void _Process(double delta)
+    {
+        Fsm.UpdateInput(delta);
+        Controller.UpdateInput(delta); 
+    }
     public override void _PhysicsProcess(double delta)
     {
         Fsm.UpdatePhysics(delta);
@@ -66,15 +69,10 @@ public partial class Player : Entity
 
         MoveAndSlide();
 
-        Controller.UpdateFacing();
-        Controller.UpdateWeaponRotation();
+        Controller.UpdatePhysics(delta);
+        Weapon.Update(delta);
     }
-
-    public override void _Process(double delta)
-    {
-        Fsm.UpdateInput(delta);
-    }
-
+    
     public void TravelToAnimation(string stateName)
     {
         if (_stateMachinePlayback != null)

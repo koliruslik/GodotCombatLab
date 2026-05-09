@@ -14,7 +14,6 @@ public partial class PlayerIdle : State<Player>
 
     public override void Update(double delta)
     {
-        Actor.Controller.TryAttack();
         if (Actor.Input.IsJumpJustPressed && Actor.IsOnFloor()) 
             Actor.Controller.Jump();
         if (!Mathf.IsZeroApprox(Actor.Input.MoveDirection.X))

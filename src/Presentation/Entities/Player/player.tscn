@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b7pm8sbd3ih1c" path="res://assets/animations/player/Idle_KG_1.png" id="1_4m8ck"]
 [ext_resource type="Script" uid="uid://dpnnbrjouwbh8" path="res://src/Presentation/Entities/Player/Player.cs" id="1_vt6n5"]
-[ext_resource type="Resource" uid="uid://b6rhko8yq2rtl" path="res://src/Presentation/Entities/Player/PlayerStats.tres" id="2_fain4"]
+[ext_resource type="Resource" uid="uid://b6rhko8yq2rtl" path="res://src/Data/Stats/PlayerStats.tres" id="2_fain4"]
 [ext_resource type="Script" uid="uid://cxgoixl4x336x" path="res://src/Presentation/Entities/Player/States/PlayerStateMachine.cs" id="3_oih67"]
 [ext_resource type="Script" uid="uid://c7btwcpuw8bvq" path="res://src/Presentation/Entities/Player/States/PlayerMove.cs" id="4_eb65w"]
 [ext_resource type="Script" uid="uid://geer2pm8i2kd" path="res://src/Presentation/Entities/Player/States/PlayerIdle.cs" id="5_4f0qm"]
@@ -15,7 +15,9 @@
 [ext_resource type="Texture2D" uid="uid://45s0vre3ek0q" path="res://assets/animations/player/Hurt_KG_1.png" id="10_lqdhu"]
 [ext_resource type="Animation" uid="uid://c8pfut2j5fo0g" path="res://assets/animations/player/fall.res" id="10_n7e5a"]
 [ext_resource type="Script" uid="uid://c3bc03vsdvpj4" path="res://src/Presentation/Components/HurtBox.cs" id="13_p2qdy"]
-[ext_resource type="PackedScene" uid="uid://deo7lw8kwfw87" path="res://src/Presentation/Entities/Weapons/sword/sword.tscn" id="15_lqdhu"]
+[ext_resource type="Script" uid="uid://r2fqsqavy1e7" path="res://src/Presentation/Entities/Player/Components/WeaponComponent.cs" id="15_lcqbf"]
+[ext_resource type="PackedScene" uid="uid://deo7lw8kwfw87" path="res://src/Presentation/Weapons/sword/sword.tscn" id="15_lqdhu"]
+[ext_resource type="Resource" uid="uid://qehkih56c670" path="res://src/Data/Weapons/sword.tres" id="16_flaj3"]
 [ext_resource type="Script" uid="uid://bytyqsl8mineu" path="res://src/Presentation/Entities/Player/Components/PlayerController.cs" id="16_o7j8w"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ketdh"]
@@ -188,17 +190,16 @@ graph_offset = Vector2(-37, 66)
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lqdhu"]
 height = 56.0
 
-[node name="Player" type="CharacterBody2D" unique_id=807568083 node_paths=PackedStringArray("Controller", "Input", "Fsm", "WeaponAnimator", "Sprite", "AnimTree", "WeaponPivot")]
+[node name="Player" type="CharacterBody2D" unique_id=807568083 node_paths=PackedStringArray("Controller", "Weapon", "Input", "Fsm", "Sprite", "AnimTree")]
 z_index = 10
 script = ExtResource("1_vt6n5")
 Stats = ExtResource("2_fain4")
 Controller = NodePath("PlayerController")
+Weapon = NodePath("WeaponPivot")
 Input = NodePath("InputHandler")
 Fsm = NodePath("PlayerStateMachine")
-WeaponAnimator = NodePath("WeaponPivot/Sword/AnimationPlayer")
 Sprite = NodePath("Sprite2D")
 AnimTree = NodePath("AnimationTree")
-WeaponPivot = NodePath("WeaponPivot")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=261267804]
 texture = ExtResource("1_4m8ck")
@@ -250,7 +251,12 @@ target_position = Vector2(0, 0)
 collision_mask = 128
 collide_with_areas = true
 
-[node name="WeaponPivot" type="Node2D" parent="." unique_id=933132374]
+[node name="WeaponPivot" type="Node2D" parent="." unique_id=891107414 node_paths=PackedStringArray("HitBox", "WeaponAnimator")]
+script = ExtResource("15_lcqbf")
+HitBox = NodePath("Sword/HitBox")
+WeaponAnimator = NodePath("Sword/AnimationPlayer")
+WeaponData = ExtResource("16_flaj3")
+metadata/_custom_type_script = "uid://r2fqsqavy1e7"
 
 [node name="Sword" parent="WeaponPivot" unique_id=1795063002 instance=ExtResource("15_lqdhu")]
 position = Vector2(8, 3)

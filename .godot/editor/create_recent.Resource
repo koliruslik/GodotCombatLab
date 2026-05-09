@@ -1,2 +1,3 @@
+MeleeWeapon
 PlayerStats
 EnemyStats

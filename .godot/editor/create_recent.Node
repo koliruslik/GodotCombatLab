@@ -1,3 +1,4 @@
+WeaponComponent
 PlayerController
 CanvasLayer
 Label
@@ -12,4 +13,3 @@ Marker2D
 ColorRect
 PlayerAir
 AnimatedSprite2D
-AnimationTree

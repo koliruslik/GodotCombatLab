@@ -17,7 +17,6 @@ public partial class PlayerAir : State<Player>
 
     public override void Update(double delta)
     {
-        Actor.Controller.TryAttack();
     }
     public override void PhysicsUpdate(double delta)
     {

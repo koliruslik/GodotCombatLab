@@ -18,3 +18,17 @@ res://src/Core/Managers/UIManager.cs
 res://src/Core/Managers/GameManager.cs
 res://src/Core/FSM/StateMachine.cs
 res://src/Core/FSM/State.cs
+res://src/Core/Data/Items/Weapons/WeaponData.cs
+res://src/Core/Data/Items/Weapons/MageWeapon.cs
+res://src/Core/Data/Items/Weapons/MeleeWeapon.cs
+res://src/Presentation/Entities/Player/Components/WeaponComponent.cs
+res://src/Core/Data/Entities/EnemyStats.cs
+res://src/Core/Data/Items/ItemData.cs
+res://src/Core/Data/Entities/PlayerStats.cs
+res://src/Core/Data/Items/Weapons/RangedWeapon.cs
+res://src/Presentation/Entities/Player/player.tscn
+res://src/Presentation/Entities/Weapons/sword/sword.tscn
+res://src/Presentation/Entities/Enemies/Slime/slime.tscn
+res://src/Data/Weapons/sword/sword.tscn
+res://src/Presentation/Weapons/sword/swing.res
+res://src/Data/Weapons/sword.tres
