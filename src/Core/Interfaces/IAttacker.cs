@@ -2,7 +2,7 @@ using Godot;
 
 namespace CombatLab.Core.Interfaces;
 
-public interface ICombatant : IDamageable
+public interface IAttacker
 {
     Vector2 GlobalPosition { get; }
 }

@@ -4,7 +4,7 @@ namespace CombatLab.Presentation.Strategies.Attack;
 
 public class RangedAttack : IAttackStrategy
 {
-    public void Execute(ICombatant attacker, ICombatant target)
+    public void Execute(IAttacker attacker, IDamageable target)
     {
         
     }

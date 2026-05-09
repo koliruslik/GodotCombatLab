@@ -237,9 +237,9 @@ libraries/ = SubResource("AnimationLibrary_p2qdy")
 tree_root = SubResource("AnimationNodeStateMachine_n7e5a")
 anim_player = NodePath("../AnimationPlayer")
 
-[node name="HurtBox" type="Node2D" parent="." unique_id=1867570834 node_paths=PackedStringArray("OwnerNode", "ShapeCast")]
+[node name="HurtBox" type="Node2D" parent="." unique_id=1867570834 node_paths=PackedStringArray("Owner", "ShapeCast")]
 script = ExtResource("13_p2qdy")
-OwnerNode = NodePath("..")
+Owner = NodePath("..")
 ShapeCast = NodePath("ShapeCast2D")
 metadata/_custom_type_script = "uid://c3bc03vsdvpj4"
 

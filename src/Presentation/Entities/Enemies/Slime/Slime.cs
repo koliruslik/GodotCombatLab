@@ -71,19 +71,13 @@ public partial class Slime : Entity
 		_isHurting = true;
 		
 		//Velocity = knockBackDir * 200;
-		
-		
 		if (_currentHP <= 0)
 		{
 			Die();
 			return;
 		}
-
-		if (IsInstanceValid(this))
-		{
-			_sprite.Modulate = Colors.White;
-			_isHurting = false;
-		}
+		
+		ResetHurtState();
 	}
 
 	private void Die()
@@ -107,5 +101,12 @@ public partial class Slime : Entity
 		{
 			QueueFree();
 		}
+	}
+	private async void ResetHurtState()
+	{
+		await ToSignal(GetTree().CreateTimer(0.2f), "timeout");
+		if (!IsInstanceValid(this)) return;
+		_sprite.Modulate = Colors.White;
+		_isHurting = false;
 	}
 }

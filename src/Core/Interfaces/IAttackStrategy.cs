@@ -4,5 +4,5 @@ namespace CombatLab.Core.Interfaces;
 
 public interface IAttackStrategy
 {
-    void Execute(ICombatant attacker, ICombatant target);
+    void Execute(IAttacker attacker, IDamageable target);
 }

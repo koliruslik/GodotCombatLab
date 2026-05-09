@@ -4,8 +4,8 @@ namespace CombatLab.Core.Payloads;
 
 public struct DeathData
 {
-    public ICombatant Victim;
-    public ICombatant Killer;
+    public IDamageable Victim;
+    public IAttacker Killer;
     public string DamageSourceId;
     public float Timestamp;
     public int GoldReward;

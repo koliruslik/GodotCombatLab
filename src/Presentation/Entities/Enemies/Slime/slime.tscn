@@ -132,9 +132,9 @@ position = Vector2(0, 9.5)
 shape = SubResource("RectangleShape2D_8puyd")
 debug_color = Color(0.77241164, 0.14068264, 0, 0.41960785)
 
-[node name="HurtBox" type="Node2D" parent="." unique_id=1940554320 node_paths=PackedStringArray("OwnerNode", "ShapeCast")]
+[node name="HurtBox" type="Node2D" parent="." unique_id=1940554320 node_paths=PackedStringArray("Owner", "ShapeCast")]
 script = ExtResource("4_je6ip")
-OwnerNode = NodePath("..")
+Owner = NodePath("..")
 ShapeCast = NodePath("ShapeCast2D")
 metadata/_custom_type_script = "uid://c3bc03vsdvpj4"
 

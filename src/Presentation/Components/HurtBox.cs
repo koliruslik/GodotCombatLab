@@ -4,9 +4,9 @@ using Godot;
 namespace CombatLab.Presentation.Components;
 
 [GlobalClass]
-public partial class HurtBox : Node2D
+public partial class HurtBox : Node
 {
-    [Export] public Node OwnerNode;
+    [Export] public Node Owner;
     [Export] public float InvincibilityTime = 0.5f;
     
     [Export] public ShapeCast2D ShapeCast;
@@ -15,12 +15,14 @@ public partial class HurtBox : Node2D
 
     public override void _Ready()
     {
-        if (OwnerNode is IDamageable damageable) _damageable = damageable;
-        
         if (ShapeCast == null)
         {
             GD.PushError("No shape cast found");
         }
+        if (Owner is IDamageable damageable) 
+            _damageable = damageable;
+        else
+            GD.PushError("Owner must implement IDamageable");
         
     }
     public override void _PhysicsProcess(double delta)
@@ -41,7 +43,7 @@ public partial class HurtBox : Node2D
                 
                 if (collider is HitBox hitbox)
                 {
-                    if (hitbox.TryHit(OwnerNode)) 
+                    if (hitbox.TryHit(Owner)) 
                     {
                         var attackerPos = hitbox.GetSourcePosition();
                         _damageable.TakeDamage(hitbox.Damage, attackerPos);
