@@ -21,3 +21,6 @@ res://src/Presentation/UI/HUD/hud.tscn
 res://src/Core/Data/EnemyStats.cs
 res://src/Presentation/Entities/Enemies/Slime/slime.tres
 res://src/Presentation/Entities/Enemies/Slime/slime.tscn
+res://src/Core/Data/PlayerStats.cs
+res://src/Presentation/Entities/Player/player.tscn
+res://src/Presentation/Entities/Player/PlayerStats.tres

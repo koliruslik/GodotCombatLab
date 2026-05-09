@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PlayerStats" format=3 uid="uid://b6rhko8yq2rtl"]
+
+[ext_resource type="Script" uid="uid://fmvho7ud8ffd" path="res://src/Core/Data/PlayerStats.cs" id="1_w0bdq"]
+
+[resource]
+script = ExtResource("1_w0bdq")
+MaxHP = 100.0
+MaxMP = 100.0
+Speed = 300.0
+Friction = 3000.0
+Acceleration = 500.0
+JumpVelocity = -400.0
+metadata/_custom_type_script = "uid://fmvho7ud8ffd"

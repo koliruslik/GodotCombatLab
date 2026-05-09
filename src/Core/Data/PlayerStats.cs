@@ -1,17 +1,15 @@
-using CombatLab.Core.Interfaces;
 using Godot;
 
 namespace CombatLab.Core.Data;
 
 [GlobalClass]
-public partial class EnemyStats : Resource
+public partial class PlayerStats : Resource
 {
     [Export] public float MaxHP;
     [Export] public float MaxMP;
-    [Export] public float Atack;
     [Export] public float Defense;
     [Export] public float Speed;
+    [Export] public float Friction;
+    [Export] public float Acceleration;
     [Export] public float JumpVelocity;
-    [Export] public int Gold;
-    //[Export] public IAttackStrategy AttackStrategy; 
 }
