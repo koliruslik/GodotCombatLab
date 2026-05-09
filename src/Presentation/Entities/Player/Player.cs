@@ -1,13 +1,12 @@
 
 using System;
-using CombatLab.Core.Data;
+using CombatLab.Core.Data.Entities;
 using CombatLab.Core.Events;
 using CombatLab.Core.Interfaces;
 using CombatLab.Core.Payloads;
 using CombatLab.Presentation.Entities.Player.Components;
 using CombatLab.Presentation.Entities.Player.States;
 using CombatLab.Presentation.Strategies.Attack;
-using GodotCombatLab.Core.FSM;
 using Godot;
 
 
@@ -41,6 +40,7 @@ public partial class Player : Entity
 
     public override void _Ready()
     {
+        base._Ready();
         if (Input == null) { GD.PushError("You must set InputHandler!") ; return; }
         if (Fsm == null) { GD.PushError("You must set FSM!"); return; }
         if (Stats == null) { GD.PushError("You must set Stats"); return;}
@@ -84,9 +84,7 @@ public partial class Player : Entity
     public override void TakeDamage(float amount, Vector2 sourcePosition)
     {
         KnockbackDirection = (GlobalPosition - sourcePosition).Normalized();
-        
-        if (KnockbackDirection == Vector2.Zero)
-            KnockbackDirection = new Vector2(-FacingDirection, -1);
+
         _currentHP = Mathf.Clamp(_currentHP - amount, 0, Stats.MaxHP);
         EventBus.PublishHealthChanged(_currentHP, Stats.MaxHP);
         if (_currentHP <= 0)
@@ -98,12 +96,7 @@ public partial class Player : Entity
         Fsm.ChangeState("playerhurt");
     }
     
-    public void TakeDamage(float damage) 
-    {
-        TakeDamage(damage, Vector2.Zero);
-    }
-
-    public void PlayerDie()
+    private void PlayerDie()
     {
         GD.Print("Player Died");
         var dt = new DeathData

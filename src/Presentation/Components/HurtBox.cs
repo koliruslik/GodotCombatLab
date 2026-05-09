@@ -48,6 +48,7 @@ public partial class HurtBox : Node
                         var attackerPos = hitbox.GetSourcePosition();
                         _damageable.TakeDamage(hitbox.Damage, attackerPos);
                         _cooldownTimer = InvincibilityTime;
+                        break;
                     }
                 }
             }

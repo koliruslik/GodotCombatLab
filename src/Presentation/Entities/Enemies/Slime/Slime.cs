@@ -1,6 +1,6 @@
 using Godot;
 using System;
-using CombatLab.Core.Data;
+using CombatLab.Core.Data.Entities;
 using CombatLab.Core.Events;
 using CombatLab.Core.Interfaces;
 using CombatLab.Core.Payloads;
@@ -24,6 +24,7 @@ public partial class Slime : Entity
 
 	public override void _Ready()
 	{
+		base._Ready();
 		if (SlimeStats == null) { GD.PushError("SlimeStats not set!"); return; }
 		if(HitBox == null) { GD.PushError("HitBox not set!"); return; }
 		if(HurtBox == null) { GD.PushError("HurtBox not set!"); return; }
@@ -38,7 +39,7 @@ public partial class Slime : Entity
 
 	public override void _PhysicsProcess(double delta)
 	{
-		Vector2 velocity = Velocity;
+		var velocity = Velocity;
 
 		if (!IsOnFloor())
 		{
@@ -46,20 +47,25 @@ public partial class Slime : Entity
 		}
 		if (_isHurting)
 		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, 15.0f);
+			velocity.X = Mathf.MoveToward(Velocity.X, 0, 15.0f * (float)delta);
 			Velocity = velocity;
 			MoveAndSlide();
 			return;
 		}
 		
-		if (_player != null)
+		if (IsInstanceValid(_player))
 		{
-			Vector2 direction = (_player.GlobalPosition - GlobalPosition).Normalized();
+			var direction = (_player.GlobalPosition - GlobalPosition).Normalized();
 			velocity.X = direction.X * SlimeStats.Speed;
 		}
 		
 		Velocity = velocity;
 		MoveAndSlide();
+	}
+
+	public override void _ExitTree()
+	{
+		_sprite.AnimationFinished -= OnAnimationFinished;
 	}
 
 	public override void TakeDamage(float amount, Vector2 sourcePosition)
@@ -102,11 +108,14 @@ public partial class Slime : Entity
 			QueueFree();
 		}
 	}
-	private async void ResetHurtState()
+	private void ResetHurtState()
 	{
-		await ToSignal(GetTree().CreateTimer(0.2f), "timeout");
-		if (!IsInstanceValid(this)) return;
-		_sprite.Modulate = Colors.White;
-		_isHurting = false;
+		GetTree().CreateTimer(0.2f).Timeout += () =>
+		{
+			if (!IsInstanceValid(this)) return;
+			if (_currentHP <= 0) return;
+			_sprite.Modulate = Colors.White;
+			_isHurting = false;
+		};
 	}
 }

@@ -9,12 +9,17 @@ public abstract partial class StateMachine<T> : Node where T : Node
 	[Export] public State<T> InitialState;
 
 	protected Dictionary<(string state, string evt), string> _transitions = new();
-	public State<T> _currentState { get; private set; }
-	private Dictionary<string, State<T>> _states = new();
+	private State<T> _currentState { get; set; }
+	private readonly Dictionary<string, State<T>> _states = new();
 
 	protected abstract void RegisterTransitions();
 	public void SetUp(T actor)
 	{
+		if (InitialState == null)
+		{
+			GD.PushError("InitialState is not set!");
+			return;
+		}
 		RegisterTransitions();
 		foreach (var child in GetChildren())
 		{
@@ -25,9 +30,14 @@ public abstract partial class StateMachine<T> : Node where T : Node
 				state.Transitioned += OnTransition;
 			}
 		}
+		if (!_states.ContainsKey(InitialState.StateName))
+		{
+			GD.PushError($"InitialState '{InitialState.StateName}' is not a child of StateMachine!");
+			return;
+		}
 
-		InitialState?.Enter();
 		_currentState = InitialState;
+		InitialState?.Enter();
 	}
 
 	public void UpdateInput(double delta)
@@ -49,7 +59,7 @@ public abstract partial class StateMachine<T> : Node where T : Node
 		}
 	}
 
-	private void ChangeState(State<T> newState)
+	private void ForceState(State<T> newState)
 	{
 		if (newState == _currentState) return;
 		
