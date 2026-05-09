@@ -10,4 +10,6 @@ public struct DeathData
     public string DamageSourceId;
     //public DamageType Type // not implemented
     public float Timestamp;
+
+    public int GoldReward;
 }

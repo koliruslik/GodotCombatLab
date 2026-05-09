@@ -16,8 +16,8 @@ public partial class GameManager : Node
 
     private void EnemyDiedHandler(DeathData dt)
     {
-        GD.Print("SlimeDied! +1 Gold");
-        _gold++;
+        GD.Print("SlimeDied! + Gold");
+        _gold+= dt.GoldReward;
         EventBus.PublishGoldChanged(_gold);
     }
 }

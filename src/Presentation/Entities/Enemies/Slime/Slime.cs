@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using CombatLab.Core.Data;
 using CombatLab.Core.Payloads;
 using CombatLab.entities.components;
 using CombatLab.entities;
@@ -7,19 +8,30 @@ using CombatLab.Core.Events;
 
 public partial class Slime : Entity, IDamageable
 {
+	[Export] public EnemyStats SlimeStats;
+
+	private float _currentHP;
+	
 	private Node2D _player;
 	
 	private AnimatedSprite2D _sprite;
 	private bool _isHurting = false;
 	
 	private string _currentAnimation = "";
+
 	public override void _Ready()
 	{
+		if (SlimeStats == null) 
+		{
+			GD.PushError("SlimeStats not set!");
+			return;
+		}
+		
 		_sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		_player = GetTree().GetFirstNodeInGroup("Player") as Node2D;
 		_sprite.AnimationFinished += OnAnimationFinished;
 		AddToGroup("Enemies");
-		MaxHP = 50.0f;
+		_currentHP = SlimeStats.MaxHP;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -50,9 +62,8 @@ public partial class Slime : Entity, IDamageable
 
 	public void TakeDamage(int amount, Vector2 sourcePosition)
 	{
-		GD.Print($"Slime take {amount} damage. {MaxHP} left");
-		
-		MaxHP -= amount;
+		_currentHP -= amount;
+		GD.Print($"Slime take {amount} damage. {_currentHP} left");
 		
 		_sprite.Modulate = Colors.Red;
 		_isHurting = true;
@@ -60,7 +71,7 @@ public partial class Slime : Entity, IDamageable
 		//Velocity = knockBackDir * 200;
 		
 		
-		if (MaxHP <= 0)
+		if (_currentHP <= 0)
 		{
 			Die();
 			return;
@@ -80,7 +91,8 @@ public partial class Slime : Entity, IDamageable
 			Victim = this,
 			Killer = null,
 			DamageSourceId = null,
-			Timestamp =  DateTimeOffset.Now.ToUnixTimeMilliseconds()
+			Timestamp =  DateTimeOffset.Now.ToUnixTimeMilliseconds(),
+			GoldReward = SlimeStats.Gold
 		};
 		EventBus.PublishEnemyDied(dt);
 		_currentAnimation = "die";
