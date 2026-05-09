@@ -1,6 +1,10 @@
-namespace CombatLab.Core.Data;
+using Godot;
 
-public class MeleeWeapon
+namespace CombatLab.Core.Data.Items.Weapons;
+
+[GlobalClass]
+public partial class MeleeWeapon : WeaponData
 {
+    
     
 }

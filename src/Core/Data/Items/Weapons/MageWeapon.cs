@@ -1,6 +1,9 @@
-namespace CombatLab.Core.Data;
+using Godot;
 
-public class MageWeapon
+namespace CombatLab.Core.Data.Items.Weapons;
+
+[GlobalClass]
+public partial class MageWeapon : WeaponData
 {
-    
+    [Export] public float MPCost;
 }

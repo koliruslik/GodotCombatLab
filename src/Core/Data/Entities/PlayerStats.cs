@@ -1,6 +1,6 @@
 using Godot;
 
-namespace CombatLab.Core.Data;
+namespace CombatLab.Core.Data.Entities;
 
 [GlobalClass]
 public partial class PlayerStats : Resource

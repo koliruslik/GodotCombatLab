@@ -15,6 +15,12 @@ public partial class GameManager : Node
         GD.Print("GameManager Loaded");
     }
 
+    public override void _ExitTree()
+    {
+        EventBus.OnEnemyDied -= EnemyDiedHandler;
+        GD.Print("GameManager Exited");
+    }
+
     private void EnemyDiedHandler(DeathData dt)
     {
         GD.Print("SlimeDied! + Gold");

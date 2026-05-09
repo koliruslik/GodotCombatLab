@@ -38,11 +38,12 @@ public partial class HitBox : Area2D
     {
         if (IsContact)
         {
+            // Contact damage — always hits, cooldown is managed by HurtBox.InvincibilityTime
             return true; 
         }
         if (!Monitorable) return false;
 
-        ulong victimId = victim.GetInstanceId();
+        var victimId = victim.GetInstanceId();
         
         if (_hitVictims.Contains(victimId))
         {
