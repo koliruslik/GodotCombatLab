@@ -14,10 +14,10 @@ public partial class PlayerMove : State<Player>
 
     public override void Update(double delta)
     {
-        Actor.TryAttack();
+        Actor.Controller.TryAttack();
         if (Actor.Input.IsJumpJustPressed && Actor.IsOnFloor()) 
         {
-            Actor.Jump();
+            Actor.Controller.Jump();
             return;
         }
     }
@@ -31,7 +31,7 @@ public partial class PlayerMove : State<Player>
             EmitSignal(SignalName.Transitioned, this, "stopped");
             return;
         }
-        Actor.ApplyMovement(moveInput, delta);
+        Actor.Controller.ApplyMovement(moveInput, delta);
         
         if (!Actor.IsOnFloor()) 
         {

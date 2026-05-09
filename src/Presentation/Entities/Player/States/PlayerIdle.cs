@@ -14,16 +14,16 @@ public partial class PlayerIdle : State<Player>
 
     public override void Update(double delta)
     {
-        Actor.TryAttack();
+        Actor.Controller.TryAttack();
         if (Actor.Input.IsJumpJustPressed && Actor.IsOnFloor()) 
-            Actor.Jump();
+            Actor.Controller.Jump();
         if (!Mathf.IsZeroApprox(Actor.Input.MoveDirection.X))
             EmitSignal(SignalName.Transitioned, this, "moved");
     }
  
     public override void PhysicsUpdate(double delta)
     {
-        Actor.ApplyMovement(0, delta);
+        Actor.Controller.ApplyMovement(0, delta);
 
         if (!Actor.IsOnFloor()) 
             EmitSignal(SignalName.Transitioned, this, "airborne");

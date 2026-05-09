@@ -17,12 +17,12 @@ public partial class PlayerAir : State<Player>
 
     public override void Update(double delta)
     {
-        Actor.TryAttack();
+        Actor.Controller.TryAttack();
     }
     public override void PhysicsUpdate(double delta)
     {
         float moveInput = Actor.Input.MoveDirection.X;
-        Actor.ApplyMovement(moveInput, delta);
+        Actor.Controller.ApplyMovement(moveInput, delta);
         
         if (Actor.Velocity.Y > 0)
         {

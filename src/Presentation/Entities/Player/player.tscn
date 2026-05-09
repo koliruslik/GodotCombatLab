@@ -16,6 +16,7 @@
 [ext_resource type="Animation" uid="uid://c8pfut2j5fo0g" path="res://assets/animations/player/fall.res" id="10_n7e5a"]
 [ext_resource type="Script" uid="uid://c3bc03vsdvpj4" path="res://src/Presentation/Components/HurtBox.cs" id="13_p2qdy"]
 [ext_resource type="PackedScene" uid="uid://deo7lw8kwfw87" path="res://src/Presentation/Entities/Weapons/sword/sword.tscn" id="15_lqdhu"]
+[ext_resource type="Script" uid="uid://bytyqsl8mineu" path="res://src/Presentation/Entities/Player/Components/PlayerController.cs" id="16_o7j8w"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ketdh"]
 height = 56.0
@@ -187,10 +188,11 @@ graph_offset = Vector2(-37, 66)
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lqdhu"]
 height = 56.0
 
-[node name="Player" type="CharacterBody2D" unique_id=807568083 node_paths=PackedStringArray("Input", "Fsm", "WeaponAnimator", "Sprite", "AnimTree", "WeaponPivot")]
+[node name="Player" type="CharacterBody2D" unique_id=807568083 node_paths=PackedStringArray("Controller", "Input", "Fsm", "WeaponAnimator", "Sprite", "AnimTree", "WeaponPivot")]
 z_index = 10
 script = ExtResource("1_vt6n5")
 Stats = ExtResource("2_fain4")
+Controller = NodePath("PlayerController")
 Input = NodePath("InputHandler")
 Fsm = NodePath("PlayerStateMachine")
 WeaponAnimator = NodePath("WeaponPivot/Sword/AnimationPlayer")
@@ -228,10 +230,6 @@ metadata/_custom_type_script = "uid://dr5x1fpdigl23"
 script = ExtResource("7_p2qdy")
 metadata/_custom_type_script = "uid://bowq5c0o5opsg"
 
-[node name="InputHandler" type="Node" parent="." unique_id=206171371]
-script = ExtResource("6_tk761")
-metadata/_custom_type_script = "uid://bnav8lknx1vy8"
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=472514609]
 libraries/ = SubResource("AnimationLibrary_p2qdy")
 
@@ -257,5 +255,14 @@ collide_with_areas = true
 [node name="Sword" parent="WeaponPivot" unique_id=1795063002 instance=ExtResource("15_lqdhu")]
 position = Vector2(8, 3)
 scale = Vector2(1.805, 1.805)
+
+[node name="PlayerController" type="Node" parent="." unique_id=1563185633 node_paths=PackedStringArray("Player")]
+script = ExtResource("16_o7j8w")
+Player = NodePath("..")
+metadata/_custom_type_script = "uid://bytyqsl8mineu"
+
+[node name="InputHandler" type="Node" parent="." unique_id=206171371]
+script = ExtResource("6_tk761")
+metadata/_custom_type_script = "uid://bnav8lknx1vy8"
 
 [editable path="WeaponPivot/Sword"]

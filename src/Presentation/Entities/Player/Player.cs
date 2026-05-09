@@ -14,7 +14,9 @@ namespace CombatLab.Presentation.Entities.Player;
 public partial class Player : Entity
 {
     [Export] public PlayerStats Stats;
-    [ExportGroup("Components")] [Export] public InputHandler Input { get; private set; }
+    [ExportGroup("Components")]
+    [Export] public PlayerController Controller;
+    [Export] public InputHandler Input { get; private set; }
     [Export] public PlayerStateMachine Fsm { get; private set; }
 
     [Export] public AnimationPlayer WeaponAnimator;
@@ -33,14 +35,14 @@ public partial class Player : Entity
    
     private IAttackStrategy _attackStrategy;
 
-    public int FacingDirection { get; private set; } = 1;
+    public int FacingDirection { get; set; } = 1;
 
     public override void _Ready()
     {
         if (Input == null) { GD.PushError("You must set InputHandler!") ; return; }
         if (Fsm == null) { GD.PushError("You must set FSM!"); return; }
         if (Stats == null) { GD.PushError("You must set Stats"); return;}
-
+        if (Controller == null) {  GD.PushError("You must set Controller!"); return; }
         Fsm.SetUp(this);
 
         if (AnimTree != null)
@@ -62,86 +64,13 @@ public partial class Player : Entity
 
         MoveAndSlide();
 
-        UpdateFacing();
-        UpdateWeaponRotation();
+        Controller.UpdateFacing();
+        Controller.UpdateWeaponRotation();
     }
 
     public override void _Process(double delta)
     {
         Fsm.UpdateInput(delta);
-    }
-
-// --- ACTIONS ---
-    public void TryAttack()
-    {
-        if (Input.IsAttackJustPressed)
-        {
-            if (WeaponAnimator != null && !WeaponAnimator.IsPlaying())
-            {
-                Input.ConsumeAttack(); 
-                UpdateWeaponRotation(true);
-                WeaponAnimator.Play("swing"); 
-            }
-        }
-    }
-    
-    public void ApplyMovement(float direction, double delta)
-    {
-        float targetSpeed = direction * Stats.Speed;
-        bool changingDirection = direction * Velocity.X < 0;
-        float accel = Mathf.IsZeroApprox(direction) ? Stats.Friction 
-            : changingDirection ? Stats.Friction  
-            : Stats.Acceleration;
-
-        Velocity = new Vector2(
-            Mathf.MoveToward(Velocity.X, targetSpeed, accel * (float)delta),
-            Velocity.Y
-        );
-    }
-
-    public void Jump()
-    {
-        Velocity = new Vector2(Velocity.X, Stats.JumpVelocity);
-    }
-    
-    // --- Visuals ---
-    public void UpdateFacing()
-    {
-        float mouseX = GetGlobalMousePosition().X;
-        float playerX = GlobalPosition.X;
-        
-        FacingDirection = mouseX > playerX ? 1 : -1;
-
-        Sprite.FlipH = FacingDirection == -1;
-    }
-    
-    private void UpdateWeaponRotation(bool forceUpdate = false)
-    {
-        
-        if (WeaponPivot == null) return;
-        bool isAttacking = WeaponAnimator.IsPlaying() && WeaponAnimator.CurrentAnimation == "swing";
-
-        if (isAttacking && !forceUpdate)
-        {
-            return;
-        }
-        Vector2 mousePos = GetGlobalMousePosition();
-        Vector2 direction = mousePos - WeaponPivot.GlobalPosition;
-        
-        bool isLeft = mousePos.X < WeaponPivot.GlobalPosition.X;
-        
-        WeaponPivot.Scale = new Vector2(isLeft ? -1 : 1, 1);
-        
-        if (isLeft)
-        {
-            direction.X *= -1;
-            WeaponPivot.Rotation = -direction.Angle();
-        }
-        else
-        {
-            WeaponPivot.Rotation = direction.Angle();
-        }
-        
     }
 
     public void TravelToAnimation(string stateName)

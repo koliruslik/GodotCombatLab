@@ -25,7 +25,7 @@ public partial class PlayerHurt : State<Player>
 
     public override void PhysicsUpdate(double delta)
     {
-        Actor.ApplyMovement(0, delta);
+        Actor.Controller.ApplyMovement(0, delta);
         
         _timer -= (float)delta;
 
