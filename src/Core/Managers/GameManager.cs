@@ -8,7 +8,7 @@ namespace CombatLab.Core.Managers;
 
 public partial class GameManager : Node
 {
-    private int _gold = 0;
+    private int _curentGold;
     public override void _Ready()
     {
         EventBus.OnEnemyDied += EnemyDiedHandler;
@@ -20,11 +20,12 @@ public partial class GameManager : Node
         EventBus.OnEnemyDied -= EnemyDiedHandler;
         GD.Print("GameManager Exited");
     }
+    
 
     private void EnemyDiedHandler(DeathData dt)
     {
         GD.Print("SlimeDied! + Gold");
-        _gold+= dt.GoldReward;
-        EventBus.PublishGoldChanged(_gold);
+        _curentGold+= dt.GoldReward;
+        EventBus.PublishGoldChanged(_curentGold);
     }
 }

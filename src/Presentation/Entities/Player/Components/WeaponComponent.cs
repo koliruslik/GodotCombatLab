@@ -19,8 +19,7 @@ public partial class WeaponComponent : Node2D
         if (HitBox == null) { GD.PushError("You must set HitBox first!"); return; }
         if (WeaponAnimator == null) { GD.PushError("You must set AnimationPlayer first!"); return; }
         if (WeaponData == null) { GD.PushError("You Must set Weapon Data  first!"); return; }
-        _attackStrategy = WeaponData.WeaponType.ToStrategy(WeaponData.Damage);
-        HitBox.Damage = WeaponData.Damage;
+        UpdateWeaponStats(WeaponData);
     }
 
     public void Update(double delta)
@@ -30,7 +29,7 @@ public partial class WeaponComponent : Node2D
     public void EquipWeapon(WeaponData data)
     {
         WeaponData = data;
-        _attackStrategy = WeaponData.WeaponType.ToStrategy(WeaponData.Damage);
+        UpdateWeaponStats(data);
     }
     
     public void TryAttack()
@@ -67,5 +66,11 @@ public partial class WeaponComponent : Node2D
             Rotation = direction.Angle();
         }
         
+    }
+
+    private void UpdateWeaponStats(WeaponData data)
+    {
+        _attackStrategy = WeaponData.WeaponType.ToStrategy(WeaponData.Damage);
+        HitBox.Damage = WeaponData.Damage;
     }
 }

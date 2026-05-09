@@ -32,3 +32,4 @@ res://src/Presentation/Entities/Enemies/Slime/slime.tscn
 res://src/Data/Weapons/sword/sword.tscn
 res://src/Presentation/Weapons/sword/swing.res
 res://src/Data/Weapons/sword.tres
+res://src/Presentation/Components/HealthComponent.cs

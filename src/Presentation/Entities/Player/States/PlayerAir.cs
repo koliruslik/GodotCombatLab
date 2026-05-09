@@ -20,7 +20,7 @@ public partial class PlayerAir : State<Player>
     }
     public override void PhysicsUpdate(double delta)
     {
-        float moveInput = Actor.Input.MoveDirection.X;
+        float moveInput = Actor.PlayerInput.MoveDirection.X;
         Actor.Controller.ApplyMovement(moveInput, delta);
         
         if (Actor.Velocity.Y > 0)

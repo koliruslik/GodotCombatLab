@@ -28,13 +28,17 @@ public partial class Slime : Entity
 		if (SlimeStats == null) { GD.PushError("SlimeStats not set!"); return; }
 		if(HitBox == null) { GD.PushError("HitBox not set!"); return; }
 		if(HurtBox == null) { GD.PushError("HurtBox not set!"); return; }
-		
 		_sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		_player = GetTree().GetFirstNodeInGroup("Player") as Node2D;
+		
+		
 		_sprite.AnimationFinished += OnAnimationFinished;
-		AddToGroup("Enemies");
-		_currentHP = SlimeStats.MaxHP;
+		Health.DamageTaken += OnDamageTaken;
+		Health.ZeroHealth += Die;
+		
+		Health.Initialize(SlimeStats.MaxHP);
 		HitBox.Damage = SlimeStats.Attack;
+		AddToGroup("Enemies");
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -66,26 +70,18 @@ public partial class Slime : Entity
 	public override void _ExitTree()
 	{
 		_sprite.AnimationFinished -= OnAnimationFinished;
+		Health.DamageTaken -= OnDamageTaken;
 	}
 
-	public override void TakeDamage(float amount, Vector2 sourcePosition)
+	private void OnDamageTaken(Vector2 sourcePosition)
 	{
-		_currentHP -= amount;
-		GD.Print($"Slime take {amount} damage. {_currentHP} left");
-		
+		//GD.Print($"Slime take {amount} damage. {_currentHP} left");
 		_sprite.Modulate = Colors.Red;
-		_isHurting = true;
-		
+		_isHurting = true; // Change with state machine
 		//Velocity = knockBackDir * 200;
-		if (_currentHP <= 0)
-		{
-			Die();
-			return;
-		}
-		
 		ResetHurtState();
 	}
-
+	
 	private void Die()
 	{
 		var dt = new DeathData
@@ -113,7 +109,6 @@ public partial class Slime : Entity
 		GetTree().CreateTimer(0.2f).Timeout += () =>
 		{
 			if (!IsInstanceValid(this)) return;
-			if (_currentHP <= 0) return;
 			_sprite.Modulate = Colors.White;
 			_isHurting = false;
 		};

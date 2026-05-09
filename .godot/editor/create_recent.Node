@@ -1,3 +1,4 @@
+HealthComponent
 WeaponComponent
 PlayerController
 CanvasLayer
@@ -11,5 +12,3 @@ Sprite2D
 Area2D
 Marker2D
 ColorRect
-PlayerAir
-AnimatedSprite2D

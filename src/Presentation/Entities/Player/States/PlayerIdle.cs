@@ -14,9 +14,9 @@ public partial class PlayerIdle : State<Player>
 
     public override void Update(double delta)
     {
-        if (Actor.Input.IsJumpJustPressed && Actor.IsOnFloor()) 
+        if (Actor.PlayerInput.IsJumpJustPressed && Actor.IsOnFloor()) 
             Actor.Controller.Jump();
-        if (!Mathf.IsZeroApprox(Actor.Input.MoveDirection.X))
+        if (!Mathf.IsZeroApprox(Actor.PlayerInput.MoveDirection.X))
             EmitSignal(SignalName.Transitioned, this, "moved");
     }
  

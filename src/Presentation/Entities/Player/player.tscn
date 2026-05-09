@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://deo7lw8kwfw87" path="res://src/Presentation/Weapons/sword/sword.tscn" id="15_lqdhu"]
 [ext_resource type="Resource" uid="uid://qehkih56c670" path="res://src/Data/Weapons/sword.tres" id="16_flaj3"]
 [ext_resource type="Script" uid="uid://bytyqsl8mineu" path="res://src/Presentation/Entities/Player/Components/PlayerController.cs" id="16_o7j8w"]
+[ext_resource type="Script" uid="uid://ddi84f2tymh7p" path="res://src/Presentation/Components/HealthComponent.cs" id="20_xaguy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ketdh"]
 height = 56.0
@@ -190,16 +191,17 @@ graph_offset = Vector2(-37, 66)
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lqdhu"]
 height = 56.0
 
-[node name="Player" type="CharacterBody2D" unique_id=807568083 node_paths=PackedStringArray("Controller", "Weapon", "Input", "Fsm", "Sprite", "AnimTree")]
+[node name="Player" type="CharacterBody2D" unique_id=807568083 node_paths=PackedStringArray("Controller", "Weapon", "PlayerInput", "Fsm", "Sprite", "AnimTree", "Health")]
 z_index = 10
 script = ExtResource("1_vt6n5")
 Stats = ExtResource("2_fain4")
 Controller = NodePath("PlayerController")
 Weapon = NodePath("WeaponPivot")
-Input = NodePath("InputHandler")
+PlayerInput = NodePath("InputHandler")
 Fsm = NodePath("PlayerStateMachine")
 Sprite = NodePath("Sprite2D")
 AnimTree = NodePath("AnimationTree")
+Health = NodePath("HealthComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=261267804]
 texture = ExtResource("1_4m8ck")
@@ -270,5 +272,9 @@ metadata/_custom_type_script = "uid://bytyqsl8mineu"
 [node name="InputHandler" type="Node" parent="." unique_id=206171371]
 script = ExtResource("6_tk761")
 metadata/_custom_type_script = "uid://bnav8lknx1vy8"
+
+[node name="HealthComponent" type="Node" parent="." unique_id=177885756]
+script = ExtResource("20_xaguy")
+metadata/_custom_type_script = "uid://ddi84f2tymh7p"
 
 [editable path="WeaponPivot/Sword"]

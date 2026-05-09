@@ -14,7 +14,7 @@ public partial class PlayerMove : State<Player>
 
     public override void Update(double delta)
     {
-        if (Actor.Input.IsJumpJustPressed && Actor.IsOnFloor()) 
+        if (Actor.PlayerInput.IsJumpJustPressed && Actor.IsOnFloor()) 
         {
             Actor.Controller.Jump();
             return;
@@ -23,7 +23,7 @@ public partial class PlayerMove : State<Player>
     
     public override void PhysicsUpdate(double delta)
     {
-        float moveInput = Actor.Input.MoveDirection.X;
+        float moveInput = Actor.PlayerInput.MoveDirection.X;
         
         if (Mathf.IsZeroApprox(moveInput) && Mathf.IsZeroApprox(Actor.Velocity.X))
         {

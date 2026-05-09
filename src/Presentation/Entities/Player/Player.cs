@@ -18,7 +18,7 @@ public partial class Player : Entity
     [ExportGroup("Components")]
     [Export] public PlayerController Controller;
     [Export] public WeaponComponent Weapon;
-    [Export] public InputHandler Input { get; private set; }
+    [Export] public InputHandler PlayerInput { get; private set; }
     [Export] public PlayerStateMachine Fsm { get; private set; }
 
     
@@ -26,20 +26,17 @@ public partial class Player : Entity
     [Export] public Sprite2D Sprite { get; private set; }
     [Export] public AnimationTree AnimTree { get; private set; }
     
-    [ExportGroup("Parameters")] 
-    [Export] public float JumpVelocity = -400.0f;
-
     public Vector2 KnockbackDirection { get; private set; }
+    public int FacingDirection { get; set; } = 1;
     
     private AnimationNodeStateMachinePlayback _stateMachinePlayback;
-    private float _currentHP;
     
-    public int FacingDirection { get; set; } = 1;
+    private const string AnimPlaybackPath = "parameters/playback";
 
     public override void _Ready()
     {
         base._Ready();
-        if (Input == null) { GD.PushError("You must set InputHandler!") ; return; }
+        if (PlayerInput == null) { GD.PushError("You must set InputHandler!") ; return; }
         if (Fsm == null) { GD.PushError("You must set FSM!"); return; }
         if (Stats == null) { GD.PushError("You must set Stats"); return;}
         if (Controller == null) {  GD.PushError("You must set Controller!"); return; }
@@ -48,9 +45,13 @@ public partial class Player : Entity
 
         if (AnimTree != null)
         {
-            _stateMachinePlayback = (AnimationNodeStateMachinePlayback)AnimTree.Get("parameters/playback");
+            _stateMachinePlayback = (AnimationNodeStateMachinePlayback)AnimTree.Get(AnimPlaybackPath);
         }
-        _currentHP = Stats.MaxHP;
+
+        Health.DamageTaken += OnDamageTaken;
+        Health.ZeroHealth += PlayerDie;
+        
+        Health.Initialize(Stats.MaxHP);
     }
     
     public override void _Process(double delta)
@@ -72,6 +73,11 @@ public partial class Player : Entity
         Controller.UpdatePhysics(delta);
         Weapon.Update(delta);
     }
+
+    public override void _ExitTree()
+    {
+        Health.DamageTaken -= OnDamageTaken;
+    }
     
     public void TravelToAnimation(string stateName)
     {
@@ -79,18 +85,10 @@ public partial class Player : Entity
             _stateMachinePlayback.Travel(stateName);
     }
 
-    public override void TakeDamage(float amount, Vector2 sourcePosition)
+    private void OnDamageTaken(Vector2 sourcePosition)
     {
         KnockbackDirection = (GlobalPosition - sourcePosition).Normalized();
-
-        _currentHP = Mathf.Clamp(_currentHP - amount, 0, Stats.MaxHP);
-        EventBus.PublishHealthChanged(_currentHP, Stats.MaxHP);
-        if (_currentHP <= 0)
-        {
-            PlayerDie(); 
-            return;
-        }
-        GD.Print($"Took {amount} dmg, flying to {KnockbackDirection}");
+        //GD.Print($"Took {amount} dmg, flying to {KnockbackDirection}");
         Fsm.ChangeState("playerhurt");
     }
     

@@ -1,3 +1,4 @@
+using CombatLab.Core.Events;
 using Godot;
 namespace CombatLab.Presentation.Entities.Player.Components;
 
@@ -5,13 +6,14 @@ namespace CombatLab.Presentation.Entities.Player.Components;
 public partial class PlayerController : Node
 {
     [Export] public Player Player;
+    
     public void UpdateInput(double delta)
     {
         UpdateFacing();
-        if (Player.Input.IsAttackJustPressed)
+        if (Player.PlayerInput.IsAttackJustPressed)
         {
             //GD.Print("Attack pressed!");
-            Player.Input.ConsumeAttack();
+            Player.PlayerInput.ConsumeAttack();
             Player.Weapon.TryAttack();
         }
     }
@@ -38,6 +40,8 @@ public partial class PlayerController : Node
     {
         Player.Velocity = new Vector2(Player.Velocity.X, Player.Stats.JumpVelocity);
     }
+
+    
     
     private void UpdateFacing()
     {
@@ -48,4 +52,4 @@ public partial class PlayerController : Node
 
         Player.Sprite.FlipH = Player.FacingDirection == -1;
     }
-    }
+}
