@@ -1,3 +1,3 @@
-MeleeWeapon
+WeaponData
 PlayerStats
 EnemyStats

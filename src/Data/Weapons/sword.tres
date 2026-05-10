@@ -1,14 +1,16 @@
-[gd_resource type="Resource" script_class="MeleeWeapon" format=3 uid="uid://qehkih56c670"]
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://qehkih56c670"]
 
-[ext_resource type="Script" uid="uid://bmllt4yp8q6j" path="res://src/Core/Data/Items/Weapons/MeleeWeapon.cs" id="1_a7kbo"]
-[ext_resource type="Animation" uid="uid://b1tu480l0v4sc" path="res://src/Presentation/Weapons/sword/swing.res" id="1_uhjt5"]
+[ext_resource type="Animation" uid="uid://b1tu480l0v4sc" path="res://src/Data/Weapons/swing.res" id="1_uhjt5"]
+[ext_resource type="Script" uid="uid://b6q4yephj2eog" path="res://src/Core/Data/Items/Weapons/WeaponData.cs" id="2_a1pub"]
 
 [resource]
-script = ExtResource("1_a7kbo")
+script = ExtResource("2_a1pub")
+Damage = 20.0
 AttackPattern = ExtResource("1_uhjt5")
-Damage = 10.0
 Name = "Sword"
 Description = "CommonSword"
 Rarity = 1
 Level = 1
-metadata/_custom_type_script = "uid://bmllt4yp8q6j"
+Price = 10.0
+Weight = 2.0
+metadata/_custom_type_script = "uid://b6q4yephj2eog"
