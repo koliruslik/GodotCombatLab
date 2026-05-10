@@ -1,6 +1,6 @@
 using CombatLab.Core.Events;
 using CombatLab.Core.Interfaces;
-using CombatLab.Core.Payloads;
+using GodotCombatLab.Core.Utils;
 using Godot;
 
 namespace CombatLab.Presentation.Components;
@@ -13,6 +13,9 @@ public partial class HealthComponent : Node, IDamageable
     [Signal] public delegate void InvincibilityEndedEventHandler();
     
     [Export] public float InvincibilityTime = 0.5f;
+
+    [Export] public Node Source;
+    private const float DEFAULT_MAX_HP = 100;
     
     private float _invincibilityTimer;
     private float _currentHP;
@@ -22,11 +25,14 @@ public partial class HealthComponent : Node, IDamageable
     {
         _maxHP = maxHP;
         _currentHP = _maxHP;
-        EventBus.PublishHealthChanged(GetParent(), _currentHP, _maxHP);
+        _invincibilityTimer = 0;
+        GameLogger.Success($"{Source?.Name}: HP initialized — {_maxHP}");
+        EventBus.PublishHealthChanged(Source, _currentHP, _maxHP);
     }
 
     public override void _Ready()
     {
+        if(Source == null) { GameLogger.Error($"HealthComponent initialized with NULL node!"); return; }
         GetTree().ProcessFrame += OnFirstFrame;
     }
 
@@ -46,7 +52,7 @@ public partial class HealthComponent : Node, IDamageable
         _invincibilityTimer = InvincibilityTime;
         EmitSignal(SignalName.DamageTaken, sourcePosition);
         _currentHP = Mathf.Clamp(_currentHP - damage, 0, _maxHP);
-        EventBus.PublishHealthChanged(GetParent(), _currentHP, _maxHP);
+        EventBus.PublishHealthChanged(Source, _currentHP, _maxHP);
         if (_currentHP <= 0)
             EmitSignal(SignalName.ZeroHealth);
             
@@ -55,7 +61,12 @@ public partial class HealthComponent : Node, IDamageable
     private void OnFirstFrame()
     {
         GetTree().ProcessFrame -= OnFirstFrame;
-        EventBus.PublishHealthChanged(GetParent(), _currentHP, _maxHP);
+        if (_maxHP <= 0)
+        {
+            GameLogger.Warn($"{Source?.Name}: HealthComponent initialized with DEFAULT values!");
+            Initialize(DEFAULT_MAX_HP);
+        }
+        EventBus.PublishHealthChanged(Source, _currentHP, _maxHP);
     }
     
 }

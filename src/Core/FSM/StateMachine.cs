@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-namespace GodotCombatLab.Core.FSM;
+namespace CombatLab.Core.FSM;
 
 public abstract partial class StateMachine<T> : Node where T : Node
 {

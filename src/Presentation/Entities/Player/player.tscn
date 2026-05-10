@@ -268,8 +268,9 @@ metadata/_custom_type_script = "uid://bytyqsl8mineu"
 script = ExtResource("6_tk761")
 metadata/_custom_type_script = "uid://bnav8lknx1vy8"
 
-[node name="HealthComponent" type="Node" parent="." unique_id=177885756]
+[node name="HealthComponent" type="Node" parent="." unique_id=177885756 node_paths=PackedStringArray("Source")]
 script = ExtResource("20_xaguy")
+Source = NodePath("..")
 metadata/_custom_type_script = "uid://ddi84f2tymh7p"
 
 [editable path="WeaponPivot/Sword"]

@@ -25,3 +25,6 @@ res://src/Presentation/Weapons/sword/sword.tscn
 res://src/Data/Weapons/sword.tres
 res://src/Data/Weapons/sword2.tres
 res://src/Presentation/Entities/Player/player.tscn
+res://src/Core/Utils/Logger.cs
+res://src/Presentation/Entities/Enemies/Enemy.cs
+res://src/Presentation/Entities/Enemies/Slime/slime.tscn

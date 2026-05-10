@@ -17,6 +17,7 @@ public static class WeaponTypeExtensions
     {
         WeaponType.Melee => new MeleeAttack(damage),
         WeaponType.Ranged => new RangedAttack(damage),
-        WeaponType.Mage => new MageAttack(damage)
+        WeaponType.Mage => new MageAttack(damage),
+        _ => throw new System.NotImplementedException($"No strategy for WeaponType: {type}")
     };
 }

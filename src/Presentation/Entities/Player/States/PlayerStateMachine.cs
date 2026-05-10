@@ -1,5 +1,5 @@
 using Godot;
-using GodotCombatLab.Core.FSM;
+using CombatLab.Core.FSM;
 
 namespace CombatLab.Presentation.Entities.Player.States;
 
