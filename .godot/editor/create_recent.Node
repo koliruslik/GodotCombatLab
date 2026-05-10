@@ -1,3 +1,5 @@
+CharacterBody2D
+HitBox
 HealthComponent
 WeaponComponent
 PlayerController
@@ -11,4 +13,3 @@ CollisionShape2D
 Sprite2D
 Area2D
 Marker2D
-ColorRect

@@ -33,3 +33,5 @@ res://src/Data/Weapons/sword/sword.tscn
 res://src/Presentation/Weapons/sword/swing.res
 res://src/Data/Weapons/sword.tres
 res://src/Presentation/Components/HealthComponent.cs
+res://src/Presentation/Weapons/sword/sword.tscn
+res://src/Presentation/Levels/level_1.tscn

@@ -19,11 +19,13 @@ noise = SubResource("FastNoiseLite_un1bx")
 
 [node name="Player" parent="." unique_id=1614278784 instance=ExtResource("1_un1bx")]
 position = Vector2(0, -6)
+collision_mask = 2
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1548069537]
 zoom = Vector2(1.5, 1.5)
 
 [node name="Area2D" type="StaticBody2D" parent="." unique_id=1276244199]
+collision_layer = 2
 physics_material_override = SubResource("PhysicsMaterial_un1bx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=536437033]

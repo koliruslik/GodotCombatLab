@@ -5,6 +5,7 @@
 [ext_resource type="Resource" uid="uid://b6rhko8yq2rtl" path="res://src/Data/Stats/PlayerStats.tres" id="2_fain4"]
 [ext_resource type="Script" uid="uid://cxgoixl4x336x" path="res://src/Presentation/Entities/Player/States/PlayerStateMachine.cs" id="3_oih67"]
 [ext_resource type="Script" uid="uid://c7btwcpuw8bvq" path="res://src/Presentation/Entities/Player/States/PlayerMove.cs" id="4_eb65w"]
+[ext_resource type="Script" uid="uid://bcdiugycol5q8" path="res://src/Presentation/Components/HitBox.cs" id="4_xaguy"]
 [ext_resource type="Script" uid="uid://geer2pm8i2kd" path="res://src/Presentation/Entities/Player/States/PlayerIdle.cs" id="5_4f0qm"]
 [ext_resource type="Script" uid="uid://dr5x1fpdigl23" path="res://src/Presentation/Entities/Player/States/PlayerAir.cs" id="6_n7e5a"]
 [ext_resource type="Script" uid="uid://bnav8lknx1vy8" path="res://src/Presentation/Entities/Player/Components/InputHandler.cs" id="6_tk761"]
@@ -14,7 +15,6 @@
 [ext_resource type="Animation" uid="uid://b8ryjjy3l54ns" path="res://assets/animations/player/jump.res" id="9_tk761"]
 [ext_resource type="Texture2D" uid="uid://45s0vre3ek0q" path="res://assets/animations/player/Hurt_KG_1.png" id="10_lqdhu"]
 [ext_resource type="Animation" uid="uid://c8pfut2j5fo0g" path="res://assets/animations/player/fall.res" id="10_n7e5a"]
-[ext_resource type="Script" uid="uid://c3bc03vsdvpj4" path="res://src/Presentation/Components/HurtBox.cs" id="13_p2qdy"]
 [ext_resource type="Script" uid="uid://r2fqsqavy1e7" path="res://src/Presentation/Entities/Player/Components/WeaponComponent.cs" id="15_lcqbf"]
 [ext_resource type="PackedScene" uid="uid://deo7lw8kwfw87" path="res://src/Presentation/Weapons/sword/sword.tscn" id="15_lqdhu"]
 [ext_resource type="Resource" uid="uid://qehkih56c670" path="res://src/Data/Weapons/sword.tres" id="16_flaj3"]
@@ -188,10 +188,7 @@ states/walk/position = Vector2(699, 402)
 transitions = ["idle", "walk", SubResource("AnimationNodeStateMachineTransition_4f0qm"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_tk761"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_oih67"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_p2qdy"), "walk", "jump", SubResource("AnimationNodeStateMachineTransition_lqdhu"), "Start", "fall", SubResource("AnimationNodeStateMachineTransition_t8d2k"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_yi0df"), "idle", "fall", SubResource("AnimationNodeStateMachineTransition_0tyfe"), "walk", "fall", SubResource("AnimationNodeStateMachineTransition_ogtao"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_a31ob"), "idle", "hurt", SubResource("AnimationNodeStateMachineTransition_5qgjf"), "jump", "hurt", SubResource("AnimationNodeStateMachineTransition_fjj3i"), "walk", "hurt", SubResource("AnimationNodeStateMachineTransition_3d0mj"), "fall", "hurt", SubResource("AnimationNodeStateMachineTransition_dao75"), "hurt", "fall", SubResource("AnimationNodeStateMachineTransition_45xpv"), "fall", "idle", SubResource("AnimationNodeStateMachineTransition_ngh1c"), "fall", "walk", SubResource("AnimationNodeStateMachineTransition_amj0e")]
 graph_offset = Vector2(-37, 66)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lqdhu"]
-height = 56.0
-
-[node name="Player" type="CharacterBody2D" unique_id=807568083 node_paths=PackedStringArray("Controller", "Weapon", "PlayerInput", "Fsm", "Sprite", "AnimTree", "Health")]
+[node name="Player" type="CharacterBody2D" unique_id=639000663 node_paths=PackedStringArray("Controller", "Weapon", "PlayerInput", "Fsm", "Sprite", "AnimTree", "Health")]
 z_index = 10
 script = ExtResource("1_vt6n5")
 Stats = ExtResource("2_fain4")
@@ -202,13 +199,24 @@ Fsm = NodePath("PlayerStateMachine")
 Sprite = NodePath("Sprite2D")
 AnimTree = NodePath("AnimationTree")
 Health = NodePath("HealthComponent")
+metadata/_custom_type_script = "uid://dpnnbrjouwbh8"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=261267804]
 texture = ExtResource("1_4m8ck")
 hframes = 4
 region_rect = Rect2(0, 0, 400, 64)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=399014198]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=816132720]
+position = Vector2(0, 4)
+shape = SubResource("CapsuleShape2D_ketdh")
+
+[node name="HitBox" type="Area2D" parent="." unique_id=1105404999 node_paths=PackedStringArray("Owner")]
+collision_mask = 0
+script = ExtResource("4_xaguy")
+Owner = NodePath("..")
+metadata/_custom_type_script = "uid://bcdiugycol5q8"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=399014198]
 position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_ketdh")
 
@@ -239,19 +247,6 @@ libraries/ = SubResource("AnimationLibrary_p2qdy")
 [node name="AnimationTree" type="AnimationTree" parent="." unique_id=418967180]
 tree_root = SubResource("AnimationNodeStateMachine_n7e5a")
 anim_player = NodePath("../AnimationPlayer")
-
-[node name="HurtBox" type="Node2D" parent="." unique_id=1867570834 node_paths=PackedStringArray("Owner", "ShapeCast")]
-script = ExtResource("13_p2qdy")
-Owner = NodePath("..")
-ShapeCast = NodePath("ShapeCast2D")
-metadata/_custom_type_script = "uid://c3bc03vsdvpj4"
-
-[node name="ShapeCast2D" type="ShapeCast2D" parent="HurtBox" unique_id=1586459497]
-position = Vector2(0, 4)
-shape = SubResource("CapsuleShape2D_lqdhu")
-target_position = Vector2(0, 0)
-collision_mask = 128
-collide_with_areas = true
 
 [node name="WeaponPivot" type="Node2D" parent="." unique_id=891107414 node_paths=PackedStringArray("HitBox", "WeaponAnimator")]
 script = ExtResource("15_lcqbf")

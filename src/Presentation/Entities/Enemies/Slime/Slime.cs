@@ -5,6 +5,7 @@ using CombatLab.Core.Events;
 using CombatLab.Core.Interfaces;
 using CombatLab.Core.Payloads;
 using CombatLab.Presentation.Components;
+using CombatLab.Presentation.Strategies.Attack;
 
 namespace CombatLab.Presentation.Entities.Enemies;
 
@@ -12,10 +13,10 @@ public partial class Slime : Entity
 {
 	[Export] public EnemyStats SlimeStats;
 	[Export] public HitBox HitBox;
-	[Export] public HurtBox HurtBox;
-	private float _currentHP;
+
+	private IAttackStrategy _attackStrategy;
 	
-	private Node2D _player;
+	private Node _player;
 	
 	private AnimatedSprite2D _sprite;
 	private bool _isHurting = false;
@@ -27,17 +28,21 @@ public partial class Slime : Entity
 		base._Ready();
 		if (SlimeStats == null) { GD.PushError("SlimeStats not set!"); return; }
 		if(HitBox == null) { GD.PushError("HitBox not set!"); return; }
-		if(HurtBox == null) { GD.PushError("HurtBox not set!"); return; }
-		_sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-		_player = GetTree().GetFirstNodeInGroup("Player") as Node2D;
 		
+		_sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+		var players = GetTree().GetNodesInGroup("Player");
+		GD.Print($"Players count: {players.Count}");
+		foreach(var p in players)
+			GD.Print($"  - {p.Name}, type: {p.GetClass()}");
+		_attackStrategy = new MeleeAttack(SlimeStats.Attack);
 		
 		_sprite.AnimationFinished += OnAnimationFinished;
 		Health.DamageTaken += OnDamageTaken;
 		Health.ZeroHealth += Die;
+		GetTree().ProcessFrame += OnFirstFrame;
+		HitBox.HitDetected += OnHitDetected;
 		
 		Health.Initialize(SlimeStats.MaxHP);
-		HitBox.Damage = SlimeStats.Attack;
 		AddToGroup("Enemies");
 	}
 
@@ -57,9 +62,9 @@ public partial class Slime : Entity
 			return;
 		}
 		
-		if (IsInstanceValid(_player))
+		if (IsInstanceValid(_player) && _player is Node2D playerNode)
 		{
-			var direction = (_player.GlobalPosition - GlobalPosition).Normalized();
+			var direction = (playerNode.GlobalPosition - GlobalPosition).Normalized();
 			velocity.X = direction.X * SlimeStats.Speed;
 		}
 		
@@ -71,6 +76,10 @@ public partial class Slime : Entity
 	{
 		_sprite.AnimationFinished -= OnAnimationFinished;
 		Health.DamageTaken -= OnDamageTaken;
+		Health.ZeroHealth -= Die;
+		if(_player is Entity entity)
+			entity.Health.InvincibilityEnded -= HitBox.ResetHits;
+		HitBox.HitDetected -= OnHitDetected;
 	}
 
 	private void OnDamageTaken(Vector2 sourcePosition)
@@ -96,14 +105,6 @@ public partial class Slime : Entity
 		_currentAnimation = "die";
 		_sprite.Play(_currentAnimation);
 	}
-
-	private void OnAnimationFinished()
-	{
-		if (_currentAnimation == "die")
-		{
-			QueueFree();
-		}
-	}
 	private void ResetHurtState()
 	{
 		GetTree().CreateTimer(0.2f).Timeout += () =>
@@ -112,5 +113,31 @@ public partial class Slime : Entity
 			_sprite.Modulate = Colors.White;
 			_isHurting = false;
 		};
+	}
+	private void OnFirstFrame()
+	{
+		GetTree().ProcessFrame -= OnFirstFrame;
+		_player = GetTree().GetFirstNodeInGroup("Player");
+		GD.Print($"Player found: {_player?.Name}, is Entity: {_player is Entity}");
+		if(_player is Entity entity)
+		{
+			GD.Print("Subscribed to InvincibilityEnded!");
+			entity.Health.InvincibilityEnded += HitBox.ResetHits;
+		}
+	}
+
+	private void OnAnimationFinished()
+	{
+		if (_currentAnimation == "die")
+		{
+			QueueFree();
+		}
+	}
+	
+	private void OnHitDetected(Node victim)
+	{
+		GD.Print($"Slime hit: {victim.Name}");
+		if(victim is IDamageable target)
+			_attackStrategy.Execute(this, target);
 	}
 }

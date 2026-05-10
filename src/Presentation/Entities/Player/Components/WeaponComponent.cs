@@ -6,20 +6,32 @@ using Godot;
 namespace CombatLab.Presentation.Entities.Player.Components;
 
 [GlobalClass]
-public partial class WeaponComponent : Node2D
+public partial class WeaponComponent : Node2D, IAttacker
 {
     [Export] public HitBox HitBox;
     [Export] public AnimationPlayer WeaponAnimator;
     [Export] public WeaponData WeaponData;
 
     private IAttackStrategy _attackStrategy;
+    private StringName _attackAnimName = null;
 
     public override void _Ready()
     {
         if (HitBox == null) { GD.PushError("You must set HitBox first!"); return; }
         if (WeaponAnimator == null) { GD.PushError("You must set AnimationPlayer first!"); return; }
         if (WeaponData == null) { GD.PushError("You Must set Weapon Data  first!"); return; }
+        
+        WeaponAnimator.AnimationFinished += OnAttackFinished;
+        HitBox.HitDetected += OnHitDetected;
+        
+        _attackAnimName = "swing";
         UpdateWeaponStats(WeaponData);
+    }
+
+    public override void _ExitTree()
+    {
+        WeaponAnimator.AnimationFinished -= OnAttackFinished;
+        HitBox.HitDetected -= OnHitDetected;
     }
 
     public void Update(double delta)
@@ -37,7 +49,7 @@ public partial class WeaponComponent : Node2D
         if (WeaponAnimator != null && !WeaponAnimator.IsPlaying())
         {
             UpdateRotation(true);
-            WeaponAnimator.Play("swing"); 
+            WeaponAnimator.Play(_attackAnimName); 
         }
     }
     
@@ -71,6 +83,18 @@ public partial class WeaponComponent : Node2D
     private void UpdateWeaponStats(WeaponData data)
     {
         _attackStrategy = WeaponData.WeaponType.ToStrategy(WeaponData.Damage);
-        HitBox.Damage = WeaponData.Damage;
+    }
+
+    private void OnAttackFinished(StringName animName)
+    {
+        if(animName == _attackAnimName)
+            HitBox.ResetHits();
+    }
+
+    private void OnHitDetected(Node victim)
+    {
+        //GD.Print("Hit!");
+        if(victim is IDamageable target)
+        _attackStrategy.Execute(this, target);
     }
 }

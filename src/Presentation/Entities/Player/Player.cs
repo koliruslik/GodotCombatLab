@@ -36,6 +36,7 @@ public partial class Player : Entity
     public override void _Ready()
     {
         base._Ready();
+        AddToGroup("Player");
         if (PlayerInput == null) { GD.PushError("You must set InputHandler!") ; return; }
         if (Fsm == null) { GD.PushError("You must set FSM!"); return; }
         if (Stats == null) { GD.PushError("You must set Stats"); return;}
