@@ -2,6 +2,7 @@ using CombatLab.Presentation.Components;
 using CombatLab.Core.Data.Items.Weapons;
 using CombatLab.Core.Interfaces;
 using Godot;
+using CombatLab.Core.Utils;
 
 namespace CombatLab.Presentation.Entities.Player.Components;
 
@@ -17,9 +18,9 @@ public partial class WeaponComponent : Node2D, IAttacker
 
     public override void _Ready()
     {
-        if (HitBox == null) { GD.PushError("You must set HitBox first!"); return; }
-        if (WeaponAnimator == null) { GD.PushError("You must set AnimationPlayer first!"); return; }
-        if (WeaponData == null) { GD.PushError("You Must set Weapon Data  first!"); return; }
+        if (HitBox == null) { GameLogger.Error("You must set HitBox first!"); return; }
+        if (WeaponAnimator == null) { GameLogger.Error("You must set AnimationPlayer first!"); return; }
+        if (WeaponData == null) { GameLogger.Error("You Must set Weapon Data  first!"); return; }
         
         WeaponAnimator.AnimationFinished += OnAttackFinished;
         HitBox.HitDetected += OnHitDetected;

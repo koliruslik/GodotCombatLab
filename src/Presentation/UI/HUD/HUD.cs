@@ -12,16 +12,16 @@ public partial class HUD : Node
     private Node _player;
     public override void _Ready()
     {
-        EventBus.OnGoldChanged += GoldChangedHandler;
-        EventBus.OnHealthChanged += HealthChangedHandler;
+        EventBus.GoldChanged += GoldChangedHandler;
+        EventBus.HealthChanged += HealthChangedHandler;
         _player = GetTree().GetFirstNodeInGroup("Player");
         GoldLabel.Text = "Gold: 0"; 
     }
 
     public override void _ExitTree()
     {
-        EventBus.OnGoldChanged -= GoldChangedHandler;
-        EventBus.OnHealthChanged -= HealthChangedHandler;
+        EventBus.GoldChanged -= GoldChangedHandler;
+        EventBus.HealthChanged -= HealthChangedHandler;
     }
     
     private void GoldChangedHandler(float currentGold)

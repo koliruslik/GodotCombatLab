@@ -4,10 +4,11 @@ using CombatLab.Core.Data.Items.Weapons;
 using CombatLab.Core.Events;
 using CombatLab.Core.Interfaces;
 using CombatLab.Core.Payloads;
+using CombatLab.Core.Services;
 using CombatLab.Presentation.Components;
 using CombatLab.Presentation.Strategies.Attack;
 using Godot;
-using GodotCombatLab.Core.Utils;
+using CombatLab.Core.Utils;
 
 namespace CombatLab.Presentation.Entities.Enemies;
 
@@ -19,7 +20,7 @@ public partial class Enemy : Entity
 
     protected IAttackStrategy _attackStrategy;
 
-    protected Node _player;
+    protected IPlayer _player;
     
 
     protected string _currentAnimation = "";
@@ -29,9 +30,9 @@ public partial class Enemy : Entity
     public override void _Ready()
     {
         base._Ready();
-        if (Stats == null) { GameLogger.Error("SlimeStats not set!"); return; }
-        if(HitBox == null) { GameLogger.Error("HitBox not set!"); return; }
-        if(Sprite == null) { GameLogger.Error("Sprite not set!"); return; }
+        if (Stats == null) { GameLogger.Error($" {Stats.Name}: SlimeStats not set!"); return; }
+        if(HitBox == null) { GameLogger.Error($" {Stats.Name}: HitBox not set!"); return; }
+        if(Sprite == null) { GameLogger.Error($" {Stats.Name}: Sprite not set!"); return; }
         _attackStrategy = Stats.WeaponData == null
             ? new MeleeAttack(Stats.Damage)
             : Stats.WeaponData.WeaponType.ToStrategy(Stats.WeaponData.Damage);
@@ -41,6 +42,7 @@ public partial class Enemy : Entity
         Health.ZeroHealth += Die;
         GetTree().ProcessFrame += OnFirstFrame;
         HitBox.HitDetected += OnHitDetected;
+        EventBus.PlayerDied += OnPlayerDied;
 		
         Health.Initialize(Stats.MaxHP);
         AddToGroup("Enemies"); 
@@ -51,30 +53,41 @@ public partial class Enemy : Entity
         Sprite.AnimationFinished -= OnAnimationFinished;
         Health.DamageTaken -= OnDamageTaken;
         Health.ZeroHealth -= Die;
-        if(_player is Entity entity)
-            entity.Health.InvincibilityEnded -= HitBox.ResetHits;
+        if(_player != null)
+            _player.OnInvincibilityEnded -= HitBox.ResetHits;
         HitBox.HitDetected -= OnHitDetected;
+        EventBus.PlayerDied -= OnPlayerDied;
     }
     
     protected virtual void OnFirstFrame()
     {
         GetTree().ProcessFrame -= OnFirstFrame;
-        _player = GetTree().GetFirstNodeInGroup("Player");
-        GameLogger.Debug($"Player found: {_player?.Name}, is Entity: {_player is Entity}");
-        if(_player is Entity entity)
+        if (ServiceLocator.TryGet<IPlayer>(out var player))
         {
-            GameLogger.Debug("Subscribed to InvincibilityEnded!");
-            entity.Health.InvincibilityEnded += HitBox.ResetHits;
+            _player = player;
+            _player.OnInvincibilityEnded += HitBox.ResetHits;
+            GameLogger.Debug($" {Stats.Name}: IPlayer registered in ServiceLocator", LogCategory.Init);
+        }
+        else
+        {
+            GameLogger.Error($" {Stats.Name}: Player not found!");
         }
     }
     
     protected virtual void OnDamageTaken(Vector2 sourcePosition)
     {
-        GameLogger.Debug($"Enemy {Stats.Name} took damage.");
+        if (_player == null) return;
+        GameLogger.Debug($"{Stats.Name}: took damage.", LogCategory.Combat);
         Sprite.Modulate = Colors.Red;
         //_isHurting = true; // Change with state machine
         //Velocity = knockBackDir * 200;
         ResetHurtState();
+    }
+
+    protected virtual void OnPlayerDied(DeathData _)
+    {
+        GameLogger.Info("Player reference _player set to null");
+        _player = null;
     }
     
     protected virtual void Die()
@@ -94,7 +107,7 @@ public partial class Enemy : Entity
     
     protected virtual void OnAnimationFinished()
     {
-        if (_currentAnimation == "die")
+        if (_currentAnimation == DIE_ANIMATION)
         {
             QueueFree();
         }
@@ -102,7 +115,7 @@ public partial class Enemy : Entity
 	
     protected virtual void OnHitDetected(Node victim)
     {
-        GameLogger.Debug($"{Stats.Name} hit: {victim.Name}");
+        GameLogger.Debug($"{Stats.Name} hit: {victim.Name}", LogCategory.Combat);
         if(victim is IDamageable target)
             _attackStrategy.Execute(this, target);
     }

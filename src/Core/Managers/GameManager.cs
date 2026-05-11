@@ -1,31 +1,40 @@
 using Godot;
 using System;
 using CombatLab.Core.Events;
+using CombatLab.Core.Interfaces;
 using CombatLab.Core.Payloads;
+using CombatLab.Core.Utils;
+using CombatLab.Core.Services;
+
 
 
 namespace CombatLab.Core.Managers;
 
-public partial class GameManager : Node
+public partial class GameManager : Node, IGameManager
 {
-    private int _curentGold;
+    private int _currentGold;
+    public int CurrentGold => _currentGold;
     public override void _Ready()
     {
-        EventBus.OnEnemyDied += EnemyDiedHandler;
-        GD.Print("GameManager Loaded");
+        GameLogger.EnabledCategories = LogCategory.All;
+        
+        EventBus.EnemyDied += EnemyDiedHandler;
+        
+        ServiceLocator.Register<IGameManager>(this);
+        GameLogger.Info("GameManager Loaded");
     }
 
     public override void _ExitTree()
     {
-        EventBus.OnEnemyDied -= EnemyDiedHandler;
-        GD.Print("GameManager Exited");
+        EventBus.EnemyDied -= EnemyDiedHandler;
+        ServiceLocator.Unregister<IGameManager>();
+        GameLogger.Info("GameManager Exited");
     }
-    
 
     private void EnemyDiedHandler(DeathData dt)
     {
-        GD.Print("SlimeDied! + Gold");
-        _curentGold+= dt.GoldReward;
-        EventBus.PublishGoldChanged(_curentGold);
+        GameLogger.Info("SlimeDied! + Gold");
+        _currentGold+= dt.GoldReward;
+        EventBus.PublishGoldChanged(_currentGold);
     }
 }

@@ -1,5 +1,6 @@
 using Godot;
 using CombatLab.Core.FSM;
+using CombatLab.Core.Utils;
 
 namespace CombatLab.Presentation.Entities.Player.States;
 
@@ -14,7 +15,7 @@ public partial class PlayerHurt : State<Player>
 
     public override void Enter()
     {
-        GD.Print("Entering PlayerHurt State");
+        GameLogger.Debug("Entering PlayerHurt State", LogCategory.State);
         
         _timer = StunDuration;
         Actor.TravelToAnimation("hurt");

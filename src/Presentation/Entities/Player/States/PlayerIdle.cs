@@ -1,5 +1,6 @@
 using Godot;
 using CombatLab.Core.FSM;
+using CombatLab.Core.Utils;
 
 namespace CombatLab.Presentation.Entities.Player.States;
 
@@ -8,7 +9,7 @@ public partial class PlayerIdle : State<Player>
 {
     public override void Enter()
     {
-        GD.Print("Entering PlayerIdle");
+        GameLogger.Debug("Entering PlayerIdle", LogCategory.State);
         Actor.TravelToAnimation("idle");
     }
 

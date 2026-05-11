@@ -1,12 +1,3 @@
-using Godot;
-using System;
-using CombatLab.Core.Data.Entities;
-using CombatLab.Core.Events;
-using CombatLab.Core.Interfaces;
-using CombatLab.Core.Payloads;
-using CombatLab.Presentation.Components;
-using CombatLab.Presentation.Strategies.Attack;
-
 namespace CombatLab.Presentation.Entities.Enemies;
 
 public partial class Slime : Enemy
@@ -26,10 +17,9 @@ public partial class Slime : Enemy
 		//     MoveAndSlide();
 		//     return;
 		// }
-		
-		if (IsInstanceValid(_player) && _player is Node2D playerNode)
+		if (_player != null)
 		{
-			var direction = (playerNode.GlobalPosition - GlobalPosition).Normalized();
+			var direction = (_player.GlobalPosition - GlobalPosition).Normalized();
 			velocity.X = direction.X * Stats.Speed;
 		}
 		
@@ -37,3 +27,4 @@ public partial class Slime : Enemy
 		MoveAndSlide();
 	}
 }
+

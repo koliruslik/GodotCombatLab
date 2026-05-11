@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using CombatLab.Core.Utils;
 
 namespace CombatLab.Core.FSM;
 
@@ -17,7 +18,7 @@ public abstract partial class StateMachine<T> : Node where T : Node
 	{
 		if (InitialState == null)
 		{
-			GD.PushError("InitialState is not set!");
+			GameLogger.Error("InitialState is not set!");
 			return;
 		}
 		RegisterTransitions();
@@ -32,7 +33,7 @@ public abstract partial class StateMachine<T> : Node where T : Node
 		}
 		if (!_states.ContainsKey(InitialState.StateName))
 		{
-			GD.PushError($"InitialState '{InitialState.StateName}' is not a child of StateMachine!");
+			GameLogger.Error($"InitialState '{InitialState.StateName}' is not a child of StateMachine!");
 			return;
 		}
 
@@ -75,7 +76,7 @@ public abstract partial class StateMachine<T> : Node where T : Node
 		
 		if (!_states.ContainsKey(key))
 		{
-			GD.PrintErr($"FSM: State '{newStateName}' not found!");
+			GameLogger.Error($"FSM: State '{newStateName}' not found!");
 			return;
 		}
 

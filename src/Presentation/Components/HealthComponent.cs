@@ -1,6 +1,6 @@
 using CombatLab.Core.Events;
 using CombatLab.Core.Interfaces;
-using GodotCombatLab.Core.Utils;
+using CombatLab.Core.Utils;
 using Godot;
 
 namespace CombatLab.Presentation.Components;

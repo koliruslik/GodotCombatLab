@@ -4,15 +4,17 @@ using CombatLab.Core.Data.Entities;
 using CombatLab.Core.Events;
 using CombatLab.Core.Interfaces;
 using CombatLab.Core.Payloads;
+using CombatLab.Core.Services;
 using CombatLab.Presentation.Entities.Player.Components;
 using CombatLab.Presentation.Entities.Player.States;
 using CombatLab.Presentation.Strategies.Attack;
 using Godot;
+using CombatLab.Core.Utils;
 
 
 namespace CombatLab.Presentation.Entities.Player;
 
-public partial class Player : Entity
+public partial class Player : Entity, IPlayer
 {
     [Export] public PlayerStats Stats;
     [ExportGroup("Components")]
@@ -26,6 +28,8 @@ public partial class Player : Entity
     [Export] public Sprite2D Sprite { get; private set; }
     [Export] public AnimationTree AnimTree { get; private set; }
     
+    public event Action OnInvincibilityEnded;
+    
     public Vector2 KnockbackDirection { get; private set; }
     public int FacingDirection { get; set; } = 1;
     
@@ -36,12 +40,11 @@ public partial class Player : Entity
     public override void _Ready()
     {
         base._Ready();
-        AddToGroup("Player");
-        if (PlayerInput == null) { GD.PushError("You must set InputHandler!") ; return; }
-        if (Fsm == null) { GD.PushError("You must set FSM!"); return; }
-        if (Stats == null) { GD.PushError("You must set Stats"); return;}
-        if (Controller == null) {  GD.PushError("You must set Controller!"); return; }
-        if (Weapon == null) { GD.PushError("You must set WeaponComponent!"); return; }
+        if (PlayerInput == null) { GameLogger.Error("You must set InputHandler!") ; return; }
+        if (Fsm == null) { GameLogger.Error("You must set FSM!"); return; }
+        if (Stats == null) { GameLogger.Error("You must set Stats"); return;}
+        if (Controller == null) {  GameLogger.Error("You must set Controller!"); return; }
+        if (Weapon == null) { GameLogger.Error("You must set WeaponComponent!"); return; }
         Fsm.SetUp(this);
 
         if (AnimTree != null)
@@ -51,8 +54,12 @@ public partial class Player : Entity
 
         Health.DamageTaken += OnDamageTaken;
         Health.ZeroHealth += PlayerDie;
+        Health.InvincibilityEnded += () => OnInvincibilityEnded?.Invoke();
         
         Health.Initialize(Stats.MaxHP);
+        
+        ServiceLocator.Register<IPlayer>(this);
+        AddToGroup("Player");
     }
     
     public override void _Process(double delta)
@@ -74,10 +81,14 @@ public partial class Player : Entity
         Controller.UpdatePhysics(delta);
         Weapon.Update(delta);
     }
+    
+    
 
     public override void _ExitTree()
     {
         Health.DamageTaken -= OnDamageTaken;
+        ServiceLocator.Unregister<IPlayer>();
+        GameLogger.Info("Player has been exited");
     }
     
     public void TravelToAnimation(string stateName)
@@ -85,17 +96,18 @@ public partial class Player : Entity
         if (_stateMachinePlayback != null)
             _stateMachinePlayback.Travel(stateName);
     }
+    
+ 
 
     private void OnDamageTaken(Vector2 sourcePosition)
     {
         KnockbackDirection = (GlobalPosition - sourcePosition).Normalized();
-        //GD.Print($"Took {amount} dmg, flying to {KnockbackDirection}");
         Fsm.ChangeState("playerhurt");
     }
     
     private void PlayerDie()
     {
-        GD.Print("Player Died");
+        GameLogger.Info("Player Died");
         var dt = new DeathData
         {
             Victim = this,
@@ -105,4 +117,5 @@ public partial class Player : Entity
         };
         EventBus.PublishPlayerDeath(dt);
     }
+    
 }

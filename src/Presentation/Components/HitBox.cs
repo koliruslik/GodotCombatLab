@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Godot;
+using CombatLab.Core.Utils;
 
 namespace CombatLab.Presentation.Components;
 
@@ -16,13 +17,13 @@ public partial class HitBox : Area2D
     {
         foreach (var area in GetOverlappingAreas())
         {
-            //GD.Print($"Overlapping: {area.Name}");
+            GameLogger.Debug($"Overlapping: {area.Name}", LogCategory.CombatDetailed);
             if (area is HitBox other && other.Owner != Owner)
             {
-                //GD.Print($"HitBox found: {other.Owner?.Name}");
                 var id = other.Owner.GetInstanceId();
                 if (_hitVictims.Contains(id)) continue;
                 _hitVictims.Add(id);
+                GameLogger.Debug($"HitBox found: {other.Owner?.Name}", LogCategory.Combat);
                 EmitSignal(SignalName.HitDetected, other.Owner);
             }
         }

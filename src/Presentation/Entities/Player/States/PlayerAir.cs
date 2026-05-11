@@ -1,5 +1,6 @@
 using Godot;
 using CombatLab.Core.FSM;
+using CombatLab.Core.Utils;
 
 namespace CombatLab.Presentation.Entities.Player.States;
 
@@ -8,7 +9,7 @@ public partial class PlayerAir : State<Player>
 {
     public override void Enter()
     {
-        GD.Print("Entering PlayerAir");
+        GameLogger.Debug("Entering PlayerAir", LogCategory.State);
         if (Actor.Velocity.Y < 0)
             Actor.TravelToAnimation("jump");
         else

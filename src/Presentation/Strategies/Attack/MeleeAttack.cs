@@ -1,5 +1,6 @@
 using CombatLab.Core.Interfaces;
 using Godot;
+using CombatLab.Core.Utils;
 
 namespace CombatLab.Presentation.Strategies.Attack;
 
@@ -10,7 +11,7 @@ public class MeleeAttack : IAttackStrategy
     public void Execute(IAttacker attacker, IDamageable target)
     {
         //GD.Print("attacked,");
-        GD.Print($"{((Node)attacker).Name} attacked {((Node)target).Name} for {_damage} damage");
+        GameLogger.Debug($"{((Node)attacker).Name} attacked {((Node)target).Name} for {_damage} damage", LogCategory.Combat);
         target.TakeDamage(_damage, attacker.GlobalPosition);
     }
 }

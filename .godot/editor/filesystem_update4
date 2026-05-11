@@ -28,3 +28,4 @@ res://src/Presentation/Entities/Player/player.tscn
 res://src/Core/Utils/Logger.cs
 res://src/Presentation/Entities/Enemies/Enemy.cs
 res://src/Presentation/Entities/Enemies/Slime/slime.tscn
+res://src/Data/Stats/slime.tres
