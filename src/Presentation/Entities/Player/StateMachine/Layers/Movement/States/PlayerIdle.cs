@@ -9,8 +9,15 @@ public partial class PlayerIdle : State<Player>
 {
     public override void Enter()
     {
+        base.Enter();
+        Actor.PlayAnimation("idle");
+    }
+
+    public override void Refresh()
+    {
+        base.Refresh();
         GameLogger.Debug("Entering PlayerIdle", LogCategory.State);
-        Actor.TravelToAnimation("idle");
+        Actor.PlayAnimation("idle");
     }
 
     public override void Update(double delta)

@@ -9,7 +9,7 @@ public partial class SlimeDie : State<Slime>
 {
     public override void Enter()
     {
-        GameLogger.Debug($"Entering {StateName}", LogCategory.State);
+        base.Enter();
         Actor.PlayAnimation("die");
         Actor.Velocity = Vector2.Zero;
         Actor.HitBox.Disable();

@@ -9,7 +9,7 @@ public partial class SlimeIdle : State<Slime>
 {
     public override void Enter()
     {
-        GameLogger.Debug($"Entering {StateName}", LogCategory.State); 
+        base.Enter();
         Actor.PlayAnimation("idle");
     }
 

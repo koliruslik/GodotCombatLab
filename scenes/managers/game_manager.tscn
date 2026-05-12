@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://drtto0vb3a78c"]
+
+[ext_resource type="Script" uid="uid://gc4ckgku3hkq" path="res://src/Core/Managers/GameManager.cs" id="1_i04cf"]
+
+[node name="GameManager" type="Node" unique_id=971752519]
+script = ExtResource("1_i04cf")
+EnabledLogCategory = 32
+metadata/_custom_type_script = "uid://gc4ckgku3hkq"

@@ -9,13 +9,15 @@ public partial class PlayerEmpty : State<Player>
 {
     public override void Enter()
     {
-        GameLogger.Debug($"Actor: {Actor}, Health: {Actor?.Health}", LogCategory.State);
+        base.Enter();
+        Actor.Lsm.Refresh();
         Actor.Health.DamageTaken += OnDamageTaken;
         Actor.Health.ZeroHealth += OnZeroHealth;
     }
 
     public override void Exit()
     {
+        base.Exit();
         Actor.Health.DamageTaken -= OnDamageTaken;
         Actor.Health.ZeroHealth -= OnZeroHealth;
     }

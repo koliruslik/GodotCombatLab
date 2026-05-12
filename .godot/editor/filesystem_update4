@@ -43,3 +43,9 @@ res://src/Presentation/Entities/Player/StateMachine/Layers/Movement/States/Playe
 res://src/Presentation/Entities/Player/StateMachine/Layers/Reactions/States/PlayerDie.cs
 res://src/Presentation/Entities/Player/StateMachine/Layers/Reactions/States/PlayerHurt.cs
 res://src/Presentation/Entities/Player/StateMachine/PlayerLayeredSM.cs
+res://scenes/managers/game_manager.tscn
+res://assets/animations/player/idle.res
+res://assets/animations/player/walk.res
+res://assets/animations/player/jump.res
+res://assets/animations/player/fall.res
+res://src/Presentation/UI/HUD/hud.tscn

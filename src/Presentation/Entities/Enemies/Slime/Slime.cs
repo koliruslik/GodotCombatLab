@@ -10,6 +10,7 @@ public partial class Slime : Enemy, IKnockbackable
 	
 	public Vector2 LastHitSourcePosition { get; set; }
 	public float LastKnockbackForce { get; set; }
+	public float LastKnockbackLift { get; set; }
 	public override void _Ready()
 	{
 		base._Ready();
@@ -33,11 +34,11 @@ public partial class Slime : Enemy, IKnockbackable
 		MoveAndSlide();
 	}
 	
-	public void ApplyKnockback(Vector2 sourcePosition, float force)
+	public void ApplyKnockback(Vector2 sourcePosition, float force, float lift)
 	{
 		LastHitSourcePosition = sourcePosition;
-		LastKnockbackForce = force;
-		//Fsm.OnHurt();
+		LastKnockbackForce = force * (1f - Stats.KnockbackDefence);
+		LastKnockbackLift = lift;
 	}
 
 	protected override void Die()

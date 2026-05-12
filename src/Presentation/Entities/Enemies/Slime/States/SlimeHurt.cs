@@ -12,12 +12,11 @@ public partial class SlimeHurt : State<Slime>
     
     public override void Enter()
     {
+        base.Enter();
         _timer = HurtStateDuration;
-        GameLogger.Debug($"Timer: {_timer}, HurtStateDuration: {HurtStateDuration}", LogCategory.State);
-        GameLogger.Debug($"Entering {StateName}", LogCategory.State); 
         Actor.Sprite.Modulate = Colors.Red;
-        var knockbackDir = (Actor.GlobalPosition - Actor.LastHitSourcePosition).Normalized();
-        Actor.Velocity = knockbackDir * Actor.LastKnockbackForce;
+        var dir = (Actor.GlobalPosition - Actor.LastHitSourcePosition).Normalized();
+        Actor.Velocity = new Vector2(dir.X * Actor.LastKnockbackForce, -Actor.LastKnockbackLift);
     }
 
     public override void PhysicsUpdate(double delta)

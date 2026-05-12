@@ -83,7 +83,7 @@ public partial class WeaponComponent : Node2D, IAttacker
 
     private void UpdateWeaponStats(WeaponData data)
     {
-        _attackStrategy = WeaponData.WeaponType.ToStrategy(WeaponData.Damage, WeaponData.KnockbackForce);
+        _attackStrategy = WeaponData.WeaponType.ToStrategy(WeaponData.Damage, WeaponData.KnockbackForce, WeaponData.KnockbackLift);
     }
 
     private void OnAttackFinished(StringName animName)

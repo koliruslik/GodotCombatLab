@@ -5,6 +5,7 @@ using Godot;
 namespace CombatLab.Core.Events;
 public static class EventBus
 {
+    public static event Action RestartRequested;
     public static event Action<DeathData> EnemyDied;
     public static event Action<DeathData> PlayerDied;
 
@@ -15,6 +16,8 @@ public static class EventBus
     public static event Action<float> GoldChanged;
     //public static event Action<int, RollContext ctx> OnD20Rolled; // RollContext not implemented yet
 
+    public static void PublishRestartRequested()
+        => RestartRequested?.Invoke();
     public static void PublishEnemyDied(DeathData dt) 
         => EnemyDied?.Invoke(dt);
 

@@ -14,7 +14,7 @@ using CombatLab.Core.Utils;
 
 namespace CombatLab.Presentation.Entities.Player;
 
-public partial class Player : Entity, IPlayer
+public partial class Player : Entity, IPlayer, IKnockbackable
 {
     [Export] public PlayerStats Stats;
     [ExportGroup("Components")]
@@ -25,23 +25,21 @@ public partial class Player : Entity, IPlayer
 
     
     [ExportGroup("Visuals")] 
-    [Export] public Sprite2D Sprite { get; private set; }
-    [Export] public AnimationTree AnimTree { get; private set; }
+    [Export] public AnimatedSprite2D Sprite { get; private set; }
     
     public event Action OnInvincibilityEnded;
     
-    public Vector2 KnockbackDirection { get; private set; }
+    public Vector2 LastHitSourcePosition { get; set; }
+    public float LastKnockbackForce { get; set; }
+    public float LastKnockbackLift { get; set; }
     public int FacingDirection { get; set; } = 1;
     public float InvincibilityTime { get; private set; }
     
-    private AnimationNodeStateMachinePlayback _stateMachinePlayback;
-    
-    private const string AnimPlaybackPath = "parameters/playback";
-
     public override void _Ready()
     {
         base._Ready();
         if (PlayerInput == null) { GameLogger.Error("You must set InputHandler!") ; return; }
+        if (Sprite == null) { GameLogger.Error("You must set Sprite!"); return; }
         if(Lsm == null) { GameLogger.Error("You must set LSM!"); return; }
         if(Lsm.ReactionsSM == null) { GameLogger.Error("You must set LSM!"); return; }
         if(Lsm.CombatSM == null) { GameLogger.Error("You must set CombatSM!"); return; }
@@ -49,14 +47,7 @@ public partial class Player : Entity, IPlayer
         if (Stats == null) { GameLogger.Error("You must set Stats"); return;}
         if (Controller == null) {  GameLogger.Error("You must set Controller!"); return; }
         if (Weapon == null) { GameLogger.Error("You must set WeaponComponent!"); return; }
-
-        if (AnimTree != null)
-        {
-            _stateMachinePlayback = (AnimationNodeStateMachinePlayback)AnimTree.Get(AnimPlaybackPath);
-        }
-
-        Health.DamageTaken += OnDamageTaken;
-        Health.ZeroHealth += PlayerDie;
+        
         Health.InvincibilityEnded += () => OnInvincibilityEnded?.Invoke();
         
         InvincibilityTime = Stats.InvincibleTime;
@@ -91,26 +82,16 @@ public partial class Player : Entity, IPlayer
 
     public override void _ExitTree()
     {
-        Health.DamageTaken -= OnDamageTaken;
-        Health.ZeroHealth -= PlayerDie;
         ServiceLocator.Unregister<IPlayer>();
         GameLogger.Info("Player has been exited");
     }
     
-    public void TravelToAnimation(string stateName)
+    public void PlayAnimation(string animName)
     {
-        if (_stateMachinePlayback != null)
-            _stateMachinePlayback.Travel(stateName);
+        Sprite.Play(animName);
     }
     
- 
-
-    private void OnDamageTaken(Vector2 sourcePosition)
-    {
-        KnockbackDirection = (GlobalPosition - sourcePosition).Normalized();
-    }
-    
-    private void PlayerDie()
+    public void Die()
     {
         GameLogger.Info("Player Died");
         var dt = new DeathData
@@ -122,5 +103,11 @@ public partial class Player : Entity, IPlayer
         };
         EventBus.PublishPlayerDeath(dt);
     }
-    
+
+    public void ApplyKnockback(Vector2 sourcePosition, float force, float lift)
+    {
+        LastHitSourcePosition = sourcePosition;
+        LastKnockbackForce = force * (1f - Stats.KnockbackDefence);
+        LastKnockbackLift = lift;
+    }
 }

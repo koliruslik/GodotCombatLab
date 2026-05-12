@@ -1,3 +1,10 @@
+VBoxContainer
+PanelContainer
+ColorRect
+Control
+CanvasLayer
+Button
+Label
 AnimatedSprite2D
 PlayerEmpty
 PlayerMove
@@ -5,11 +12,3 @@ PlayerAir
 PlayerIdle
 PlayerHurt
 PlayerDie
-PlayerMovementSM
-PlayerReactionsSM
-PlayerCombatSM
-PlayerLayeredSM
-SlimeDie
-SlimeHurt
-SlimeChase
-SlimeIdle

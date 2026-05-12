@@ -9,8 +9,14 @@ public partial class PlayerMove : State<Player>
 {
     public override void Enter()
     {
-        GameLogger.Debug("Entering PlayerMove", LogCategory.State);
-        Actor.TravelToAnimation("walk");
+        base.Enter();
+        Actor.PlayAnimation("walk");
+    }
+
+    public override void Refresh()
+    {
+        base.Refresh();
+        Actor.PlayAnimation("walk");
     }
 
     public override void Update(double delta)

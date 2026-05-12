@@ -10,6 +10,7 @@ public abstract partial class StateMachine<T> : Node where T : Node
 	[Export] public State<T> InitialState;
 	
 	public State<T> CurrentState => _currentState;
+	public void Refresh() => _currentState?.Refresh();
 
 	protected Dictionary<(string state, string evt), string> _transitions = new();
 	private State<T> _currentState { get; set; }

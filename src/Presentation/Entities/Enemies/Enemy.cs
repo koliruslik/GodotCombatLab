@@ -28,8 +28,11 @@ public partial class Enemy : Entity
         if(HitBox == null) { GameLogger.Error($" {Stats.Name}: HitBox not set!"); return; }
         if(Sprite == null) { GameLogger.Error($" {Stats.Name}: Sprite not set!"); return; }
         _attackStrategy = Stats.WeaponData == null
-            ? new MeleeAttack(Stats.Damage)
-            : Stats.WeaponData.WeaponType.ToStrategy(Stats.WeaponData.Damage);
+            ? new MeleeAttack(Stats.Damage, Stats.KnockbackForce, Stats.KnockbackLift)
+            : Stats.WeaponData.WeaponType.ToStrategy(
+                Stats.WeaponData.Damage,
+                Stats.WeaponData.KnockbackForce,
+                Stats.WeaponData.KnockbackLift);
         
         Health.ZeroHealth += Die;
         GetTree().ProcessFrame += OnFirstFrame;

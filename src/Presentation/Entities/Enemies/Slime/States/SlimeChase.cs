@@ -9,11 +9,6 @@ public partial class SlimeChase : State<Slime>
 {
     private float _jumpTimer = 0f;
     private bool _wasInAir = false;
-    public override void Enter()
-    {
-        GameLogger.Debug($"Entering {StateName}", LogCategory.State);
-    }
-
     public override void PhysicsUpdate(double delta)
     {
         _jumpTimer -= (float)delta;
@@ -22,8 +17,6 @@ public partial class SlimeChase : State<Slime>
             _jumpTimer = Actor.Stats.AttackCooldown;
             var direction = (Actor.Player.GlobalPosition - Actor.GlobalPosition).Normalized();
             Actor.Velocity = new Vector2(direction.X * Actor.Stats.Speed, -Actor.Stats.JumpVelocity);
-            GameLogger.Debug($"Direction: {direction}, Speed: {Actor.Stats.Speed}", LogCategory.Detailed);
-            GameLogger.Debug($"Velocity set: {Actor.Velocity}", LogCategory.Detailed);
         }
         else if(Actor.IsOnFloor())
         {

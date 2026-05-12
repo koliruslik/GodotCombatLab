@@ -12,6 +12,13 @@ public partial class PlayerLayeredSM : Node
     [Export] public PlayerMovementSM MovementSM { get; set; }
 
     public bool IsBusy => ReactionsSM.CurrentState is not PlayerEmpty;
+
+    public void Refresh()
+    {
+        MovementSM.Refresh();
+        CombatSM.Refresh();
+    }
+    
     public void SetUp(Player player)
     {
         MovementSM.SetUp(player);
@@ -32,4 +39,5 @@ public partial class PlayerLayeredSM : Node
         CombatSM.UpdateInput(delta);
         ReactionsSM.UpdateInput(delta);
     }
+    
 }

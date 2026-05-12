@@ -9,11 +9,20 @@ public partial class PlayerAir : State<Player>
 {
     public override void Enter()
     {
-        GameLogger.Debug("Entering PlayerAir", LogCategory.State);
+        base.Enter();
         if (Actor.Velocity.Y < 0)
-            Actor.TravelToAnimation("jump");
+            Actor.PlayAnimation("jump");
         else
-            Actor.TravelToAnimation("fall");
+            Actor.PlayAnimation("fall");
+    }
+
+    public override void Refresh()
+    {
+        base.Refresh();
+        if (Actor.Velocity.Y < 0)
+            Actor.PlayAnimation("jump");
+        else
+            Actor.PlayAnimation("fall");
     }
 
     public override void Update(double delta)
@@ -28,7 +37,7 @@ public partial class PlayerAir : State<Player>
         
         if (Actor.Velocity.Y > 0)
         {
-            Actor.TravelToAnimation("fall");
+            Actor.PlayAnimation("fall");
         }
 
         if (Actor.IsOnFloor())

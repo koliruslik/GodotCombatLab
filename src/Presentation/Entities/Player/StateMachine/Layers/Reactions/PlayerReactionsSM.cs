@@ -11,7 +11,8 @@ public partial class PlayerReactionsSM : StateMachine<Player>
     {
         _transitions.Add((nameof(PlayerEmpty), "damaged"), nameof(PlayerHurt));
         _transitions.Add((nameof(PlayerHurt), "finished"), nameof(PlayerEmpty));
+        _transitions.Add((nameof(PlayerHurt), "died"), nameof(PlayerDie));
         _transitions.Add((nameof(PlayerEmpty), "died"), nameof(PlayerDie));
-        _transitions.Add((nameof(PlayerDie), "finished"), nameof(PlayerEmpty));
+        
     }
 }
