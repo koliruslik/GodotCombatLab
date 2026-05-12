@@ -6,8 +6,8 @@ using CombatLab.Core.Interfaces;
 using CombatLab.Core.Payloads;
 using CombatLab.Core.Services;
 using CombatLab.Presentation.Entities.Player.Components;
-using CombatLab.Presentation.Entities.Player.States;
-using CombatLab.Presentation.Strategies.Attack;
+using CombatLab.Presentation.Entities.Player.StateMachine;
+
 using Godot;
 using CombatLab.Core.Utils;
 
@@ -21,7 +21,7 @@ public partial class Player : Entity, IPlayer
     [Export] public PlayerController Controller;
     [Export] public WeaponComponent Weapon;
     [Export] public InputHandler PlayerInput { get; private set; }
-    [Export] public PlayerStateMachine Fsm { get; private set; }
+    [Export] public PlayerLayeredSM Lsm { get; private set; }
 
     
     [ExportGroup("Visuals")] 
@@ -42,11 +42,13 @@ public partial class Player : Entity, IPlayer
     {
         base._Ready();
         if (PlayerInput == null) { GameLogger.Error("You must set InputHandler!") ; return; }
-        if (Fsm == null) { GameLogger.Error("You must set FSM!"); return; }
+        if(Lsm == null) { GameLogger.Error("You must set LSM!"); return; }
+        if(Lsm.ReactionsSM == null) { GameLogger.Error("You must set LSM!"); return; }
+        if(Lsm.CombatSM == null) { GameLogger.Error("You must set CombatSM!"); return; }
+        if(Lsm.MovementSM == null) { GameLogger.Error("You must set MovementSM!"); return; }
         if (Stats == null) { GameLogger.Error("You must set Stats"); return;}
         if (Controller == null) {  GameLogger.Error("You must set Controller!"); return; }
         if (Weapon == null) { GameLogger.Error("You must set WeaponComponent!"); return; }
-        Fsm.SetUp(this);
 
         if (AnimTree != null)
         {
@@ -61,19 +63,19 @@ public partial class Player : Entity, IPlayer
         
         Health.Initialize(Stats.MaxHP, InvincibilityTime);
         
+        Lsm.SetUp(this);
         ServiceLocator.Register<IPlayer>(this);
         AddToGroup("Player");
     }
     
     public override void _Process(double delta)
     {
-        Fsm.UpdateInput(delta);
+        Lsm.UpdateInput(delta);
         Controller.UpdateInput(delta); 
     }
     public override void _PhysicsProcess(double delta)
     {
-        Fsm.UpdatePhysics(delta);
-
+        Lsm.UpdatePhysics(delta);
         if (!IsOnFloor())
         {
             Velocity += new Vector2(0, Gravity * (float)delta);
@@ -106,7 +108,6 @@ public partial class Player : Entity, IPlayer
     private void OnDamageTaken(Vector2 sourcePosition)
     {
         KnockbackDirection = (GlobalPosition - sourcePosition).Normalized();
-        Fsm.ChangeState("playerhurt");
     }
     
     private void PlayerDie()

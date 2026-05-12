@@ -32,3 +32,14 @@ res://src/Data/Weapons/sword.tres
 res://src/Presentation/Entities/Enemies/Slime/slime.tscn
 res://src/Data/Stats/PlayerStats.tres
 res://src/Data/Stats/slime.tres
+res://src/Presentation/Entities/Player/StateMachine/Layers/Combat/PlayerCombatSM.cs
+res://src/Presentation/Entities/Player/StateMachine/Layers/PlayerEmpty.cs
+res://src/Presentation/Entities/Player/StateMachine/Layers/Reactions/PlayerReactionsSM.cs
+res://src/Presentation/Entities/Player/StateMachine/Layers/Movement/States/PlayerAir.cs
+res://src/Presentation/Entities/Player/StateMachine/Layers/Movement/PlayerMovementSM.cs
+res://src/Presentation/Entities/Player/StateMachine/Layers/Movement/States/PlayerIdle.cs
+res://src/Presentation/Entities/Player/StateMachine/PlayerStateMachine.cs
+res://src/Presentation/Entities/Player/StateMachine/Layers/Movement/States/PlayerMove.cs
+res://src/Presentation/Entities/Player/StateMachine/Layers/Reactions/States/PlayerDie.cs
+res://src/Presentation/Entities/Player/StateMachine/Layers/Reactions/States/PlayerHurt.cs
+res://src/Presentation/Entities/Player/StateMachine/PlayerLayeredSM.cs

@@ -2,7 +2,7 @@ using Godot;
 using CombatLab.Core.FSM;
 using CombatLab.Core.Utils;
 
-namespace CombatLab.Presentation.Entities.Player.States;
+namespace CombatLab.Presentation.Entities.Player.StateMachine.States;
 
 [GlobalClass]
 public partial class PlayerIdle : State<Player>
@@ -15,6 +15,7 @@ public partial class PlayerIdle : State<Player>
 
     public override void Update(double delta)
     {
+        if (Actor.Lsm.IsBusy) return;
         if (Actor.PlayerInput.IsJumpJustPressed && Actor.IsOnFloor()) 
             Actor.Controller.Jump();
         if (!Mathf.IsZeroApprox(Actor.PlayerInput.MoveDirection.X))
@@ -23,6 +24,7 @@ public partial class PlayerIdle : State<Player>
  
     public override void PhysicsUpdate(double delta)
     {
+        if (Actor.Lsm.IsBusy) return;
         Actor.Controller.ApplyMovement(0, delta);
 
         if (!Actor.IsOnFloor()) 

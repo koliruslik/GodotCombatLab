@@ -8,6 +8,8 @@ namespace CombatLab.Core.FSM;
 public abstract partial class StateMachine<T> : Node where T : Node
 {
 	[Export] public State<T> InitialState;
+	
+	public State<T> CurrentState => _currentState;
 
 	protected Dictionary<(string state, string evt), string> _transitions = new();
 	private State<T> _currentState { get; set; }
@@ -27,6 +29,7 @@ public abstract partial class StateMachine<T> : Node where T : Node
 			if (child is State<T> state)
 			{
 				_states[state.StateName] = state;
+				GameLogger.Debug($"Init state: {state.StateName}, actor={actor}", LogCategory.Init);
 				state.Init(actor);
 				state.Transitioned += OnTransition;
 			}
@@ -38,6 +41,7 @@ public abstract partial class StateMachine<T> : Node where T : Node
 		}
 
 		_currentState = InitialState;
+		GameLogger.Debug($"SetUp: actor={actor}, InitialState={InitialState?.StateName}", LogCategory.Init);
 		InitialState?.Enter();
 	}
 

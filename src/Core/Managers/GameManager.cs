@@ -16,7 +16,7 @@ public partial class GameManager : Node, IGameManager
     public int CurrentGold => _currentGold;
     public override void _Ready()
     {
-        GameLogger.EnabledCategories = LogCategory.All;
+        GameLogger.EnabledCategories = LogCategory.State | LogCategory.Init;
         
         EventBus.EnemyDied += EnemyDiedHandler;
         

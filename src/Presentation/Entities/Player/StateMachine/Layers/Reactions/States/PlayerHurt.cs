@@ -2,7 +2,7 @@ using Godot;
 using CombatLab.Core.FSM;
 using CombatLab.Core.Utils;
 
-namespace CombatLab.Presentation.Entities.Player.States;
+namespace CombatLab.Presentation.Entities.Player.StateMachine.States;
 
 [GlobalClass]
 public partial class PlayerHurt : State<Player>
@@ -16,27 +16,16 @@ public partial class PlayerHurt : State<Player>
     public override void Enter()
     {
         GameLogger.Debug("Entering PlayerHurt State", LogCategory.State);
-        
         _timer = StunDuration;
         Actor.TravelToAnimation("hurt");
-
-        float knockbackForce = 300f;
-        Actor.Velocity = Actor.KnockbackDirection * knockbackForce;
+        Actor.Velocity = Actor.KnockbackDirection *  KnockbackStrength;
     }
 
     public override void PhysicsUpdate(double delta)
     {
-        Actor.Controller.ApplyMovement(0, delta);
-        
         _timer -= (float)delta;
-
         if (_timer <= 0)
-        {
-            if (Actor.IsOnFloor())
-                EmitSignal(SignalName.Transitioned, this, "stopped");
-            else
-                EmitSignal(SignalName.Transitioned, this, "stoppedAirborne");
-        }
+            EmitSignal(SignalName.Transitioned, this, "finished");
     }
     
 }

@@ -15,6 +15,7 @@ public partial class HitBox : Area2D
 
     public override void _PhysicsProcess(double delta)
     {
+        if (!Monitoring) return;
         foreach (var area in GetOverlappingAreas())
         {
             GameLogger.Debug($"Overlapping: {area.Name}", LogCategory.Detailed);
