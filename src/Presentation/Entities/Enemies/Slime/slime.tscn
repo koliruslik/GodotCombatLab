@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://cgkuh68d2p3h7" path="res://src/Presentation/Entities/Enemies/Slime/States/SlimeIdle.cs" id="7_fpjcw"]
 [ext_resource type="Script" uid="uid://dcy8l4afkpcho" path="res://src/Presentation/Entities/Enemies/Slime/States/SlimeChase.cs" id="9_6f2hv"]
 [ext_resource type="Script" uid="uid://cne5qhdpgc62d" path="res://src/Presentation/Entities/Enemies/Slime/States/SlimeHurt.cs" id="9_xl1ix"]
+[ext_resource type="Script" uid="uid://bq3hgexubiq84" path="res://src/Presentation/Entities/Enemies/Slime/States/SlimeDie.cs" id="10_fpjcw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ug63n"]
 atlas = ExtResource("1_h0xq2")
@@ -225,4 +226,9 @@ metadata/_custom_type_script = "uid://dcy8l4afkpcho"
 
 [node name="SlimeHurt" type="Node" parent="SlimeStateMachine" unique_id=503573564]
 script = ExtResource("9_xl1ix")
+HurtStateDuration = 0.3
 metadata/_custom_type_script = "uid://cne5qhdpgc62d"
+
+[node name="SlimeDie" type="Node" parent="SlimeStateMachine" unique_id=779788979]
+script = ExtResource("10_fpjcw")
+metadata/_custom_type_script = "uid://bq3hgexubiq84"

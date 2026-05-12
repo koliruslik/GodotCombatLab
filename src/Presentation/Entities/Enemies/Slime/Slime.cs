@@ -13,6 +13,7 @@ public partial class Slime : Enemy, IKnockbackable
 	public override void _Ready()
 	{
 		base._Ready();
+		Health.DamageTaken += _ => Fsm.OnHurt();
 		Fsm.SetUp(this);
 	}
 
@@ -36,7 +37,13 @@ public partial class Slime : Enemy, IKnockbackable
 	{
 		LastHitSourcePosition = sourcePosition;
 		LastKnockbackForce = force;
-		Fsm.OnHurt();
+		//Fsm.OnHurt();
+	}
+
+	protected override void Die()
+	{
+		base.Die();
+		Fsm.OnDie();
 	}
 }
 

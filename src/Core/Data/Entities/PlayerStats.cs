@@ -12,4 +12,5 @@ public partial class PlayerStats : Resource
     [Export] public float Friction;
     [Export] public float Acceleration;
     [Export] public float JumpVelocity;
+    [Export] public float InvincibleTime;
 }

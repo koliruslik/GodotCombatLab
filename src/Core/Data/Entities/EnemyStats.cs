@@ -16,6 +16,7 @@ public partial class EnemyStats : Resource
     [ExportGroup("Combat")]
     [Export] public float AttackCooldown;
     [Export] public float Damage; 
+    [Export] public float InvincibleTime;
     [Export] public WeaponData WeaponData; 
     [ExportGroup("Defense")]
     [Export] public float Defense;

@@ -1,3 +1,4 @@
+SlimeDie
 SlimeHurt
 SlimeChase
 SlimeIdle
@@ -12,4 +13,3 @@ HealthComponent
 WeaponComponent
 PlayerController
 CanvasLayer
-Label

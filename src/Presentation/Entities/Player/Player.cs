@@ -32,6 +32,7 @@ public partial class Player : Entity, IPlayer
     
     public Vector2 KnockbackDirection { get; private set; }
     public int FacingDirection { get; set; } = 1;
+    public float InvincibilityTime { get; private set; }
     
     private AnimationNodeStateMachinePlayback _stateMachinePlayback;
     
@@ -56,7 +57,9 @@ public partial class Player : Entity, IPlayer
         Health.ZeroHealth += PlayerDie;
         Health.InvincibilityEnded += () => OnInvincibilityEnded?.Invoke();
         
-        Health.Initialize(Stats.MaxHP);
+        InvincibilityTime = Stats.InvincibleTime;
+        
+        Health.Initialize(Stats.MaxHP, InvincibilityTime);
         
         ServiceLocator.Register<IPlayer>(this);
         AddToGroup("Player");

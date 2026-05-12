@@ -16,16 +16,17 @@ public partial class HealthComponent : Node, IDamageable
 
     [Export] public Node Source;
     private const float DEFAULT_MAX_HP = 100;
+    private const float DEFAUL_INVINCIBILITY_TIME = 1.5f;
     
     private float _invincibilityTimer;
     private float _currentHP;
     private float _maxHP;
 
-    public void Initialize(float maxHP)
+    public void Initialize(float maxHP, float invincibleTime)
     {
         _maxHP = maxHP;
         _currentHP = _maxHP;
-        _invincibilityTimer = 0;
+        _invincibilityTimer = invincibleTime;
         GameLogger.Success($"{Source?.Name}: HP initialized — {_maxHP}");
         EventBus.PublishHealthChanged(Source, _currentHP, _maxHP);
     }
@@ -64,7 +65,7 @@ public partial class HealthComponent : Node, IDamageable
         if (_maxHP <= 0)
         {
             GameLogger.Warn($"{Source?.Name}: HealthComponent initialized with DEFAULT values!");
-            Initialize(DEFAULT_MAX_HP);
+            Initialize(DEFAULT_MAX_HP, DEFAUL_INVINCIBILITY_TIME);
         }
         EventBus.PublishHealthChanged(Source, _currentHP, _maxHP);
     }

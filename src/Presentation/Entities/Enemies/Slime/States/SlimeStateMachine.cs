@@ -14,4 +14,5 @@ public partial class SlimeStateMachine : StateMachine<Slime>
     }
 
     public void OnHurt() => ChangeState(nameof(SlimeHurt));
+    public void OnDie() => ChangeState(nameof(SlimeDie));
 }

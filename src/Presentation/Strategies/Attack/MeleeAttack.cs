@@ -24,11 +24,11 @@ public class MeleeAttack : IAttackStrategy
     {
         //GD.Print("attacked,");
         GameLogger.Debug($"{((Node)attacker).Name} attacked {((Node)target).Name} for {_damage} damage", LogCategory.Combat);
-        target.TakeDamage(_damage, attacker.GlobalPosition);
         if (target is IKnockbackable kb)
         {
             kb.ApplyKnockback(attacker.GlobalPosition, _knockbackForce);
             GameLogger.Debug($"Target is IKnockbackable: {target is IKnockbackable}, Force: {_knockbackForce}", LogCategory.Combat);
         }
+        target.TakeDamage(_damage, attacker.GlobalPosition);
     }
 }

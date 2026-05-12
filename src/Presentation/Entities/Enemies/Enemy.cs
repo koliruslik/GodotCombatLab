@@ -30,21 +30,18 @@ public partial class Enemy : Entity
         _attackStrategy = Stats.WeaponData == null
             ? new MeleeAttack(Stats.Damage)
             : Stats.WeaponData.WeaponType.ToStrategy(Stats.WeaponData.Damage);
-
         
-        Health.DamageTaken += OnDamageTaken;
         Health.ZeroHealth += Die;
         GetTree().ProcessFrame += OnFirstFrame;
         HitBox.HitDetected += OnHitDetected;
         EventBus.PlayerDied += OnPlayerDied;
 		
-        Health.Initialize(Stats.MaxHP);
+        Health.Initialize(Stats.MaxHP, Stats.InvincibleTime);
         AddToGroup("Enemies"); 
     }
     
     public override void _ExitTree()
     {
-        Health.DamageTaken -= OnDamageTaken;
         Health.ZeroHealth -= Die;
         if(Player != null)
             Player.OnInvincibilityEnded -= HitBox.ResetHits;
@@ -87,14 +84,6 @@ public partial class Enemy : Entity
         }
     }
     
-    protected virtual void OnDamageTaken(Vector2 sourcePosition)
-    {
-        if (Player == null) return;
-        GameLogger.Debug($"{Stats.Name}: took damage.", LogCategory.Combat);
-        Sprite.Modulate = Colors.Red;
-        ResetHurtState();
-    }
-
     protected virtual void OnPlayerDied(DeathData _)
     {
         GameLogger.Info("Player reference _player set to null");
@@ -120,16 +109,4 @@ public partial class Enemy : Entity
         if(victim is IDamageable target)
             _attackStrategy.Execute(this, target);
     }
-
-    
-    
-    private void ResetHurtState()
-    {
-        GetTree().CreateTimer(0.2f).Timeout += () =>
-        {
-            if (!IsInstanceValid(this)) return;
-            Sprite.Modulate = Colors.White;
-            //_isHurting = false;
-        };
     }
-}

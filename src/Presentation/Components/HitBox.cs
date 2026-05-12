@@ -33,5 +33,11 @@ public partial class HitBox : Area2D
     {
         _hitVictims.Clear();
     }
+    
+    public void Disable()
+    {
+        SetDeferred("monitoring", false);
+        SetDeferred("monitorable", false);
+    }
 
 }

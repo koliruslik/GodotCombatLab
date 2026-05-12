@@ -6,8 +6,9 @@
 script = ExtResource("1_j0d4s")
 Name = "Slime"
 Gold = 5
-MaxHP = 50.0
+MaxHP = 200.0
 AttackCooldown = 1.5
+InvincibleTime = 0.1
 DetectionRange = 500.0
 AttackRange = 20.0
 Speed = 200.0
