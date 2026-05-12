@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("2_a1pub")
-Damage = 20.0
+KnockbackForce = 400.0
 AttackPattern = ExtResource("1_uhjt5")
 Name = "Sword"
 Description = "CommonSword"

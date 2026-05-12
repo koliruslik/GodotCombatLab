@@ -16,16 +16,10 @@ public partial class Enemy : Entity
 {
     [Export] public EnemyStats Stats;
     [Export] public HitBox HitBox;
-    [Export] AnimatedSprite2D Sprite;
+    [Export] public AnimatedSprite2D Sprite;
+    public IPlayer Player { get; protected set; }
 
     protected IAttackStrategy _attackStrategy;
-
-    protected IPlayer _player;
-    
-
-    protected string _currentAnimation = "";
-
-    protected const string DIE_ANIMATION = "die";
     
     public override void _Ready()
     {
@@ -36,8 +30,8 @@ public partial class Enemy : Entity
         _attackStrategy = Stats.WeaponData == null
             ? new MeleeAttack(Stats.Damage)
             : Stats.WeaponData.WeaponType.ToStrategy(Stats.WeaponData.Damage);
-		
-        Sprite.AnimationFinished += OnAnimationFinished;
+
+        
         Health.DamageTaken += OnDamageTaken;
         Health.ZeroHealth += Die;
         GetTree().ProcessFrame += OnFirstFrame;
@@ -50,22 +44,41 @@ public partial class Enemy : Entity
     
     public override void _ExitTree()
     {
-        Sprite.AnimationFinished -= OnAnimationFinished;
         Health.DamageTaken -= OnDamageTaken;
         Health.ZeroHealth -= Die;
-        if(_player != null)
-            _player.OnInvincibilityEnded -= HitBox.ResetHits;
+        if(Player != null)
+            Player.OnInvincibilityEnded -= HitBox.ResetHits;
         HitBox.HitDetected -= OnHitDetected;
         EventBus.PlayerDied -= OnPlayerDied;
     }
+
+    public void PlayAnimation(string animationName)
+    {
+        Sprite.Play(animationName);
+    }
+    
+    
+    public bool IsPlayerInDetecionRange()
+    {
+        if(Player == null) return false;
+        return GlobalPosition.DistanceTo(Player.GlobalPosition) <= Stats.DetectionRange;
+    }
+
+    public bool IsPlayerInAttackRange()
+    {
+        if(Player == null) return false;
+        return  GlobalPosition.DistanceTo(Player.GlobalPosition) <= Stats.AttackRange;
+    }
+
+    
     
     protected virtual void OnFirstFrame()
     {
         GetTree().ProcessFrame -= OnFirstFrame;
         if (ServiceLocator.TryGet<IPlayer>(out var player))
         {
-            _player = player;
-            _player.OnInvincibilityEnded += HitBox.ResetHits;
+            Player = player;
+            Player.OnInvincibilityEnded += HitBox.ResetHits;
             GameLogger.Debug($" {Stats.Name}: IPlayer registered in ServiceLocator", LogCategory.Init);
         }
         else
@@ -76,20 +89,18 @@ public partial class Enemy : Entity
     
     protected virtual void OnDamageTaken(Vector2 sourcePosition)
     {
-        if (_player == null) return;
+        if (Player == null) return;
         GameLogger.Debug($"{Stats.Name}: took damage.", LogCategory.Combat);
         Sprite.Modulate = Colors.Red;
-        //_isHurting = true; // Change with state machine
-        //Velocity = knockBackDir * 200;
         ResetHurtState();
     }
 
     protected virtual void OnPlayerDied(DeathData _)
     {
         GameLogger.Info("Player reference _player set to null");
-        _player = null;
+        Player = null;
     }
-    
+
     protected virtual void Die()
     {
         var dt = new DeathData
@@ -97,28 +108,20 @@ public partial class Enemy : Entity
             Victim = this,
             Killer = null,
             DamageSourceId = null,
-            Timestamp =  DateTimeOffset.Now.ToUnixTimeMilliseconds(),
+            Timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds(),
             GoldReward = Stats.Gold
         };
         EventBus.PublishEnemyDied(dt);
-        _currentAnimation = DIE_ANIMATION;
-        Sprite.Play(_currentAnimation);
     }
-    
-    protected virtual void OnAnimationFinished()
-    {
-        if (_currentAnimation == DIE_ANIMATION)
-        {
-            QueueFree();
-        }
-    }
-	
+
     protected virtual void OnHitDetected(Node victim)
     {
         GameLogger.Debug($"{Stats.Name} hit: {victim.Name}", LogCategory.Combat);
         if(victim is IDamageable target)
             _attackStrategy.Execute(this, target);
     }
+
+    
     
     private void ResetHurtState()
     {

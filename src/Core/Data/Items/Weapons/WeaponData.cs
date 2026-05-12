@@ -8,6 +8,7 @@ public partial class WeaponData : ItemData
     [ExportGroup("Combat")]
     [Export] public WeaponType WeaponType;
     [Export] public float Damage;
+    [Export] public float KnockbackForce;
     [Export] public float Range;
     // TODO: Replace with AttackPattern resource when implemented
     [Export] public Animation AttackPattern;

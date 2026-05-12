@@ -9,12 +9,10 @@ public partial class HUD : Node
     [Export] Label HealthLabel;
     [Export] Label GoldLabel;
     
-    private Node _player;
     public override void _Ready()
     {
         EventBus.GoldChanged += GoldChangedHandler;
         EventBus.HealthChanged += HealthChangedHandler;
-        _player = GetTree().GetFirstNodeInGroup("Player");
         GoldLabel.Text = "Gold: 0"; 
     }
 

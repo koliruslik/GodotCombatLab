@@ -1,6 +1,6 @@
 namespace CombatLab.Core.Interfaces;
 
-public class IUIManager
+public interface IUIManager
 {
     //Not Implemented
 }

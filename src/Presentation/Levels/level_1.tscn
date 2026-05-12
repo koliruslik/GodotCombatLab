@@ -7,8 +7,8 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_un1bx"]
 bounce = 0.4
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_un1bx"]
-size = Vector2(1168, 56)
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_phka5"]
+distance = 26.0
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_un1bx"]
 
@@ -30,11 +30,11 @@ physics_material_override = SubResource("PhysicsMaterial_un1bx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=536437033]
 position = Vector2(-7, 132)
-shape = SubResource("RectangleShape2D_un1bx")
+shape = SubResource("WorldBoundaryShape2D_phka5")
 
 [node name="Sprite2D" type="Sprite2D" parent="Area2D" unique_id=1280789922]
-position = Vector2(-9.5, 133)
-scale = Vector2(2.2832031, 0.10937499)
+position = Vector2(122.49997, 133)
+scale = Vector2(7.1308594, 0.10937499)
 texture = SubResource("NoiseTexture2D_kg615")
 
 [node name="Slime" parent="." unique_id=1045747040 instance=ExtResource("2_kg615")]

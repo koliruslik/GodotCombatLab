@@ -87,6 +87,7 @@ public partial class Player : Entity, IPlayer
     public override void _ExitTree()
     {
         Health.DamageTaken -= OnDamageTaken;
+        Health.ZeroHealth -= PlayerDie;
         ServiceLocator.Unregister<IPlayer>();
         GameLogger.Info("Player has been exited");
     }

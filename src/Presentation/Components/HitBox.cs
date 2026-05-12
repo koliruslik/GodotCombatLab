@@ -17,7 +17,7 @@ public partial class HitBox : Area2D
     {
         foreach (var area in GetOverlappingAreas())
         {
-            GameLogger.Debug($"Overlapping: {area.Name}", LogCategory.CombatDetailed);
+            GameLogger.Debug($"Overlapping: {area.Name}", LogCategory.Detailed);
             if (area is HitBox other && other.Owner != Owner)
             {
                 var id = other.Owner.GetInstanceId();

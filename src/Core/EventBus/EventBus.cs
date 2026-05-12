@@ -7,7 +7,8 @@ public static class EventBus
 {
     public static event Action<DeathData> EnemyDied;
     public static event Action<DeathData> PlayerDied;
-    
+
+    public static event Action PlayerSpawned;
     
     public static event Action<Node, float, float> HealthChanged;
 
@@ -19,11 +20,12 @@ public static class EventBus
 
     public static void PublishPlayerDeath(DeathData dt)
         => PlayerDied?.Invoke(dt);
-
+    
     public static void PublishHealthChanged(Node source, float currentHP, float maxHP)
         => HealthChanged?.Invoke(source, currentHP, maxHP);
 
     public static void PublishGoldChanged(float currentGold)
         => GoldChanged?.Invoke(currentGold);
+    
 }
 

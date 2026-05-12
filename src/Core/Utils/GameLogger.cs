@@ -14,7 +14,7 @@ public enum LogCategory
     UI       = 8,
     Init     = 16,
     State    = 32,
-    CombatDetailed = 64,
+    Detailed = 64,
     Etc      = 128,
     All = Movement | Combat | AI | UI | Init | State | Etc
 }
@@ -66,7 +66,7 @@ public static class GameLogger
             LogCategory.UI             => "yellowgreen",
             LogCategory.Init           => "white",
             LogCategory.State          => "plum",
-            LogCategory.CombatDetailed => "coral",
+            LogCategory.Detailed => "coral",
             LogCategory.Etc            => "gray",
             _                          => "white"
         };
