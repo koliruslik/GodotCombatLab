@@ -1,8 +1,8 @@
+res://scenes/levels/level1/
 res://assets/animations/player/
 res://assets/
 res://scenes/ui/
 res://scenes/managers/
-res://src/Data/Weapons/
 res://src/Presentation/Entities/Player/
 res://src/Presentation/Entities/Enemies/Slime/
 res://src/Presentation/UI/HUD/

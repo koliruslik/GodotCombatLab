@@ -18,6 +18,12 @@ position = Vector2(-1, -14)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1548069537]
 zoom = Vector2(1.5, 1.5)
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.1
+drag_top_margin = 0.1
+drag_right_margin = 0.1
+drag_bottom_margin = 0.1
 
 [node name="HUD" parent="." unique_id=1397504696 instance=ExtResource("3_phka5")]
 

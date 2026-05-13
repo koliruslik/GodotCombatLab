@@ -1,5 +1,9 @@
-Sprite2D
+AnimationPlayer
+Area2D
+CollisionShape2D
+TileMapLayer
 Node2D
+Sprite2D
 VBoxContainer
 PanelContainer
 ColorRect
@@ -9,6 +13,3 @@ Button
 Label
 AnimatedSprite2D
 PlayerEmpty
-PlayerMove
-PlayerAir
-PlayerIdle
