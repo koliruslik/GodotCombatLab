@@ -1,3 +1,5 @@
+Sprite2D
+Node2D
 VBoxContainer
 PanelContainer
 ColorRect
@@ -10,5 +12,3 @@ PlayerEmpty
 PlayerMove
 PlayerAir
 PlayerIdle
-PlayerHurt
-PlayerDie

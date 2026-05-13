@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="EnemyStats" format=3 uid="uid://cvpjova26kosh"]
+
+[ext_resource type="Script" uid="uid://i1fcrbi44gvw" path="res://src/Core/Data/Entities/EnemyStats.cs" id="1_4oc6c"]
+
+[resource]
+script = ExtResource("1_4oc6c")
+Name = "Slime"
+Gold = 5
+MaxHP = 100.0
+AttackCooldown = 1.0
+Damage = 10.0
+KnockbackForce = 300.0
+KnockbackLift = 200.0
+InvincibleTime = 0.05
+KnockbackDefence = 0.5
+DetectionRange = 500.0
+Speed = 200.0
+JumpVelocity = 300.0
+metadata/_custom_type_script = "uid://i1fcrbi44gvw"

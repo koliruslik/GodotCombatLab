@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://qehkih56c670"]
+
+[ext_resource type="Animation" uid="uid://b1tu480l0v4sc" path="res://resources/Weapons/swing.res" id="1_uhjt5"]
+[ext_resource type="Script" uid="uid://b6q4yephj2eog" path="res://src/Core/Data/Items/Weapons/WeaponData.cs" id="2_a1pub"]
+
+[resource]
+script = ExtResource("2_a1pub")
+Damage = 10.0
+KnockbackForce = 100.0
+AttackPattern = ExtResource("1_uhjt5")
+Name = "Sword"
+Description = "CommonSword"
+Rarity = 1
+Level = 1
+Price = 10.0
+Weight = 2.0
+metadata/_custom_type_script = "uid://b6q4yephj2eog"

@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://bmdbq84h6xa12"]
+
+[ext_resource type="Texture2D" uid="uid://ddew5nymmu4ck" path="res://assets/invertedSky.png" id="1_ybejc"]
+[ext_resource type="Texture2D" uid="uid://bsxe5qhpn0kf1" path="res://assets/BG-sun.png" id="2_tqvyc"]
+[ext_resource type="Texture2D" uid="uid://bu13u4tlge2gd" path="res://assets/BG-mountains.png" id="3_7f6uy"]
+[ext_resource type="Texture2D" uid="uid://blqondu7vppui" path="res://assets/BG-ruins.png" id="4_27gaw"]
+
+[node name="BackGround" type="Node2D" unique_id=525929812]
+
+[node name="SkyPX" type="Parallax2D" parent="." unique_id=301958393]
+z_index = -2
+scroll_scale = Vector2(0.1, 0.1)
+scroll_offset = Vector2(288, 300)
+repeat_size = Vector2(960, 0)
+repeat_times = 10
+
+[node name="Sky" type="Sprite2D" parent="SkyPX" unique_id=671121368]
+position = Vector2(-5.8392334, 28.507538)
+scale = Vector2(1.6741692, 1.6574539)
+texture = ExtResource("1_ybejc")
+
+[node name="Sun" type="Sprite2D" parent="SkyPX" unique_id=916529824]
+position = Vector2(154.16077, -123.49246)
+scale = Vector2(1.6741692, 1.6574539)
+texture = ExtResource("2_tqvyc")
+
+[node name="MountainsPX" type="Parallax2D" parent="." unique_id=958979066]
+z_index = -1
+scroll_scale = Vector2(0.25, 0.25)
+scroll_offset = Vector2(0, 492)
+repeat_size = Vector2(960, 0)
+repeat_times = 10
+
+[node name="Mountain" type="Sprite2D" parent="MountainsPX" unique_id=352560080]
+position = Vector2(-7.918823, -183.56665)
+scale = Vector2(1.3131341, 2.0971355)
+texture = ExtResource("3_7f6uy")
+
+[node name="Mountain2" type="Sprite2D" parent="MountainsPX" unique_id=773303812]
+position = Vector2(328.08115, -183.56665)
+scale = Vector2(1.3131341, 2.0971355)
+texture = ExtResource("3_7f6uy")
+
+[node name="Mountain3" type="Sprite2D" parent="MountainsPX" unique_id=851274639]
+position = Vector2(-343.91885, -183.56665)
+scale = Vector2(1.3131341, 2.0971355)
+texture = ExtResource("3_7f6uy")
+
+[node name="Village" type="Parallax2D" parent="." unique_id=1925775098]
+z_index = -1
+scroll_scale = Vector2(0.5, 0.5)
+repeat_size = Vector2(537, 0)
+repeat_times = 10
+
+[node name="Sprite2D" type="Sprite2D" parent="Village" unique_id=175280612]
+position = Vector2(0, 228.816)
+scale = Vector2(2.1001263, 2.1001263)
+texture = ExtResource("4_27gaw")
