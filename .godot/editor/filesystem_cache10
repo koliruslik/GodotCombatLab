@@ -1,5 +1,5 @@
 63f7b34db8d8cdea90c76aacccf841ec
-::res://::1778799992
+::res://::1778809701
 icon.svg::CompressedTexture2D::1023460924661918763::1778105804::1778105859::1::::<><><>0<>0<>7d39ffbaae423949a9db009b1c863f36<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
 README.md::TextFile::-1::1778105804::0::1::::<><><>0<>0<><>::
 ::res://assets/::1778625186
@@ -59,9 +59,8 @@ slime.tres::Resource/EnemyStats::6278345308404291267::1778634578::0::1::::<><><>
 ::res://resources/Weapons/::1778714960
 swing.res::Animation::4251821695912372786::1778633671::0::1::::<><><>0<>0<><>::uid://dgt0txjkqha07::::res://assets/color3/sprite-sheet.png
 sword.tres::Resource/WeaponData::1131722318518208213::1778714960::0::1::::<><><>0<>0<><>::uid://b1tu480l0v4sc::::res://resources/Weapons/swing.res<>uid://b6q4yephj2eog::::res://src/Core/Data/Items/Weapons/WeaponData.cs
-::res://scenes/::1778799967
-mainMenu.tscn::PackedScene::6855546975283865087::1778799808::0::1::::<><><>0<>0<><>::uid://bba3jfquvoflw::::res://src/Presentation/UI/MainMenu/MainMenu.cs
-root_sm.tscn::PackedScene::2776980368006788845::1778799967::0::1::::<><><>0<>0<><>::uid://dbwqqi5r57xlx::::res://src/Core/Managers/RootStateMachine/RootSM.cs<>uid://dy6nin0pn5yxa::::res://src/Core/Managers/RootStateMachine/States/GameSceneState.cs<>uid://cxicxu38r2yr1::::res://src/Core/Managers/RootStateMachine/States/MainMenuSceneState.cs
+::res://scenes/::1778809719
+mainMenu.tscn::PackedScene::6855546975283865087::1778809820::0::1::::<><><>0<>0<><>::uid://bnd8ec1nvwau0::::res://scenes/ui/MainMenu/main_menu_panel.tscn<>uid://dbteftoxmp746::::res://src/Presentation/UI/MainMenu/MainMenuPanel.cs<>uid://cvx8h5tbtm6yr::::res://scenes/ui/MainMenu/settings_panel.tscn<>uid://dlrnqywsrapiq::::res://src/Presentation/UI/MainMenu/SettingsPanel.cs<>uid://cxfos8md5gbmm::::res://src/Presentation/UI/MainMenu/MainMenuSM.cs<>uid://dr3weqsw81elj::::res://src/Presentation/UI/MainMenu/States/MainMenuSettingsState.cs<>uid://pidn77wh42ff::::res://src/Presentation/UI/MainMenu/States/MainMenuState.cs
 ::res://scenes/entities/::1778794655
 player.tscn::PackedScene::7262364689871872601::1778714960::0::1::::<><><>0<>0<><>::uid://b7pm8sbd3ih1c::::res://assets/animations/player/Idle_KG_1.png<>uid://dpnnbrjouwbh8::::res://src/Presentation/Entities/Player/Player.cs<>uid://b6rhko8yq2rtl::::res://resources/Stats/PlayerStats.tres<>uid://cad0k78ih1t0a::::res://assets/animations/player/Fall_KG_1.png<>uid://cqml8xpe4r4pd::::res://assets/animations/player/Rolling_KG_1.png<>uid://bcdiugycol5q8::::res://src/Presentation/Components/HitBox.cs<>uid://cdon0grfr2u2g::::res://assets/animations/player/Jump_KG_1.png<>uid://bnav8lknx1vy8::::res://src/Presentation/Entities/Player/Components/InputHandler.cs<>uid://bc3yw0at7svnp::::res://assets/animations/player/Walking_KG_1.png<>uid://45s0vre3ek0q::::res://assets/animations/player/Hurt_KG_1.png<>uid://r2fqsqavy1e7::::res://src/Presentation/Entities/Player/Components/WeaponComponent.cs<>uid://deo7lw8kwfw87::::res://scenes/items/weapons/sword/sword.tscn<>uid://qehkih56c670::::res://resources/Weapons/sword.tres<>uid://bytyqsl8mineu::::res://src/Presentation/Entities/Player/Components/PlayerController.cs<>uid://4pno3y34ixtu::::res://src/Presentation/Entities/Player/StateMachine/PlayerLayeredSM.cs<>uid://curaflayvsx7m::::res://src/Presentation/Entities/Player/StateMachine/Layers/Reactions/PlayerReactionsSM.cs<>uid://dofxa7xyhv73p::::res://src/Presentation/Entities/Player/StateMachine/Layers/Reactions/States/PlayerDie.cs<>uid://bowq5c0o5opsg::::res://src/Presentation/Entities/Player/StateMachine/Layers/Reactions/States/PlayerHurt.cs<>uid://b0vut3al41re1::::res://src/Presentation/Entities/Player/StateMachine/Layers/Combat/PlayerCombatSM.cs<>uid://ddi84f2tymh7p::::res://src/Presentation/Components/HealthComponent.cs<>uid://btepl8idrakqj::::res://src/Presentation/Entities/Player/StateMachine/Layers/Movement/PlayerMovementSM.cs<>uid://geer2pm8i2kd::::res://src/Presentation/Entities/Player/StateMachine/Layers/Movement/States/PlayerIdle.cs<>uid://dr5x1fpdigl23::::res://src/Presentation/Entities/Player/StateMachine/Layers/Movement/States/PlayerAir.cs<>uid://c7btwcpuw8bvq::::res://src/Presentation/Entities/Player/StateMachine/Layers/Movement/States/PlayerMove.cs<>uid://cfiyj1u6sgw8q::::res://src/Presentation/Entities/Player/StateMachine/Layers/PlayerEmpty.cs
 slime.tscn::PackedScene::3357841826353430446::1778634326::0::1::::<><><>0<>0<><>::uid://d2jltaxsh16yx::::res://assets/Slime green.png<>uid://bf45eiejgrrww::::res://src/Presentation/Entities/Enemies/Slime/Slime.cs<>uid://cvpjova26kosh::::res://resources/Stats/slime.tres<>uid://bcdiugycol5q8::::res://src/Presentation/Components/HitBox.cs<>uid://ddi84f2tymh7p::::res://src/Presentation/Components/HealthComponent.cs<>uid://c0u0o8dnv7xxf::::res://src/Presentation/Entities/Enemies/Slime/States/SlimeStateMachine.cs<>uid://cgkuh68d2p3h7::::res://src/Presentation/Entities/Enemies/Slime/States/SlimeIdle.cs<>uid://dcy8l4afkpcho::::res://src/Presentation/Entities/Enemies/Slime/States/SlimeChase.cs<>uid://cne5qhdpgc62d::::res://src/Presentation/Entities/Enemies/Slime/States/SlimeHurt.cs<>uid://bq3hgexubiq84::::res://src/Presentation/Entities/Enemies/Slime/States/SlimeDie.cs
@@ -75,10 +74,14 @@ level_1.tscn::PackedScene::1121487878523732786::1778798571::0::1::::<><><>0<>0<>
 back_ground.tscn::PackedScene::3234971008737175895::1778626934::0::1::::<><><>0<>0<><>::uid://ddew5nymmu4ck::::res://assets/invertedSky.png<>uid://bsxe5qhpn0kf1::::res://assets/BG-sun.png<>uid://bu13u4tlge2gd::::res://assets/BG-mountains.png<>uid://blqondu7vppui::::res://assets/BG-ruins.png
 ground.tscn::PackedScene::2313895514602447824::1778795315::0::1::::<><><>0<>0<><>::uid://dyd1rcctxrkx2::::res://assets/00Atlas.png<>uid://bb2dt23pi0bb0::::res://assets/rocks1.png<>uid://bevaw4dtf3iem::::res://assets/rocks2.png<>uid://dn6u3p720m7l8::::res://assets/rocks3.png<>uid://0em4tjwqov83::::res://assets/rocks4.png<>uid://bos3q5j2o1gjp::::res://assets/rocks5.png<>uid://b77optsy1mdoy::::res://assets/rocks6.png<>uid://bt1dapem2jxmt::::res://assets/tree01.png<>uid://cl0ojalbxuvny::::res://assets/tree02.png<>uid://b410hqieelqha::::res://assets/tree03.png<>uid://djqig1er7xqm5::::res://assets/tree04.png<>uid://c8isj87qgqo15::::res://scenes/levels/level1/platform.tscn
 platform.tscn::PackedScene::7106698990928616234::1778713585::0::1::::<><><>0<>0<><>::uid://dyd1rcctxrkx2::::res://assets/00Atlas.png
-::res://scenes/managers/::1778793156
-game_manager.tscn::PackedScene::8392875539837758084::1778793156::0::1::::<><><>0<>0<><>::res://src/Core/Managers/GameManager/GameManager.cs<>uid://bn3tft6m6xb7c::::res://scenes/entities/slime.tscn
-::res://scenes/ui/::1778799808
+::res://scenes/managers/::1778807036
+game_manager.tscn::PackedScene::8392875539837758084::1778806190::0::1::::<><><>0<>0<><>::uid://gc4ckgku3hkq::::res://src/Core/Managers/GameManager/GameManager.cs<>uid://bn3tft6m6xb7c::::res://scenes/entities/slime.tscn
+root_sm.tscn::PackedScene::2776980368006788845::1778806120::0::1::::<><><>0<>0<><>::uid://dbwqqi5r57xlx::::res://src/Core/Managers/RootStateMachine/RootSM.cs<>uid://dy6nin0pn5yxa::::res://src/Core/Managers/RootStateMachine/States/GameSceneState.cs<>uid://cxicxu38r2yr1::::res://src/Core/Managers/RootStateMachine/States/MainMenuSceneState.cs
+::res://scenes/ui/::1778807007
 hud.tscn::PackedScene::7636671086582386779::1778623717::0::1::::<><><>0<>0<><>::uid://cyyxmmpdp88nf::::res://src/Presentation/UI/HUD/HUD.cs
+::res://scenes/ui/MainMenu/::1778809704
+main_menu_panel.tscn::PackedScene::3307079734017818337::1778807086::0::1::::<><><>0<>0<><>::
+settings_panel.tscn::PackedScene::6296305538570006957::1778809704::0::1::::<><><>0<>0<><>::
 ::res://src/::1778177954
 ::res://src/Core/::1778457270
 ::res://src/Core/Data/::1778358871
@@ -112,9 +115,9 @@ UIManager.cs::CSharpScript::7618506528751134018::1778462281::0::1::::<>Node<><>0
 GameManager.cs::CSharpScript::427026716698868960::1778800425::0::1::::<>Node<><>0<>0<><>::
 ::res://src/Core/Managers/RootStateMachine/::1778800352
 RootSM.cs::CSharpScript::7275867717238103017::1778800352::0::1::::RootSM<>Node<><>0<>0<><>::
-::res://src/Core/Managers/RootStateMachine/States/::1778800348
+::res://src/Core/Managers/RootStateMachine/States/::1778800574
 GameSceneState.cs::CSharpScript::8908594338148910286::1778800333::0::1::::GameSceneState<>Node<><>0<>0<><>::
-MainMenuSceneState.cs::CSharpScript::6403863395583473476::1778800348::0::1::::<>Node<><>0<>0<><>::
+MainMenuSceneState.cs::CSharpScript::6403863395583473476::1778800574::0::1::::<>Node<><>0<>0<><>::
 ::res://src/Core/Managers/SceneManager/::1778800488
 SceneManager.cs::CSharpScript::2081634233369355203::1778800488::0::1::::<>Node<><>0<>0<><>::
 ::res://src/Core/Payloads/::1778295806
@@ -180,9 +183,10 @@ GameOverState.cs::CSharpScript::5877711063477023167::1778794431::0::1::::GameOve
 InGamePauseState.cs::CSharpScript::2727010896974280521::1778794431::0::1::::InGamePauseState<>Node<><>0<>0<><>::
 InGameSettingsState.cs::CSharpScript::3901963450536909152::1778794431::0::1::::InGameSettingsState<>Node<><>0<>0<><>::
 InGameState.cs::CSharpScript::4548285428757853776::1778794431::0::1::::InGameState<>Node<><>0<>0<><>::
-::res://src/Presentation/UI/MainMenu/::1778799691
-MainMenu.cs::CSharpScript::2458325963544687840::1778799691::0::1::::<>Control<><>0<>0<><>::
-MainMenuSM.cs::CSharpScript::6398390594005105944::1778794431::0::1::::<><><>0<>0<><>::
-::res://src/Presentation/UI/MainMenu/States/::1778795673
-MainMenuSettingsState.cs::CSharpScript::8411618756280796335::1778795673::0::1::::MainMenuSettingsState<>Node<><>0<>0<><>::
-MainMenuState.cs::CSharpScript::1069554774093077811::1778795673::0::1::::MainMenuState<>Node<><>0<>0<><>::
+::res://src/Presentation/UI/MainMenu/::1778809664
+MainMenuPanel.cs::CSharpScript::7268926889617654545::1778808236::0::1::::<>PanelContainer<><>0<>0<><>::
+MainMenuSM.cs::CSharpScript::6398390594005105944::1778809467::0::1::::MainMenuSM<>Node<><>0<>0<><>::
+SettingsPanel.cs::CSharpScript::7967252941911791532::1778809664::0::1::::<><><>0<>0<><>::
+::res://src/Presentation/UI/MainMenu/States/::1778809425
+MainMenuSettingsState.cs::CSharpScript::8411618756280796335::1778809425::0::1::::MainMenuSettingsState<>Node<><>0<>0<><>::
+MainMenuState.cs::CSharpScript::1069554774093077811::1778809270::0::1::::MainMenuState<>Node<><>0<>0<><>::

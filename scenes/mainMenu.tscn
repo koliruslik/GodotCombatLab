@@ -1,68 +1,36 @@
 [gd_scene format=3 uid="uid://c4w44e1qe8m1t"]
 
-[ext_resource type="Script" uid="uid://bba3jfquvoflw" path="res://src/Presentation/UI/MainMenu/MainMenu.cs" id="1_dqwt8"]
+[ext_resource type="PackedScene" uid="uid://bnd8ec1nvwau0" path="res://scenes/ui/MainMenu/main_menu_panel.tscn" id="2_3d1i7"]
+[ext_resource type="PackedScene" uid="uid://cvx8h5tbtm6yr" path="res://scenes/ui/MainMenu/main_menu_settings_panel.tscn" id="3_48ign"]
+[ext_resource type="Script" uid="uid://cxfos8md5gbmm" path="res://src/Presentation/UI/MainMenu/MainMenuSM.cs" id="5_dj72i"]
+[ext_resource type="Script" uid="uid://dr3weqsw81elj" path="res://src/Presentation/UI/MainMenu/States/MainMenuSettingsState.cs" id="6_6b2wv"]
+[ext_resource type="Script" uid="uid://pidn77wh42ff" path="res://src/Presentation/UI/MainMenu/States/MainMenuState.cs" id="7_tov5d"]
 
-[sub_resource type="Gradient" id="Gradient_jqnq7"]
-interpolation_mode = 2
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_dqwt8"]
-gradient = SubResource("Gradient_jqnq7")
-fill_from = Vector2(0, 1)
-
-[node name="mainMenu" type="Control" unique_id=1068470903 node_paths=PackedStringArray("StartGameBtn", "ExitGameBtn", "SettingsBtn")]
+[node name="MainMenu" type="Control" unique_id=663184845]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("1_dqwt8")
-StartGameBtn = NodePath("mainMenuPanel/mainMenu/Buttons/HBoxContainer/StartGameBtn")
-ExitGameBtn = NodePath("mainMenuPanel/mainMenu/Buttons/SettingsBtn")
-SettingsBtn = NodePath("mainMenuPanel/mainMenu/Buttons/ExitBtn")
-
-[node name="mainMenuPanel" type="Panel" parent="." unique_id=478814073]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="mainMenu" type="MarginContainer" parent="mainMenuPanel" unique_id=557436872]
-layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 648.0
+[node name="MainMenuPanel" parent="." unique_id=1882703016 instance=ExtResource("2_3d1i7")]
+layout_mode = 1
 
-[node name="NinePatchRect" type="NinePatchRect" parent="mainMenuPanel/mainMenu" unique_id=867721801]
-layout_mode = 2
-texture = SubResource("GradientTexture2D_dqwt8")
+[node name="MainMenuSettingsPanel" parent="." unique_id=171346944 instance=ExtResource("3_48ign")]
+layout_mode = 1
 
-[node name="Buttons" type="VBoxContainer" parent="mainMenuPanel/mainMenu" unique_id=558527909]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/separation = 8
+[node name="MainMenuSM" type="Node" parent="." unique_id=487803096 node_paths=PackedStringArray("MainMenuPanel", "SettingsPanel", "InitialState")]
+script = ExtResource("5_dj72i")
+MainMenuPanel = NodePath("../MainMenuPanel")
+SettingsPanel = NodePath("../MainMenuSettingsPanel")
+InitialState = NodePath("MainMenuState")
+metadata/_custom_type_script = "uid://cxfos8md5gbmm"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="mainMenuPanel/mainMenu/Buttons" unique_id=309516545]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/separation = 8
+[node name="MainMenuState" type="Node" parent="MainMenuSM" unique_id=1951802676]
+script = ExtResource("7_tov5d")
+metadata/_custom_type_script = "uid://pidn77wh42ff"
 
-[node name="StartGameBtn" type="Button" parent="mainMenuPanel/mainMenu/Buttons/HBoxContainer" unique_id=1667862612]
-custom_minimum_size = Vector2(200, 100)
-layout_mode = 2
-text = "StartGame"
-
-[node name="SettingsBtn" type="Button" parent="mainMenuPanel/mainMenu/Buttons" unique_id=2029599595]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-text = "Settings"
-
-[node name="ExitBtn" type="Button" parent="mainMenuPanel/mainMenu/Buttons" unique_id=482719229]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-text = "Exit"
-
-[connection signal="pressed" from="mainMenuPanel/mainMenu/Buttons/HBoxContainer/StartGameBtn" to="." method="OnOptionOneBtnPressed"]
-[connection signal="pressed" from="mainMenuPanel/mainMenu/Buttons/ExitBtn" to="." method="OnExitBtnPressed"]
+[node name="MainMenuSettingsState" type="Node" parent="MainMenuSM" unique_id=860025167]
+script = ExtResource("6_6b2wv")
+metadata/_custom_type_script = "uid://dr3weqsw81elj"

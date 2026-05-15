@@ -5,26 +5,26 @@ using Godot;
 namespace CombatLab.Presentation.UI.MainMenu.States;
 
 [GlobalClass]
-public partial class MainMenuState : State<MainMenu>
+public partial class MainMenuState : State<MainMenuSM>
 {
+    
+    private Callable _onSettingsPressed;
+    
     public override void Enter()
     {
         base.Enter();
-
-        GetTree().Paused = false;
+        Actor.ShowPanel(Actor.MainMenuPanel);
+        _onSettingsPressed = Callable.From(OnSettingsPressed);
+        Actor.Connect(MainMenuSM.SignalName.SettingsClicked, _onSettingsPressed);
     }
 
     public override void Exit()
     {
         base.Exit();
+        Actor.Disconnect(MainMenuSM.SignalName.SettingsClicked, _onSettingsPressed);
     }
-
-    private void OnPlayButtonPressed()
-    {
-        EmitSignal(SignalName.Transitioned, this, "startGame");
-    }
-
-    private void OnSettingsButtonPressed()
+    
+    private void OnSettingsPressed()
     {
         EmitSignal(SignalName.Transitioned, this, "openSettings");
     }

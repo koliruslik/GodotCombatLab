@@ -53,3 +53,10 @@ res://src/Core/Managers/SceneManager/SceneManager.cs
 res://scenes/levels/level1/level_1.tscn
 res://scenes/ui/mainMenu.tscn
 res://scenes/root_sm.tscn
+res://scenes/mainMenu.tscn
+res://scenes/ui/MainMenu/main_menu_panel.tscn
+res://src/Presentation/UI/MainMenu/MainMenuSM.cs
+res://src/Presentation/UI/MainMenu/MainMenuPanel.cs
+res://scenes/ui/MainMenu/settings_panel.tscn
+res://scenes/ui/MainMenu/main_menu_settings_panel.tscn
+res://src/Presentation/UI/MainMenu/MainMenuSettingsPanel.cs

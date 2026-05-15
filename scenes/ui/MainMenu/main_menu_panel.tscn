@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://bnd8ec1nvwau0"]
+
+[ext_resource type="Script" uid="uid://dbteftoxmp746" path="res://src/Presentation/UI/MainMenu/MainMenuPanel.cs" id="1_qdm0g"]
+
+[sub_resource type="Gradient" id="Gradient_2ga28"]
+interpolation_mode = 2
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dqwt8"]
+gradient = SubResource("Gradient_2ga28")
+fill_from = Vector2(0, 1)
+
+[node name="MainMenuPanel" type="PanelContainer" unique_id=1320939288 node_paths=PackedStringArray("StartGameBtn", "SettingsBtn", "ExitGameBtn")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qdm0g")
+StartGameBtn = NodePath("VBoxContainer/StartGameBtn")
+SettingsBtn = NodePath("VBoxContainer/SettingsBtn")
+ExitGameBtn = NodePath("VBoxContainer/ExitBtn")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=741782165]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_dqwt8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=483344520]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 8
+
+[node name="StartGameBtn" type="Button" parent="VBoxContainer" unique_id=1480937596]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+text = "StartGame"
+
+[node name="SettingsBtn" type="Button" parent="VBoxContainer" unique_id=1494435596]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = "Settings"
+
+[node name="ExitBtn" type="Button" parent="VBoxContainer" unique_id=1746715435]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = "Exit"
