@@ -15,20 +15,20 @@ public static class EventBus
     public static event Action<GlobalGameState> GameStateChanged;
 
     public static event Action UIStartGameClicked;
-    public static event Action UIReturnToMenuClicked;
+    public static event Action UIReturnToMainMenuClicked;
     public static event Action UISettingsClicked;
     public static event Action UIResumeClicked;
-    public static event Action UIMenuClicked;
-    public static event Action UIBackClicked;
+    public static event Action UIReturnToPauseMenuClicked;
+    public static event Action UIMainMenuBackClicked;
     public static event Action UIRestartClicked;
     
     public static void PublishGameStateChanged(GlobalGameState state) => GameStateChanged?.Invoke(state);
     public static void PublishUIStartGameClicked() => UIStartGameClicked?.Invoke();
-    public static void PublishUIReturnToMenuClicked() => UIReturnToMenuClicked?.Invoke();
+    public static void PublishUIReturnToMainMenuClicked() => UIReturnToMainMenuClicked?.Invoke();
+    public static void PublishUIMainMenuBackClicked() => UIMainMenuBackClicked?.Invoke();
     public static void PublishUISettingsClicked() => UISettingsClicked?.Invoke();
     public static void PublishUIResumeClicked() => UIResumeClicked?.Invoke();
-    public static void PublishUIMenuClicked() => UIMenuClicked?.Invoke();
-    public static void PublishUIBackClicked() => UIBackClicked?.Invoke();
+    public static void PublishUIToPauseMenuClicked() => UIReturnToPauseMenuClicked?.Invoke();
     public static void PublishUIRestartClicked() => UIRestartClicked?.Invoke();
     
     public static void PublishEnemyDied(DeathData dt) => EnemyDied?.Invoke(dt);

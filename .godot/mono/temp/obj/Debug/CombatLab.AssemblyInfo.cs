@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CombatLab")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+08dd4a6330a55fddf134f989446e299999d227d5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6d56c969060e5da52dfa4a0b5650b7367fa57c66")]
 [assembly: System.Reflection.AssemblyProductAttribute("CombatLab")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CombatLab")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

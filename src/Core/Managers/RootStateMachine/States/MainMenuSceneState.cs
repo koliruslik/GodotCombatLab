@@ -9,8 +9,9 @@ public partial class MainMenuSceneState : State<RootSM>
     public override void Enter()
     {
         base.Enter();
+        GetTree().Paused = false;
         _onPlayClicked = Callable.From(OnPlayClicked);
-        Actor.SceneManager.ChangeScene("res://Scenes/mainMenu.tscn");
+        Actor.SceneManager.ChangeScene("res://scenes/mainMenu.tscn");
         Actor.Connect(RootSM.SignalName.PlayClicked, _onPlayClicked);
     }
 

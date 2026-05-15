@@ -13,11 +13,11 @@ public partial class MainMenuSettingsPanel : PanelContainer
     {
         if (BackBtn == null) { GameLogger.Error("BackBtn is null"); return; }
 
-        BackBtn.Pressed += EventBus.PublishUIBackClicked;
+        BackBtn.Pressed += EventBus.PublishUIMainMenuBackClicked;
     }
 
     public override void _ExitTree()
     {
-        BackBtn.Pressed -= EventBus.PublishUIBackClicked;
+        BackBtn.Pressed -= EventBus.PublishUIMainMenuBackClicked;
     }
 }

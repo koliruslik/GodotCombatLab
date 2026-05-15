@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://buxtaymcasxpj"]
+
+[ext_resource type="PackedScene" uid="uid://d3s3ntku0vwpa" path="res://scenes/ui/InGame/game_over.tscn" id="1_jrfy8"]
+[ext_resource type="PackedScene" uid="uid://cg3la6xjljpds" path="res://scenes/ui/InGame/in_game_settings_panel.tscn" id="2_cnyku"]
+[ext_resource type="PackedScene" uid="uid://b87fktbs0ub3k" path="res://scenes/ui/InGame/pause_menu_panel.tscn" id="3_ftvl4"]
+[ext_resource type="PackedScene" uid="uid://dg2i4e1casg40" path="res://scenes/ui/InGame/hud_panel.tscn" id="4_l76jp"]
+[ext_resource type="Script" uid="uid://bwv8sfxee5j80" path="res://src/Presentation/UI/Game/GameSM.cs" id="5_0htxu"]
+[ext_resource type="Script" uid="uid://be38qashui6dh" path="res://src/Presentation/UI/Game/States/InGamePauseState.cs" id="6_tcxxh"]
+[ext_resource type="Script" uid="uid://bvue1d0ml65s3" path="res://src/Presentation/UI/Game/States/InGameSettingsState.cs" id="7_cintx"]
+[ext_resource type="Script" uid="uid://b52hujs1387yy" path="res://src/Presentation/UI/Game/States/InGameState.cs" id="8_otojf"]
+[ext_resource type="Script" uid="uid://cp0hbpdjx63ah" path="res://src/Presentation/UI/Game/States/GameOverState.cs" id="9_td7pk"]
+
+[node name="InGameUICanvasLayer" type="Control" unique_id=290069491]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1254693329]
+
+[node name="GameOverPanel" parent="CanvasLayer" unique_id=2085256768 instance=ExtResource("1_jrfy8")]
+
+[node name="HUDPanel" parent="CanvasLayer" unique_id=2050142932 instance=ExtResource("4_l76jp")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 361.00006
+offset_right = 1152.0
+offset_bottom = 494.00006
+
+[node name="InGameSettingsPanel" parent="CanvasLayer" unique_id=171346944 instance=ExtResource("2_cnyku")]
+
+[node name="PauseMenuPanel" parent="CanvasLayer" unique_id=1504436419 instance=ExtResource("3_ftvl4")]
+
+[node name="GameSM" type="Node" parent="." unique_id=297833438 node_paths=PackedStringArray("GameHUDPanel", "PauseMenuPanel", "InGameSettingsPanel", "GameOverPanel", "InitialState")]
+script = ExtResource("5_0htxu")
+GameHUDPanel = NodePath("../CanvasLayer/HUDPanel")
+PauseMenuPanel = NodePath("../CanvasLayer/PauseMenuPanel")
+InGameSettingsPanel = NodePath("../CanvasLayer/InGameSettingsPanel")
+GameOverPanel = NodePath("../CanvasLayer/GameOverPanel")
+InitialState = NodePath("InGameState")
+metadata/_custom_type_script = "uid://bwv8sfxee5j80"
+
+[node name="InGamePauseState" type="Node" parent="GameSM" unique_id=1744424501]
+script = ExtResource("6_tcxxh")
+metadata/_custom_type_script = "uid://be38qashui6dh"
+
+[node name="InGameSettingsState" type="Node" parent="GameSM" unique_id=630055655]
+script = ExtResource("7_cintx")
+metadata/_custom_type_script = "uid://bvue1d0ml65s3"
+
+[node name="InGameState" type="Node" parent="GameSM" unique_id=1188132051]
+script = ExtResource("8_otojf")
+metadata/_custom_type_script = "uid://b52hujs1387yy"
+
+[node name="GameOverState" type="Node" parent="GameSM" unique_id=1406756051]
+script = ExtResource("9_td7pk")
+metadata/_custom_type_script = "uid://cp0hbpdjx63ah"

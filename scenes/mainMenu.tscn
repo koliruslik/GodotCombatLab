@@ -14,16 +14,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MainMenuPanel" parent="." unique_id=1882703016 instance=ExtResource("2_3d1i7")]
-layout_mode = 1
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1756817124]
 
-[node name="MainMenuSettingsPanel" parent="." unique_id=171346944 instance=ExtResource("3_48ign")]
-layout_mode = 1
+[node name="MainMenuPanel" parent="CanvasLayer" unique_id=1882703016 instance=ExtResource("2_3d1i7")]
+visible = false
+
+[node name="MainMenuSettingsPanel" parent="CanvasLayer" unique_id=171346944 instance=ExtResource("3_48ign")]
+visible = false
 
 [node name="MainMenuSM" type="Node" parent="." unique_id=487803096 node_paths=PackedStringArray("MainMenuPanel", "SettingsPanel", "InitialState")]
 script = ExtResource("5_dj72i")
-MainMenuPanel = NodePath("../MainMenuPanel")
-SettingsPanel = NodePath("../MainMenuSettingsPanel")
+MainMenuPanel = NodePath("../CanvasLayer/MainMenuPanel")
+SettingsPanel = NodePath("../CanvasLayer/MainMenuSettingsPanel")
 InitialState = NodePath("MainMenuState")
 metadata/_custom_type_script = "uid://cxfos8md5gbmm"
 

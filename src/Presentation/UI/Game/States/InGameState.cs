@@ -5,12 +5,23 @@ using Godot;
 namespace CombatLab.Presentation.UI.HUD.States;
 
 [GlobalClass]
-public partial class InGameState : State<HUD>
+public partial class InGameState : State<GameSM>
 {
+    private Callable _onPlayerDied;
     public override void Enter()
     {
         base.Enter();
-        GetTree().Paused = false;
+        Actor.SetPaused(false);
+        Actor.ShowPanel(Actor.GameHUDPanel);
+
+        _onPlayerDied = Callable.From(OnPlayerDied);
+        Actor.Connect(GameSM.SignalName.PlayerDied, _onPlayerDied);
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+        Actor.Disconnect(GameSM.SignalName.PlayerDied, _onPlayerDied);
     }
 
     public override void Update(double delta)
@@ -21,11 +32,10 @@ public partial class InGameState : State<HUD>
         {
             EmitSignal(SignalName.Transitioned, this, "pauseMenu");
         }
-
     }
     
     private void OnPlayerDied()
     {
-        EmitSignal(SignalName.Transitioned, this, "gameOver");
+        EmitSignal(SignalName.Transitioned, this, "playerDied");
     }
 }

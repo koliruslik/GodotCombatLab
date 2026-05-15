@@ -13,7 +13,9 @@ public partial class MainMenuState : State<MainMenuSM>
     public override void Enter()
     {
         base.Enter();
+        GD.Print("MainMenuState Enter, Actor: " + Actor?.Name);
         Actor.ShowPanel(Actor.MainMenuPanel);
+        Actor.MainMenuPanel.GetViewport().GuiReleaseFocus();
         _onSettingsPressed = Callable.From(OnSettingsPressed);
         Actor.Connect(MainMenuSM.SignalName.SettingsClicked, _onSettingsPressed);
     }

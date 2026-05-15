@@ -25,7 +25,7 @@ public partial class RootSM : StateMachine<RootSM>
     public override void _Ready()
     {
         EventBus.UIStartGameClicked += OnUIPlayClicked;
-        EventBus.UIReturnToMenuClicked += OnReturnToMenuClicked;
+        EventBus.UIReturnToMainMenuClicked += OnReturnToMenuClicked;
         if (!ServiceLocator.TryGet<ISceneManager>(out var sceneManager))
         {
             GameLogger.Error("ISceneManager not registered");
@@ -39,7 +39,7 @@ public partial class RootSM : StateMachine<RootSM>
     public override void _ExitTree()
     {
         EventBus.UIStartGameClicked -= OnUIPlayClicked;
-        EventBus.UIReturnToMenuClicked -= OnReturnToMenuClicked;
+        EventBus.UIReturnToMainMenuClicked -= OnReturnToMenuClicked;
     }
     
     private void OnUIPlayClicked()

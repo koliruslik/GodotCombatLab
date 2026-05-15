@@ -26,7 +26,7 @@ public partial class MainMenuSM : StateMachine<MainMenuSM>
     public override void _Ready()
     {
         EventBus.UISettingsClicked += OnSettingsClicked;
-        EventBus.UIBackClicked += OnBackClicked;
+        EventBus.UIMainMenuBackClicked += OnBackClicked;
         
         _panels = new Control[]
         {
@@ -47,7 +47,7 @@ public partial class MainMenuSM : StateMachine<MainMenuSM>
     public override void _ExitTree()
     {
         EventBus.UISettingsClicked -= OnSettingsClicked;
-        EventBus.UIBackClicked -= OnBackClicked;
+        EventBus.UIMainMenuBackClicked -= OnBackClicked;
     }
 
     public void ShowPanel(Control panel)

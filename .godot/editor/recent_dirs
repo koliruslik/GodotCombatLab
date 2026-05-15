@@ -1,5 +1,6 @@
-res://scenes/ui/MainMenu/
 res://scenes/
+res://scenes/ui/InGame/
+res://scenes/ui/MainMenu/
 res://src/Core/Managers/RootStateMachine/
 res://src/Core/Managers/SceneManager/
 res://scenes/entities/
@@ -10,5 +11,4 @@ res://scenes/ui/
 res://scenes/managers/
 res://src/Presentation/Entities/Player/
 res://src/Presentation/Entities/Enemies/Slime/
-res://src/Presentation/UI/HUD/
 res://src/Core/Managers/

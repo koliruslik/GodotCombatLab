@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://d3s3ntku0vwpa"]
+
+[ext_resource type="Script" uid="uid://djcisxec00q82" path="res://src/Presentation/UI/Game/GameOverPanel.cs" id="1_lkl7c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d877w"]
+bg_color = Color(0, 0, 0, 0.69803923)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nwjn0"]
+
+[node name="GameOverPanel" type="PanelContainer" unique_id=2085256768 node_paths=PackedStringArray("RestartBtn", "ToMenuBtn")]
+custom_minimum_size = Vector2(200, 0)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -248.0
+offset_bottom = -153.99994
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_d877w")
+script = ExtResource("1_lkl7c")
+RestartBtn = NodePath("VBoxContainer/RestartBtn")
+ToMenuBtn = NodePath("VBoxContainer/ToMainMenuBtn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1609071903]
+layout_mode = 2
+
+[node name="DeathLabel" type="Label" parent="VBoxContainer" unique_id=829284673]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4474479, 0.09706316, 0.15615126, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "you died"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="RestartBtn" type="Button" parent="VBoxContainer" unique_id=1071456175]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78431374, 0.78431374, 0.78431374, 1)
+theme_override_colors/font_focus_color = Color(0.78431374, 0.78431374, 0.78431374, 1)
+theme_override_colors/font_pressed_color = Color(0.54509807, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.54509807, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxEmpty_nwjn0")
+text = "Restart"
+
+[node name="ToMainMenuBtn" type="Button" parent="VBoxContainer" unique_id=1922681490]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78431374, 0.78431374, 0.78431374, 1)
+theme_override_colors/font_focus_color = Color(0.78431374, 0.78431374, 0.78431374, 1)
+theme_override_colors/font_pressed_color = Color(0.54509807, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.54509807, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxEmpty_nwjn0")
+text = "Restart"

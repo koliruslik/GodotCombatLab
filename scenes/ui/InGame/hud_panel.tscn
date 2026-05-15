@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dg2i4e1casg40"]
+
+[ext_resource type="Script" uid="uid://cyyxmmpdp88nf" path="res://src/Presentation/UI/Game/HUD/HUD.cs" id="1_7kauk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0mwgc"]
+
+[node name="HUDPanel" type="PanelContainer" unique_id=2050142932 node_paths=PackedStringArray("HealthLabel", "GoldLabel")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0mwgc")
+script = ExtResource("1_7kauk")
+HealthLabel = NodePath("VBoxContainer/HealthLabel")
+GoldLabel = NodePath("VBoxContainer/GoldLabel")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1581165373]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="HealthLabel" type="Label" parent="VBoxContainer" unique_id=298083630]
+layout_mode = 2
+
+[node name="GoldLabel" type="Label" parent="VBoxContainer" unique_id=867214708]
+layout_mode = 2

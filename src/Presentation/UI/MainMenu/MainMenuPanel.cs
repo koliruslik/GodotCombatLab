@@ -15,11 +15,14 @@ public partial class MainMenuPanel : PanelContainer
 	
     public override void _Ready()
     {
+        StartGameBtn.GrabFocus();
+        GD.Print("MainMenuPanel Ready, StartGameBtn: " + StartGameBtn?.Name);
         if(StartGameBtn == null) { GameLogger.Error("StartGameBtn not set"); return; }
         if(ExitGameBtn == null) { GameLogger.Error("ExitGameBtn not set"); return; }
         if(SettingsBtn == null) { GameLogger.Error("SettingsBtn not set"); return; }
 
         StartGameBtn.Pressed  += EventBus.PublishUIStartGameClicked;
+        StartGameBtn.Pressed += () => GD.Print("StartGame button pressed!");
         SettingsBtn.Pressed += EventBus.PublishUISettingsClicked;
         ExitGameBtn.Pressed += () => GetTree().Quit();
     }

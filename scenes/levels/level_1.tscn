@@ -1,18 +1,18 @@
 [gd_scene format=3 uid="uid://p8i0hghv32bu"]
 
-[ext_resource type="PackedScene" uid="uid://774ryl10xchs" path="res://scenes/levels/level1/ground.tscn" id="1_sobkt"]
-[ext_resource type="PackedScene" uid="uid://dbp7c5ypwok1n" path="res://scenes/entities/player.tscn" id="1_un1bx"]
-[ext_resource type="PackedScene" uid="uid://bmdbq84h6xa12" path="res://scenes/levels/level1/back_ground.tscn" id="2_cujl6"]
-[ext_resource type="PackedScene" uid="uid://dg2i4e1casg40" path="res://scenes/ui/hud.tscn" id="3_phka5"]
+[ext_resource type="PackedScene" uid="uid://bmdbq84h6xa12" path="res://scenes/levels/level1/back_ground.tscn" id="1_dga24"]
+[ext_resource type="PackedScene" uid="uid://774ryl10xchs" path="res://scenes/levels/level1/ground.tscn" id="2_qxy0u"]
+[ext_resource type="PackedScene" uid="uid://dbp7c5ypwok1n" path="res://scenes/entities/player.tscn" id="3_excbq"]
+[ext_resource type="PackedScene" uid="uid://buxtaymcasxpj" path="res://scenes/ui/InGame/in_game_ui_canvas_layer.tscn" id="4_dga24"]
 
 [node name="level1" type="Node2D" unique_id=1382315663]
 
-[node name="BackGround" parent="." unique_id=1418274828 instance=ExtResource("2_cujl6")]
+[node name="BackGround" parent="." unique_id=1418274828 instance=ExtResource("1_dga24")]
 
-[node name="Ground" parent="." unique_id=380457721 instance=ExtResource("1_sobkt")]
+[node name="Ground" parent="." unique_id=380457721 instance=ExtResource("2_qxy0u")]
 scale = Vector2(2.3, 2.3)
 
-[node name="Player" parent="." unique_id=1614278784 instance=ExtResource("1_un1bx")]
+[node name="Player" parent="." unique_id=1614278784 instance=ExtResource("3_excbq")]
 position = Vector2(-1, -14)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1548069537]
@@ -24,7 +24,8 @@ drag_top_margin = 0.1
 drag_right_margin = 0.1
 drag_bottom_margin = 0.1
 
-[node name="HUD" parent="." unique_id=1397504696 instance=ExtResource("3_phka5")]
-
 [node name="SlimeSpawner" type="Marker2D" parent="." unique_id=300008852 groups=["SpawnPoint"]]
 position = Vector2(-1745, -96)
+
+[node name="InGameUIControl" parent="." unique_id=13479872 instance=ExtResource("4_dga24")]
+process_mode = 3
