@@ -34,7 +34,12 @@ public partial class Player : Entity, IPlayer, IKnockbackable
     public float LastKnockbackLift { get; set; }
     public int FacingDirection { get; set; } = 1;
     public float InvincibilityTime { get; private set; }
-    
+
+    public override void _EnterTree()
+    {
+        ServiceLocator.Register<IPlayer>(this);
+    }
+
     public override void _Ready()
     {
         base._Ready();
@@ -53,9 +58,8 @@ public partial class Player : Entity, IPlayer, IKnockbackable
         InvincibilityTime = Stats.InvincibleTime;
         
         Health.Initialize(Stats.MaxHP, InvincibilityTime);
-        
+        EventBus.PublishPlayerSpawned();
         Lsm.SetUp(this);
-        ServiceLocator.Register<IPlayer>(this);
         AddToGroup("Player");
     }
     

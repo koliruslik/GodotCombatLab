@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bftgpw30ujvwf"]
+
+[ext_resource type="Script" uid="uid://dbwqqi5r57xlx" path="res://src/Core/Managers/RootStateMachine/RootSM.cs" id="1_fm1gw"]
+[ext_resource type="Script" uid="uid://dy6nin0pn5yxa" path="res://src/Core/Managers/RootStateMachine/States/GameSceneState.cs" id="2_b1l61"]
+[ext_resource type="Script" uid="uid://cxicxu38r2yr1" path="res://src/Core/Managers/RootStateMachine/States/MainMenuSceneState.cs" id="3_h2pjd"]
+
+[node name="RootSM" type="Node" unique_id=2117173464 node_paths=PackedStringArray("InitialState")]
+script = ExtResource("1_fm1gw")
+InitialState = NodePath("MainMenuSceneState")
+metadata/_custom_type_script = "uid://dbwqqi5r57xlx"
+
+[node name="GameSceneState" type="Node" parent="." unique_id=1750842442]
+script = ExtResource("2_b1l61")
+metadata/_custom_type_script = "uid://dy6nin0pn5yxa"
+
+[node name="MainMenuSceneState" type="Node" parent="." unique_id=2012323296]
+script = ExtResource("3_h2pjd")
+metadata/_custom_type_script = "uid://cxicxu38r2yr1"

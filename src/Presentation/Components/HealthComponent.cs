@@ -27,7 +27,7 @@ public partial class HealthComponent : Node, IDamageable
         _maxHP = maxHP;
         _currentHP = _maxHP;
         _invincibilityTimer = invincibleTime;
-        GameLogger.Success($"{Source?.Name}: HP initialized — {_maxHP}");
+        GameLogger.Info($"{Source?.Name}: HP initialized — {_maxHP}");
         EventBus.PublishHealthChanged(Source, _currentHP, _maxHP);
     }
 

@@ -44,8 +44,8 @@ public partial class HUD : Node
 
     private void OnRestartPressed()
     {
-        GameLogger.Info("HUD: Restart button pressed.");
-        EventBus.PublishRestartRequested();
+        GameLogger.Info("HUD: Restart button pressed."); 
+        EventBus.PublishUIRestartClicked();
     }
     
     private void GoldChangedHandler(float currentGold)

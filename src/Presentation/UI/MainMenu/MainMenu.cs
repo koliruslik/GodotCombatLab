@@ -1,72 +1,82 @@
+using System.Collections.Generic;
+using CombatLab.Core.Events;
 using Godot;
-using System;
-using System.Numerics;
+using CombatLab.Core.Utils;
 using Vector2 = Godot.Vector2;
 
 namespace CombatLab.Presentation.UI.MainMenu;
 public partial class MainMenu : Control
 {
 	// Called when the node enters the scene tree for the first time.
-	[ExportGroup("Scenes")]
-	[Export] public PackedScene Opt1Scene;
-	[Export] public PackedScene Opt2Scene;
-	[Export] public PackedScene Opt3Scene;
 	
 	[ExportGroup("Buttons")]
-	[Export] public Button[] Buttons;
+	[Export] public Button StartGameBtn;
+	[Export] public Button ExitGameBtn;
+	[Export] public Button SettingsBtn;
 	
 	[ExportGroup("Options")]
 	[Export] public float TweenAmount = 1.1f;
 	[Export] public float Duration = 0.1f;
 	
+	private List<Button> _buttons;
+	private readonly Dictionary<Button, Tween> _tweens = new();
 	
 	public override void _Ready()
 	{
-		if (Buttons == null) return;
-		foreach (var btn in Buttons)
+		_buttons = new List<Button>
 		{
-			
-			
-			btn.MouseEntered += () => OnButtonHover(btn, true);
-			btn.MouseExited += () => OnButtonHover(btn, false);
+			StartGameBtn,
+			ExitGameBtn,
+			SettingsBtn
+		};
+
+		if (_buttons.Count == 0)
+		{
+			GameLogger.Error("No buttons added");
+			return;
 		}
+
+		foreach (var btn in _buttons)
+		{
+			if(btn == null)
+				continue;
+
+			var capturedButton = btn;
+			
+			capturedButton.MouseEntered += () => OnButtonHover(capturedButton, true);
+			capturedButton.MouseExited += () => OnButtonHover(capturedButton, false);
+		}
+
+		StartGameBtn.Pressed  += EventBus.PublishUIStartGameClicked;
+		SettingsBtn.Pressed += EventBus.PublishUISettingsClicked;
+	}
+
+	public override void _ExitTree()
+	{
+		base._ExitTree();
+		StartGameBtn.Pressed  -= EventBus.PublishUIStartGameClicked;
+		SettingsBtn.Pressed -= EventBus.PublishUISettingsClicked;
 	}
 
 	private void OnButtonHover(Button btn, bool isHovered)
 	{
 		btn.PivotOffset = btn.Size / 2;
-		if (!GodotObject.IsInstanceValid(btn)) return;
 
-		var targetScale = isHovered ? Vector2.One * TweenAmount : Vector2.One;
+		if (_tweens.TryGetValue(btn, out var existingTween))
+		{
+			existingTween.Kill();
+		}
+		
+		var targetScale = isHovered 
+			? Vector2.One * TweenAmount 
+			: Vector2.One;
 		
 		var tween = CreateTween();
 
-		tween.SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.Out);
+		_tweens[btn] = tween;
+		
+		tween.SetTrans(Tween.TransitionType.Sine)
+			.SetEase(Tween.EaseType.Out);
 		tween.TweenProperty(btn, "scale", targetScale, Duration);
-	}
-
-	
-
-	private void OnOptionOneBtnPressed()
-	{
-		if(Opt1Scene != null)
-			GetTree().ChangeSceneToPacked(Opt1Scene);
-	}
-
-	private void OnOptionTwoBtnPressed()
-	{
-		if(Opt2Scene != null)
-			GetTree().ChangeSceneToPacked(Opt2Scene);
-	}
-
-	private void OnOptionThreeBtnPressed()
-	{
-		if (Opt3Scene != null)
-			GetTree().ChangeSceneToPacked(Opt3Scene);
-	}
-
-	private void OnExitBtnPressed()
-	{
-		GetTree().Quit();
 	}
 }

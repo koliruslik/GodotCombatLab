@@ -21,12 +21,18 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+SceneManager="*uid://4wmhgynam1cx"
+RootStateMachine="*uid://bftgpw30ujvwf"
 UiManager="*uid://dgspxpaf6kb75"
 GameManager="*uid://drtto0vb3a78c"
 
 [dotnet]
 
 project/assembly_name="CombatLab"
+
+[global_group]
+
+SpawnPoint=""
 
 [input]
 

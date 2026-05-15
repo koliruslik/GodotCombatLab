@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://dbp7c5ypwok1n" path="res://scenes/entities/player.tscn" id="1_un1bx"]
 [ext_resource type="PackedScene" uid="uid://bmdbq84h6xa12" path="res://scenes/levels/level1/back_ground.tscn" id="2_cujl6"]
 [ext_resource type="PackedScene" uid="uid://dg2i4e1casg40" path="res://scenes/ui/hud.tscn" id="3_phka5"]
-[ext_resource type="PackedScene" uid="uid://bn3tft6m6xb7c" path="res://scenes/entities/slime.tscn" id="5_sobkt"]
 
 [node name="level1" type="Node2D" unique_id=1382315663]
 
@@ -27,5 +26,5 @@ drag_bottom_margin = 0.1
 
 [node name="HUD" parent="." unique_id=1397504696 instance=ExtResource("3_phka5")]
 
-[node name="Slime" parent="." unique_id=1228000909 instance=ExtResource("5_sobkt")]
-position = Vector2(-158, 32)
+[node name="SlimeSpawner" type="Marker2D" parent="." unique_id=300008852 groups=["SpawnPoint"]]
+position = Vector2(-1745, -96)

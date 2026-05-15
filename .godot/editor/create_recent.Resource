@@ -1,3 +1,3 @@
+EnemyStats
 WeaponData
 PlayerStats
-EnemyStats

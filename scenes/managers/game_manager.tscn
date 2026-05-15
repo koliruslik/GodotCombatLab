@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://drtto0vb3a78c"]
 
-[ext_resource type="Script" uid="uid://gc4ckgku3hkq" path="res://src/Core/Managers/GameManager.cs" id="1_i04cf"]
+[ext_resource type="Script" uid="uid://gc4ckgku3hkq" path="res://src/Core/Managers/GameManager/GameManager.cs" id="1_i04cf"]
+[ext_resource type="PackedScene" uid="uid://bn3tft6m6xb7c" path="res://scenes/entities/slime.tscn" id="2_r76ct"]
 
 [node name="GameManager" type="Node" unique_id=971752519]
 script = ExtResource("1_i04cf")
+SlimeScene = ExtResource("2_r76ct")
 EnabledLogCategory = 32
 metadata/_custom_type_script = "uid://gc4ckgku3hkq"

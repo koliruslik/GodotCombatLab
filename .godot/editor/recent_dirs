@@ -1,3 +1,7 @@
+res://scenes/
+res://src/Core/Managers/RootStateMachine/
+res://src/Core/Managers/SceneManager/
+res://scenes/entities/
 res://scenes/levels/level1/
 res://assets/animations/player/
 res://assets/

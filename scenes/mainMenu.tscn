@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://c4w44e1qe8m1t"]
 
 [ext_resource type="Script" uid="uid://bba3jfquvoflw" path="res://src/Presentation/UI/MainMenu/MainMenu.cs" id="1_dqwt8"]
-[ext_resource type="PackedScene" uid="uid://p8i0hghv32bu" path="res://scenes/levels/level1/level_1.tscn" id="2_4qbkq"]
 
 [sub_resource type="Gradient" id="Gradient_jqnq7"]
 interpolation_mode = 2
@@ -10,16 +9,15 @@ interpolation_mode = 2
 gradient = SubResource("Gradient_jqnq7")
 fill_from = Vector2(0, 1)
 
-[node name="mainMenu" type="Control" unique_id=1068470903 node_paths=PackedStringArray("Buttons")]
+[node name="mainMenu" type="Control" unique_id=1068470903 node_paths=PackedStringArray("StartGameBtn", "ExitGameBtn", "SettingsBtn")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_dqwt8")
-Opt1Scene = ExtResource("2_4qbkq")
-Opt2Scene = ExtResource("2_4qbkq")
-Opt3Scene = ExtResource("2_4qbkq")
-Buttons = []
+StartGameBtn = NodePath("mainMenuPanel/mainMenu/Buttons/HBoxContainer/StartGameBtn")
+ExitGameBtn = NodePath("mainMenuPanel/mainMenu/Buttons/SettingsBtn")
+SettingsBtn = NodePath("mainMenuPanel/mainMenu/Buttons/ExitBtn")
 
 [node name="mainMenuPanel" type="Panel" parent="." unique_id=478814073]
 layout_mode = 1
@@ -45,25 +43,16 @@ size_flags_vertical = 4
 theme_override_constants/separation = 8
 
 [node name="HBoxContainer" type="HBoxContainer" parent="mainMenuPanel/mainMenu/Buttons" unique_id=309516545]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 8
 
-[node name="Option1Btn" type="Button" parent="mainMenuPanel/mainMenu/Buttons/HBoxContainer" unique_id=1667862612]
-custom_minimum_size = Vector2(100, 100)
+[node name="StartGameBtn" type="Button" parent="mainMenuPanel/mainMenu/Buttons/HBoxContainer" unique_id=1667862612]
+custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
-text = "Option 1"
-
-[node name="Option2Btn" type="Button" parent="mainMenuPanel/mainMenu/Buttons/HBoxContainer" unique_id=964790354]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-text = "Option 2"
-
-[node name="Option3Btn" type="Button" parent="mainMenuPanel/mainMenu/Buttons/HBoxContainer" unique_id=548732943]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-text = "Option 3"
+text = "StartGame"
 
 [node name="SettingsBtn" type="Button" parent="mainMenuPanel/mainMenu/Buttons" unique_id=2029599595]
 custom_minimum_size = Vector2(100, 100)
@@ -75,7 +64,5 @@ custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 text = "Exit"
 
-[connection signal="pressed" from="mainMenuPanel/mainMenu/Buttons/HBoxContainer/Option1Btn" to="." method="OnOptionOneBtnPressed"]
-[connection signal="pressed" from="mainMenuPanel/mainMenu/Buttons/HBoxContainer/Option2Btn" to="." method="OnOptionTwoBtnPressed"]
-[connection signal="pressed" from="mainMenuPanel/mainMenu/Buttons/HBoxContainer/Option3Btn" to="." method="OnOptionThreeBtnPressed"]
+[connection signal="pressed" from="mainMenuPanel/mainMenu/Buttons/HBoxContainer/StartGameBtn" to="." method="OnOptionOneBtnPressed"]
 [connection signal="pressed" from="mainMenuPanel/mainMenu/Buttons/ExitBtn" to="." method="OnExitBtnPressed"]

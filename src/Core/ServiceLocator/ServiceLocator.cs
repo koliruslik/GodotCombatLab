@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CombatLab.Core.Interfaces;
+using CombatLab.Core.Utils;
 
 namespace CombatLab.Core.Services;
 
@@ -15,6 +16,7 @@ public static class ServiceLocator
             throw new Exception($"Duplicate type {typeof(T)}");
         }
         _services.Add(typeof(T), service);
+        GameLogger.Success("Registered " + typeof(T).ToString());
     }
 
     public static T Get<T>()
@@ -36,6 +38,6 @@ public static class ServiceLocator
     public static void Unregister<T>()
     {
         _services.Remove(typeof(T));
-        
+        GameLogger.Success("Unregistered " + typeof(T).ToString());
     }
 }
